@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,5 @@ Route::get('/', function () {
 | Admin dashboard Routes
 |--------------------------------------------------------------------------
 */
-Route::('/admin', )
+
+Route::get('/admin', [DashboardController::class, 'index']);
