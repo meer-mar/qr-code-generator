@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,6 +11,19 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
+mix.js("resources/js/app.js", "public/js")
+    .js(
+        [
+            "node_modules/overlayscrollbars/js/jquery.overlayScrollbars.min.js",
+            "node_modules/jquery-mousewheel/jquery.mousewheel.js",
+            "node_modules/raphael/raphael.js",
+            "node_modules/chart.js/dist/chart.js",
+        ],
+        "public/js/vendor.js"
+    )
+    .js(
+        ["resources/js/demo.js", "resources/js/dashboard2.js"],
+        "public/js/demo.js"
+    )
+    .sass("resources/sass/app.scss", "public/css")
     .sourceMaps();

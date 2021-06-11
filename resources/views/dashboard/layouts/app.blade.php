@@ -9,13 +9,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- All css -->
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-  <!-- Font Awesome Icons -->
-  {{-- <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> --}}
-  <!-- overlayScrollbars -->
-  {{-- <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css"> --}}
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
 
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -23,7 +18,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__wobble" src="{{ asset('dashboard/assets/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
   </div>
 
   <!-- Navbar -->
@@ -48,33 +43,12 @@
 </div>
 <!-- ./wrapper -->
 
+<!-- Main -->
+<script src="{{ asset('js/app.js')}}"></script>
 <!-- REQUIRED SCRIPTS -->
-<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('js/vendor.js') }}"></script>
+<!-- demo purposes -->
+<script src="{{ asset('js/demo.js') }}"></script>
 
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
-
-{{-- <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script> --}}
-
-<!-- overlayScrollbars -->
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-
-
-<!-- PAGE PLUGINS -->
-<!-- jQuery Mapael -->
-<script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="plugins/raphael/raphael.min.js"></script>
-<script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
-<!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
-
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard2.js"></script>
 </body>
 </html>
