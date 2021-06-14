@@ -26,7 +26,12 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Bordered Table</h3>
+                <h3 class="card-title">Manage Users</h3>
+                <div class="card-tools">
+                  <a href="#" class="btn btn-primary">
+                    <i class="fa fa-user"></i> Register new user
+                  </a>
+                </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -38,16 +43,22 @@
                       <th>Email</th>
                       <th>Role</th>
                       <th>Status</th>
-                      <th style="width: 40px">Acton</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td>1. </td>
+                      <td>Bilal Shah</td>
+                      <td>bilal.hashone@gmail.com</td>
+                      <td>Administrator</td>
+                      <td>
+
+                      </td>
+                      <td>
+                        <a href="#" class="btn btn-info"><i class="fa fa-pencil"></i> Edit</a>
+                        <a href="#" class="btn btn-danger"><i class="fa fa-user"></i> Edit</a>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
