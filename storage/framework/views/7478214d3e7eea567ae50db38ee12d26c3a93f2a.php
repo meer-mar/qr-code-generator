@@ -1,6 +1,6 @@
-@extends('dashboard.layouts.app')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <div class="content-header">
@@ -228,4 +228,5 @@
   </section>
   <!-- /.content -->
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('dashboard.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\laragon\www\lara_cms\resources\views/dashboard/pages/index.blade.php ENDPATH**/ ?>
