@@ -28,8 +28,8 @@
               <div class="card-header">
                 <h3 class="card-title">Manage Users</h3>
                 <div class="card-tools">
-                  <a href="#" class="btn btn-primary">
-                    <i class="fa fa-user"></i> Register new user
+                  <a href="<?php echo e(url('/admin/user/add')); ?>" class="btn btn-primary">
+                    <i class="fa fa-user mr-2"></i> Register new user
                   </a>
                 </div>
               </div>
@@ -52,12 +52,10 @@
                       <td>Bilal Shah</td>
                       <td>bilal.hashone@gmail.com</td>
                       <td>Administrator</td>
-                      <td>
-
-                      </td>
-                      <td>
-                        <a href="#" class="btn btn-info"><i class="fa fa-pencil"></i> Edit</a>
-                        <a href="#" class="btn btn-danger"><i class="fa fa-user"></i> Edit</a>
+                      <td>Active</td>
+                      <td style="width: 13rem">
+                        <a href="#" class="btn btn-info"><i class="fas fa-edit mr-2"></i> Edit</a>
+                        <a href="#" class="btn btn-danger"><i class="fa fa-trash mr-2"></i> Delete</a>
                       </td>
                     </tr>
                   </tbody>

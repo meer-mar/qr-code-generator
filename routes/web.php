@@ -28,3 +28,5 @@ Route::get('/', function () {
 Route::get('/admin', [DashboardController::class, 'index']);
 
 Route::get('/admin/users', [UsersController::class, 'index']);
+Route::get('/admin/user/add', [UsersController::class, 'create']);
+Route::post('/admin/user/save', [UsersController::class, 'store']);
