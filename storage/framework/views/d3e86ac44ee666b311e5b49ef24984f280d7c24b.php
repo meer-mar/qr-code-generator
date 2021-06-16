@@ -24,11 +24,14 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
+            <!-- Messages -->
+            <?php echo $__env->make('dashboard.includes.messages', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Manage Users</h3>
                 <div class="card-tools">
-                  <a href="<?php echo e(url('/admin/user/add')); ?>" class="btn btn-primary">
+                  <a href="<?php echo e(secure_url('/admin/user/add')); ?>" class="btn btn-primary">
                     <i class="fa fa-user mr-2"></i> Register new user
                   </a>
                 </div>
@@ -47,17 +50,42 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1. </td>
-                      <td>Bilal Shah</td>
-                      <td>bilal.hashone@gmail.com</td>
-                      <td>Administrator</td>
-                      <td>Active</td>
-                      <td style="width: 13rem">
-                        <a href="#" class="btn btn-info"><i class="fas fa-edit mr-2"></i> Edit</a>
-                        <a href="#" class="btn btn-danger"><i class="fa fa-trash mr-2"></i> Delete</a>
-                      </td>
-                    </tr>
+                    <?php if(count($users) > 0): ?>
+                      <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                          <td><?php echo e(++$key); ?>. </td>
+                          <td><?php echo e($user->name); ?></td>
+                          <td><?php echo e($user->email); ?></td>
+                          <td>
+                            <?php if($user->role == 1): ?>
+                              <?php echo e('Administrator'); ?>
+
+                            <?php else: ?>
+                              <?php echo e('User'); ?>
+
+                            <?php endif; ?>
+                          </td>
+                          <td>
+                            <?php if($user->status == 1): ?>
+                              <?php echo e('Active'); ?>
+
+                            <?php else: ?>
+                              <?php echo e('Deactive'); ?>
+
+                            <?php endif; ?>
+                          </td>
+                          <td style="width: 11rem">
+                            <a href="<?php echo e(secure_url('/admin/user/edit/'.$user->id)); ?>" class="btn btn-info btn-sm"><i class="fas fa-edit mr-2"></i> Edit</a>
+
+                            <a href="<?php echo e(secure_url('/admin/user/delete/'.$user->id)); ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash mr-2"></i> Delete</a>
+                          </td>
+                        </tr>
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php else: ?>
+                      <tr>
+                        <td colspan="6" align="center">No data available</td>
+                      </tr>
+                    <?php endif; ?>
                   </tbody>
                 </table>
               </div>

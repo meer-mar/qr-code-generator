@@ -25,8 +25,14 @@ Route::get('/', function () {
 | Admin dashboard Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/admin', [DashboardController::class, 'index']);
 
-Route::get('/admin/users', [UsersController::class, 'index']);
-Route::get('/admin/user/add', [UsersController::class, 'create']);
-Route::post('/admin/user/save', [UsersController::class, 'store']);
+Route::prefix('/admin')->group(function () {
+    Route::get('/', [DashboardController::class, 'index']);
+
+    Route::get('/users', [UsersController::class, 'index']);
+    Route::get('/user/add', [UsersController::class, 'create']);
+    Route::post('/user/save', [UsersController::class, 'store']);
+    Route::get('/user/delete/{id}', [UsersController::class, 'destroy']);
+    Route::get('/user/edit/{id}', [UsersController::class, 'edit']);
+    Route::put('/user/{id}', [UsersController::class, 'update']);
+});

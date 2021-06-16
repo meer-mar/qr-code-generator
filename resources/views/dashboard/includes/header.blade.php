@@ -8,7 +8,7 @@
       <a href="{{ url('/admin') }}" class="nav-link">Dashboard</a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="#" class="nav-link">Website</a>
+      <a href="{{ url('/') }}" class="nav-link" target="_blank">Website</a>
     </li>
   </ul>
 

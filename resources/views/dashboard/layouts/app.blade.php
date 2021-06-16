@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+  <!-- Custom style -->
+  <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">

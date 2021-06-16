@@ -13,7 +13,7 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Dashboard</a></li>
               <li class="breadcrumb-item"><a href="{{ url('/admin/users') }}">Users</a></li>
-              <li class="breadcrumb-item active">Add</li>
+              <li class="breadcrumb-item active">Edit</li>
             </ol>
           </div>
         </div>
@@ -32,48 +32,52 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Add User</h3>
+                <h3 class="card-title">Edit User</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ url('/admin/user/save') }}" method="POST" enctype="multipart/form-data">
+              <form action="{{ url('/admin/user/'.$user->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="card-body">
                   <div class="form-group">
                     <label for="inputName">Full name</label>
-                    <input type="text" name="name"  class="form-control" id="inputName" placeholder="Enter full name">
+                    <input type="text" name="name" value="{{ $user->name }}" class="form-control" id="inputName" placeholder="Enter full name">
                   </div>
                   <div class="form-group">
                     <label for="inputEmail">Email address</label>
-                    <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Enter email">
+                    <input type="email" name="email" value="{{ $user->email }}" class="form-control" id="inputEmail" placeholder="Enter email">
                   </div>
                   <div class="form-group">
                     <label for="inputPassword">Password</label>
                     <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
                   </div>
                   <div class="form-group">
-                    <label for="inputFile">Profile photo</label>
+                    <label for="inputFile">Profile photo</label><br>
+                    <figure class="figure">
+                      <img src="{{ url('/storage/user_profile_photos/'.$user->profile_photo) }}" class="figure-img img-fluid rounded img-thumbnail" alt="Profile photo">
+                    </figure>
                     <input type="file" name="profile_photo" class="form-control" id="inputFile">
                   </div>
                   <div class="form-group">
                     <label for="inputRole">Role</label>
                     <select class="form-control" name="role" id="inputRole">
-                      <option value="1">Administrator</option>
-                      <option value="2">User</option>
+                      <option value="1" @if($user->role == 1) {{ 'Selected '}} @endif>Administrator</option>
+                      <option value="2" @if($user->role == 2) {{ 'Selected '}} @endif>User</option>
                     </select>
                   </div>
                   <div class="form-group">
                     <label for="inputStatus">Status</label>
                     <select class="form-control" name="status" id="inputStatus">
-                      <option value="1">Active</option>
-                      <option value="2">Deactive</option>
+                      <option value="1" @if($user->status == 1) {{ 'Selected '}} @endif>Active</option>
+                      <option value="2" @if($user->status == 2) {{ 'Selected '}} @endif>Deactive</option>
                     </select>
                   </div>
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Save</button>
+                  <button type="submit" class="btn btn-primary">Update</button>
                   <a href="{{ url('/admin/users') }}" class="btn btn-default float-right">Cancel</a>
                 </div>
               </form>

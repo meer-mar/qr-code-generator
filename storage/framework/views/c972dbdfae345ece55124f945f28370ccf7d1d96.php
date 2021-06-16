@@ -36,7 +36,8 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="<?php echo e(url('/admin/user/save')); ?>" method="POST">
+              <form action="<?php echo e(url('/admin/user/save')); ?>" method="POST" enctype="multipart/form-data">
+                <?php echo csrf_field(); ?>
                 <div class="card-body">
                   <div class="form-group">
                     <label for="inputName">Full name</label>
@@ -57,7 +58,6 @@
                   <div class="form-group">
                     <label for="inputRole">Role</label>
                     <select class="form-control" name="role" id="inputRole">
-                      <option value="0">--- Select Role ---</option>
                       <option value="1">Administrator</option>
                       <option value="2">User</option>
                     </select>
@@ -65,7 +65,6 @@
                   <div class="form-group">
                     <label for="inputStatus">Status</label>
                     <select class="form-control" name="status" id="inputStatus">
-                      <option value="0">--- Select Status ---</option>
                       <option value="1">Active</option>
                       <option value="2">Deactive</option>
                     </select>
@@ -74,8 +73,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <?php echo csrf_field(); ?>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Save</button>
                   <a href="<?php echo e(url('/admin/users')); ?>" class="btn btn-default float-right">Cancel</a>
                 </div>
               </form>

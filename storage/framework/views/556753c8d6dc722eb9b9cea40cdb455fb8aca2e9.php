@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="<?php echo e(asset('css/app.css')); ?>">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo e(asset('css/adminlte.min.css')); ?>">
+  <!-- Custom style -->
+  <link rel="stylesheet" href="<?php echo e(asset('css/custom.css')); ?>">
 
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">

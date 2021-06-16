@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -15,7 +16,11 @@ class UsersController extends Controller
    */
   public function index()
   {
-    return view('dashboard.user.index');
+    // Get all data.
+    $user = new User;
+    $user = $user->getAllUsers();
+
+    return view('dashboard.user.index')->with('users', $user);
   }
 
   /**
@@ -35,18 +40,18 @@ class UsersController extends Controller
    * @param string $loc
    * @return \Illuminate\Http\Response
    */
-  public function uploadImage($data, $field, $loc)
+  public function uploadImage($fileData, $loc)
   {
     // Get file name with extension
-    $fileNameWithExt = $data->file($field)->getClientOriginalName();
+    $fileNameWithExt = $fileData->getClientOriginalName();
     // Get just file name
     $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
     // Get just extension
-    $fileExtension = $data->file($field)->extension();
+    $fileExtension = $fileData->extension();
     // File name to store
     $fileNameToStore = time() . '.' . $fileExtension;
     // Finally Upload Image
-    $uploadImage = $data->file($field)->storeAs($loc, $fileNameToStore);
+    $fileData->storeAs($loc, $fileNameToStore);
 
     return $fileNameToStore;
   }
@@ -62,9 +67,9 @@ class UsersController extends Controller
     // Validate data
     $valid = $this->validate($request, [
       'name' => 'required|string',
-      'email' => 'required|string|unique:user,email',
+      'email' => 'required|string|unique:users,email',
       'password' => 'required|string',
-      'profile_photo' => 'required|image|nullable|max:2048',
+      'profile_photo' => 'required|image|max:2048',
       'role' => 'required',
       'status' => 'required',
     ]);
@@ -72,8 +77,8 @@ class UsersController extends Controller
     if ($request->hasFile('profile_photo')) {
       // Save image to folder
       $loc = '/public/user_profile_photos';
-      $data = $request->file('profle_photo');
-      $fileNameToStore = $this->uploadImage($data, 'profile_photo', $loc);
+      $fileData = $request->file('profile_photo');
+      $fileNameToStore = $this->uploadImage($fileData, $loc);
     } else {
       $fileNameToStore = 'no_img.jpg';
     }
@@ -92,9 +97,9 @@ class UsersController extends Controller
     $user = $user->createUser($data);
 
     if ($user) {
-      return redirect('/admin/user/')->with('success', 'User created!');
+      return redirect('/admin/users')->with('success', 'Record created successfully.');
     } else {
-      return redirect('/admin/user/')->with('error', 'User not created!');
+      return redirect('/admin/users')->with('error', 'Record not created!');
     }
   }
 
@@ -117,7 +122,11 @@ class UsersController extends Controller
    */
   public function edit($id)
   {
-    //
+    // Get single user details
+    $user = new User;
+    $user = $user->getUser($id);
+
+    return view('dashboard.user.edit')->with('user', $user);
   }
 
   /**
@@ -129,7 +138,65 @@ class UsersController extends Controller
    */
   public function update(Request $request, $id)
   {
-    //
+    // Validate data
+    $valid = $this->validate($request, [
+      'name' => 'required|string',
+      'email' => 'required|string',
+      'profile_photo' => 'image|max:2048',
+      'role' => 'required',
+      'status' => 'required',
+    ]);
+
+    if ($request->hasFile('profile_photo')) {
+      // Save image to folder
+      $loc = '/public/user_profile_photos';
+      $fileData = $request->file('profile_photo');
+      $fileNameToStore = $this->uploadImage($fileData, $loc);
+      $data1 = [
+        'profile_photo' => $fileNameToStore
+      ];
+
+      // Delete previous file
+      $user = new User;
+      $user = $user->getUser($id);
+      Storage::delete('public/user_profile_photos/' . $user->profile_photo);
+    }
+
+    // Check password was type on update
+    if ($request->input('password')) {
+      $data2 = [
+        'password' => Hash::make($request->password)
+      ];
+    }
+
+    // store data in array
+    $data = [
+      'name' => $valid['name'],
+      'email' => $valid['email'],
+      'role' => $valid['role'],
+      'status' => $valid['status']
+    ];
+
+    // Merge all data arrays
+    if ($request->hasFile('profile_photo') && $request->input('password')) {
+      $data = array_merge($data1, $data2, $data);
+    } else if ($request->hasFile('profile_photo') && !$request->input('password')) {
+      $data = array_merge($data1, $data);
+    } else if (!$request->hasFile('profile_photo') && $request->input('password')) {
+      $data = array_merge($data2, $data);
+    } else {
+      $data = $data;
+    }
+
+    // Save data into db
+    $user = new User;
+    $user = $user->UpdateUser($data, $id);
+
+    if ($user) {
+      return redirect('/admin/users')->with('success', 'Record updated successfully.');
+    } else {
+      return redirect('/admin/users')->with('error', 'Record not updated!');
+    }
   }
 
   /**
@@ -140,6 +207,14 @@ class UsersController extends Controller
    */
   public function destroy($id)
   {
-    //
+    //Delete user data
+    $user = new User;
+    $user = $user->deleteUser($id);
+
+    if ($user) {
+      return redirect('/admin/users')->with('success', 'Record Deleted Successfully.');
+    } else {
+      return redirect('/admin/users')->with('error', "Record not deleted!");
+    }
   }
 }

@@ -26,4 +26,5 @@ mix.js("resources/js/app.js", "public/js")
         "public/js/demo.js"
     )
     .sass("resources/sass/app.scss", "public/css")
+    .sass("resources/sass/custom.sass", "public/css/custom.css")
     .sourceMaps();
