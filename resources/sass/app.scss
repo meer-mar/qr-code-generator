@@ -10,5 +10,8 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-// //App
-// @import '../css/adminlte.min.css';
+//App
+@import '../css/admin_dashboard/adminlte';
+
+//Custom Styles
+@import './admin_dashboard/custom';

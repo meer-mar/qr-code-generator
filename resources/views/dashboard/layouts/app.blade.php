@@ -7,12 +7,8 @@
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- All css -->
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
-  <!-- Custom style -->
-  <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+  <!-- All CSS -->
+  <link rel="stylesheet" href="{{ asset('admin_dashboard/assets/css/app.css') }}">
 
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -20,7 +16,7 @@
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__wobble" src="{{ asset('dashboard/assets/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
+      <img class="animation__wobble" src="{{ asset('admin_dashboard/assets/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
     </div>
 
     <!-- Navbar -->
@@ -45,12 +41,8 @@
   </div>
   <!-- ./wrapper -->
 
-<!-- Main -->
-<script src="{{ asset('js/app.js')}}"></script>
-<!-- REQUIRED SCRIPTS -->
-<script src="{{ asset('js/vendor.js') }}"></script>
-<!-- demo purposes -->
-<script src="{{ asset('js/demo.js') }}"></script>
+<!-- All js -->
+<script src="{{ asset('admin_dashboard/assets/js/app.js')}}"></script>
 
 </body>
 </html>
