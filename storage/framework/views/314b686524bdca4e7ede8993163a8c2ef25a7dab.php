@@ -35,7 +35,11 @@
           </a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/dashboard">Dashboard</a>
+            <?php if(auth()->user()->role == 2): ?>
+            <a class="dropdown-item" href="<?php echo e(route('dashboard')); ?>">Dashboard</a>
+            <?php else: ?>
+            <a class="dropdown-item" href="<?php echo e(route('admin')); ?>">Dashboard</a>
+            <?php endif; ?>
             <a class="dropdown-item" href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">
               <?php echo e(__('Logout')); ?>

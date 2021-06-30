@@ -17,16 +17,20 @@
     <!-- Notifications Dropdown Menu -->
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
-        <i class="fas fa-user mr-2"></i> Bilal Shah
+        <i class="fas fa-user mr-2"></i> {{ Auth::user()->name }}
       </a>
       <div class="dropdown-menu dropdown-menu-right">
         <a href="#" class="dropdown-item">
           <i class="fas fa-user-edit mr-2"></i> Profile
         </a>
         <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item">
-          <i class="fas fa-users mr-2"></i> Logout
+        <a href="{{ route('logout') }}" onclick="event.preventDefault();
+        document.getElementById('logout-form').submit();" class="dropdown-item">
+          <i class="fas fa-users mr-2"></i> {{ __('Logout') }}
         </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          @csrf
+        </form>
       </div>
     </li>
 
