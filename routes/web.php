@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PagesController;
-use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\AccessController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,5 +45,8 @@ Route::prefix('/admin')->group(function () {
         Route::get('/user/delete/{id}', [UsersController::class, 'destroy']);
         Route::get('/user/edit/{id}', [UsersController::class, 'edit']);
         Route::put('/user/{id}', [UsersController::class, 'update']);
+
+        Route::get('/roles-permissions', [AccessController::class, 'index']);
+        Route::get('/role/add', [RoleController::class, 'create']);
     });
 });

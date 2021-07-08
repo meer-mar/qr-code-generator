@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link">
+  <a href="{{ secure_url('/admin') }}" class="brand-link">
     <img src="{{ asset('admin_dashboard/assets/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
       class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">{{ config('app.name', 'CMS') }}</span>
@@ -49,7 +49,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{ url('/admin/roles-permissions') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Roles & Permissions</p>
               </a>
