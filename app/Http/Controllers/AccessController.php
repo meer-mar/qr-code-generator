@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class AccessController extends Controller
@@ -13,6 +14,10 @@ class AccessController extends Controller
    */
   public function index()
   {
-    return view('dashboard.pages.roles_permissions');
+
+    $role = new Role;
+    $roles = $role->getAllRoles();
+    dd($roles);
+    return view('dashboard.pages.roles_permissions')->with('roles', $roles);
   }
 }

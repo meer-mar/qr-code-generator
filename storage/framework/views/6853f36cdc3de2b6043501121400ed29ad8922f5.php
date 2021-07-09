@@ -36,30 +36,27 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="<?php echo e(url('/admin/role/save')); ?>" method="POST">
+            <form action="<?php echo e(url('/admin/role/store')); ?>" method="POST">
               <?php echo csrf_field(); ?>
               <div class="card-body">
                 <div class="form-group">
-                  <label for="inputName">Full name</label>
-                  <input type="text" name="name" class="form-control" id="inputName" placeholder="Enter full name">
+                  <label for="inputName">Role Name</label>
+                  <input type="text" name="name" class="form-control" id="inputName" placeholder="Enter role name">
                 </div>
                 <div class="form-group">
-                  <label for="inputEmail">Email address</label>
-                  <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Enter email">
+                  <label for="inputLevel">Level</label>
+                  <select class="form-control" name="level" id="inputLevel">
+                    <option value="1">Level 1</option>
+                    <option value="2">Level 2</option>
+                    <option value="3">Level 3</option>
+                    <option value="4">Level 4</option>
+                    <option value="5">Level 5</option>
+                  </select>
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword">Password</label>
-                  <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
-                </div>
-                <div class="form-group">
-                  <label for="inputFile">Profile photo</label>
-                  <input type="file" name="profile_photo" class="form-control" id="inputFile">
-                </div>
-                <div class="form-group">
-                  <label for="inputRole">Role</label>
-                  <select class="form-control" name="role" id="inputRole">
-                    <option value="1">Administrator</option>
-                    <option value="2">User</option>
+                  <label for="inputPer">Permissions</label>
+                  <select class="form-control" name="permissions" id="inputPer">
+                    <option value="1">All</option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -74,7 +71,7 @@
 
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Save</button>
-                <a href="<?php echo e(url('/admin/users')); ?>" class="btn btn-default float-right">Cancel</a>
+                <a href="<?php echo e(url('/admin/roles-permissions')); ?>" class="btn btn-default float-right">Cancel</a>
               </div>
             </form>
           </div>

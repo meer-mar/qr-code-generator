@@ -42,15 +42,16 @@
                 <thead>
                   <tr>
                     <th style="width: 10px">#</th>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
+                    <th>Name</th>
+                    <th>Level</th>
+                    <th>Permssion</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-
+                  @if (count($users) > 0)
+                  @foreach ($users as $key=>$user)
                   <tr>
                     <td></td>
                     <td></td>
@@ -62,6 +63,8 @@
                       <a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash mr-2"></i> Delete</a>
                     </td>
                   </tr>
+                  @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>
@@ -84,9 +87,6 @@
 
       <div class="row">
         <div class="col-md-12">
-          <!-- Messages -->
-          @include('dashboard.includes.messages')
-
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Manage Permissions</h3>

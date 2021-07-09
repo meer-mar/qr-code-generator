@@ -36,11 +36,11 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="{{ url('/admin/role/save') }}" method="POST">
+            <form action="{{ url('/admin/role/store') }}" method="POST">
               @csrf
               <div class="card-body">
                 <div class="form-group">
-                  <label for="inputName">Name</label>
+                  <label for="inputName">Role Name</label>
                   <input type="text" name="name" class="form-control" id="inputName" placeholder="Enter role name">
                 </div>
                 <div class="form-group">
@@ -54,8 +54,10 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="inputName">Permissions</label>
-                  <input type="text" name="name" class="form-control" id="inputName" placeholder="Enter role name">
+                  <label for="inputPer">Permissions</label>
+                  <select class="form-control" name="permissions" id="inputPer">
+                    <option value="1">All</option>
+                  </select>
                 </div>
                 <div class="form-group">
                   <label for="inputStatus">Status</label>
@@ -69,7 +71,7 @@
 
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Save</button>
-                <a href="{{ url('/admin/users') }}" class="btn btn-default float-right">Cancel</a>
+                <a href="{{ url('/admin/roles-permissions') }}" class="btn btn-default float-right">Cancel</a>
               </div>
             </form>
           </div>

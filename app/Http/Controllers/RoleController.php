@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -35,18 +36,31 @@ class RoleController extends Controller
    */
   public function store(Request $request)
   {
-    //
-  }
+    // Validate data
+    $valid = $this->validate($request, [
+      'name' => 'required|string',
+      'level' => 'required',
+      'permissions' => 'required',
+      'status' => 'required',
+    ]);
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  \App\Models\Role  $role
-   * @return \Illuminate\Http\Response
-   */
-  public function show(Role $role)
-  {
-    //
+    $data = [
+      'name' => $valid['name'],
+      'level' => $valid['level'],
+      'permissions' => $valid['permissions'],
+      'slug' => Str::slug($valid['name'], '-'),
+      'status' => $valid['status']
+    ];
+
+    // Save data into db
+    $role = new Role;
+    $role = $role->createRole($data);
+
+    if ($role) {
+      return redirect('/admin/roles-permissions')->with('success', 'Record created successfully.');
+    } else {
+      return redirect('/admin/roles-permissions')->with('error', 'Record not created!');
+    }
   }
 
   /**

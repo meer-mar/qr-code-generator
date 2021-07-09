@@ -48,5 +48,6 @@ Route::prefix('/admin')->group(function () {
 
         Route::get('/roles-permissions', [AccessController::class, 'index']);
         Route::get('/role/add', [RoleController::class, 'create']);
+        Route::post('/role/store', [RoleController::class, 'store']);
     });
 });
