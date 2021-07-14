@@ -21,7 +21,7 @@ use App\Http\Controllers\DashboardController;
 Route::get('/', [PagesController::class, 'index']);
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+  Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -36,18 +36,18 @@ require __DIR__ . '/auth.php';
 */
 
 Route::prefix('/admin')->group(function () {
-    Route::middleware(['authrole'])->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('admin');
+  Route::middleware(['authrole'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('admin');
 
-        Route::get('/users', [UsersController::class, 'index']);
-        Route::get('/user/add', [UsersController::class, 'create']);
-        Route::post('/user/save', [UsersController::class, 'store']);
-        Route::get('/user/delete/{id}', [UsersController::class, 'destroy']);
-        Route::get('/user/edit/{id}', [UsersController::class, 'edit']);
-        Route::put('/user/{id}', [UsersController::class, 'update']);
+    Route::get('/users', [UsersController::class, 'index']);
+    Route::get('/user/add', [UsersController::class, 'create']);
+    Route::post('/user/save', [UsersController::class, 'store']);
+    Route::get('/user/delete/{id}', [UsersController::class, 'destroy']);
+    Route::get('/user/edit/{id}', [UsersController::class, 'edit']);
+    Route::put('/user/{id}', [UsersController::class, 'update']);
 
-        Route::get('/roles-permissions', [AccessController::class, 'index']);
-        Route::get('/role/add', [RoleController::class, 'create']);
-        Route::post('/role/store', [RoleController::class, 'store']);
-    });
+    Route::get('/roles-permissions', [AccessController::class, 'index']);
+    Route::get('/role/add', [RoleController::class, 'create']);
+    Route::post('/role/store', [RoleController::class, 'store']);
+  });
 });

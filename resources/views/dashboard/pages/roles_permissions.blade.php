@@ -44,23 +44,35 @@
                     <th style="width: 10px">#</th>
                     <th>Name</th>
                     <th>Level</th>
-                    <th>Permssion</th>
+                    <th>Permissions</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @if (count($users) > 0)
-                  @foreach ($users as $key=>$user)
+                  @if (count($roles) > 0)
+                  @foreach ($roles as $key=>$role)
                   <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ ++$key }}</td>
+                    <td>{{ $role['name'] }}</td>
+                    <td>{{ $role['level'] }}</td>
+                    <td>
+                      @if($role['permissions'] == 1)
+                      {{ __('All') }}
+                      @else
+                      {{ __('None') }}
+                      @endif
+                    </td>
+                    <td>
+                      @if ($role['status'] == 1)
+                      {{ __('Active') }}
+                      @else
+                      {{ __('De Active') }}
+                      @endif
+                    </td>
                     <td style="width: 11rem">
-                      <a href="" class="btn btn-info btn-sm"><i class="fas fa-edit mr-2"></i> Edit</a>
-                      <a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash mr-2"></i> Delete</a>
+                      <a href="#" class="btn btn-info btn-sm"><i class="fas fa-edit mr-2"></i> Edit</a>
+                      <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash mr-2"></i> Delete</a>
                     </td>
                   </tr>
                   @endforeach
@@ -102,9 +114,10 @@
                 <thead>
                   <tr>
                     <th style="width: 10px">#</th>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
+                    <th>Name</th>
+                    <th>Slug</th>
+                    <th>Desctiption</th>
+                    <th>Roles</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -117,9 +130,10 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td style="width: 11rem">
-                      <a href="" class="btn btn-info btn-sm"><i class="fas fa-edit mr-2"></i> Edit</a>
-                      <a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash mr-2"></i> Delete</a>
+                      <a href="#" class="btn btn-info btn-sm"><i class="fas fa-edit mr-2"></i> Edit</a>
+                      <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash mr-2"></i> Delete</a>
                     </td>
                   </tr>
                 </tbody>

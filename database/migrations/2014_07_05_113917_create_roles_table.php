@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPhotoRoleStatusToUsers extends Migration
+class CreateRolesTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,10 +13,16 @@ class AddPhotoRoleStatusToUsers extends Migration
    */
   public function up()
   {
-    Schema::table('users', function (Blueprint $table) {
-      $table->string('profile_photo');
-      $table->tinyInteger('role');
+    Schema::create('roles', function (Blueprint $table) {
+      $table->id();
+      $table->string('name');
+      $table->string('slug');
+      $table->tinyInteger('level');
+      $table->integer('permissions');
       $table->tinyInteger('status');
+
+      $table->timestamps();
+      $table->softDeletes();
     });
   }
 
@@ -27,10 +33,6 @@ class AddPhotoRoleStatusToUsers extends Migration
    */
   public function down()
   {
-    Schema::table('users', function (Blueprint $table) {
-      $table->dropColumn('profile_photo');
-      $table->dropColumn('role');
-      $table->dropColumn('status');
-    });
+    Schema::dropIfExists('roles');
   }
 }

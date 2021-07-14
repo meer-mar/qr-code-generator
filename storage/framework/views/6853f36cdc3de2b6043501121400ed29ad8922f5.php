@@ -57,6 +57,7 @@
                   <label for="inputPer">Permissions</label>
                   <select class="form-control" name="permissions" id="inputPer">
                     <option value="1">All</option>
+                    <option value="0">None</option>
                   </select>
                 </div>
                 <div class="form-group">

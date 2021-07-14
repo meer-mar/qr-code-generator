@@ -56,13 +56,7 @@
                     <td>{{ ++$key }}. </td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>
-                      @if ($user->role == 1)
-                      {{ 'Administrator' }}
-                      @else
-                      {{ 'User' }}
-                      @endif
-                    </td>
+                    <td>{{ $user->role->name }}</td>
                     <td>
                       @if ($user->status == 1)
                       {{ 'Active' }}

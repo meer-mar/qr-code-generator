@@ -56,15 +56,7 @@
                     <td><?php echo e(++$key); ?>. </td>
                     <td><?php echo e($user->name); ?></td>
                     <td><?php echo e($user->email); ?></td>
-                    <td>
-                      <?php if($user->role == 1): ?>
-                      <?php echo e('Administrator'); ?>
-
-                      <?php else: ?>
-                      <?php echo e('User'); ?>
-
-                      <?php endif; ?>
-                    </td>
+                    <td><?php echo e($user->role->name); ?></td>
                     <td>
                       <?php if($user->status == 1): ?>
                       <?php echo e('Active'); ?>

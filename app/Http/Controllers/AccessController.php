@@ -17,7 +17,6 @@ class AccessController extends Controller
 
     $role = new Role;
     $roles = $role->getAllRoles();
-    dd($roles);
     return view('dashboard.pages.roles_permissions')->with('roles', $roles);
   }
 }

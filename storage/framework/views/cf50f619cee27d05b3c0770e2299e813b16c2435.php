@@ -44,24 +44,43 @@
                     <th style="width: 10px">#</th>
                     <th>Name</th>
                     <th>Level</th>
-                    <th>Permssion</th>
+                    <th>Permissions</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-
+                  <?php if(count($roles) > 0): ?>
+                  <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><?php echo e(++$key); ?></td>
+                    <td><?php echo e($role['name']); ?></td>
+                    <td><?php echo e($role['level']); ?></td>
+                    <td>
+                      <?php if($role['permissions'] == 1): ?>
+                      <?php echo e(__('All')); ?>
+
+                      <?php else: ?>
+                      <?php echo e(__('None')); ?>
+
+                      <?php endif; ?>
+                    </td>
+                    <td>
+                      <?php if($role['status'] == 1): ?>
+                      <?php echo e(__('Active')); ?>
+
+                      <?php else: ?>
+                      <?php echo e(__('De Active')); ?>
+
+                      <?php endif; ?>
+                    </td>
                     <td style="width: 11rem">
-                      <a href="" class="btn btn-info btn-sm"><i class="fas fa-edit mr-2"></i> Edit</a>
-                      <a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash mr-2"></i> Delete</a>
+                      <a href="#" class="btn btn-info btn-sm"><i class="fas fa-edit mr-2"></i> Edit</a>
+                      <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash mr-2"></i> Delete</a>
                     </td>
                   </tr>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php endif; ?>
                 </tbody>
               </table>
             </div>
@@ -99,9 +118,10 @@
                 <thead>
                   <tr>
                     <th style="width: 10px">#</th>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
+                    <th>Name</th>
+                    <th>Slug</th>
+                    <th>Desctiption</th>
+                    <th>Roles</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -114,9 +134,10 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td style="width: 11rem">
-                      <a href="" class="btn btn-info btn-sm"><i class="fas fa-edit mr-2"></i> Edit</a>
-                      <a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash mr-2"></i> Delete</a>
+                      <a href="#" class="btn btn-info btn-sm"><i class="fas fa-edit mr-2"></i> Edit</a>
+                      <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash mr-2"></i> Delete</a>
                     </td>
                   </tr>
                 </tbody>
