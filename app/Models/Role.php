@@ -43,7 +43,7 @@ class Role extends Model
   }
 
   /**
-   * Get all roles
+   * Get all users for the specific roles
    *
    */
   public function users()

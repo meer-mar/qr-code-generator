@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
@@ -30,7 +31,11 @@ class UsersController extends Controller
    */
   public function create()
   {
-    return view('dashboard.user.add');
+    // Get All roles
+    $role = new Role;
+    $roles = $role->getAllRoles();
+
+    return view('dashboard.user.add')->with('roles', $roles);
   }
 
   /**
@@ -88,7 +93,7 @@ class UsersController extends Controller
       'email' => $valid['email'],
       'password' => Hash::make($valid['password']),
       'profile_photo' => $fileNameToStore,
-      'role' => $valid['role'],
+      'role_id' => $valid['role'],
       'status' => $valid['status']
     ];
 
@@ -173,7 +178,7 @@ class UsersController extends Controller
     $data = [
       'name' => $valid['name'],
       'email' => $valid['email'],
-      'role' => $valid['role'],
+      'role_id' => $valid['role'],
       'status' => $valid['status']
     ];
 

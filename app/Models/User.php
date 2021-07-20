@@ -107,10 +107,8 @@ class User extends Authenticatable
   }
 
   /**
-   * update user data
+   * User Relation to role
    *
-   * @param array $data
-   * @param int $id
    */
   public function role()
   {
