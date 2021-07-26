@@ -65,8 +65,16 @@
                 <div class="form-group">
                   <label for="inputRole">Role</label>
                   <select class="form-control" name="role" id="inputRole">
-                    <option value="1" <?php if($user->role == 1): ?> <?php echo e('Selected '); ?> <?php endif; ?>>Administrator</option>
-                    <option value="2" <?php if($user->role == 2): ?> <?php echo e('Selected '); ?> <?php endif; ?>>User</option>
+                    <?php if(count($roles) > 0): ?>
+                    <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($role['id']); ?>" <?php if($role->id == $user->role_id): ?>
+                      <?php echo e(__('selected')); ?><?php endif; ?>><?php echo e($role['name']); ?>
+
+                    </option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php else: ?>
+                    <option value="0">No role available</option>
+                    <?php endif; ?>
                   </select>
                 </div>
                 <div class="form-group">

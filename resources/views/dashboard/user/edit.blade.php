@@ -65,8 +65,15 @@
                 <div class="form-group">
                   <label for="inputRole">Role</label>
                   <select class="form-control" name="role" id="inputRole">
-                    <option value="1" @if($user->role == 1) {{ 'Selected '}} @endif>Administrator</option>
-                    <option value="2" @if($user->role == 2) {{ 'Selected '}} @endif>User</option>
+                    @if (count($roles) > 0)
+                    @foreach ($roles as $role)
+                    <option value="{{ $role['id'] }}" @if($role->id == $user->role_id)
+                      {{ __('selected') }}@endif>{{ $role['name'] }}
+                    </option>
+                    @endforeach
+                    @else
+                    <option value="0">No role available</option>
+                    @endif
                   </select>
                 </div>
                 <div class="form-group">

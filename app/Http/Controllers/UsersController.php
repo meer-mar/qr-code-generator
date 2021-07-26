@@ -125,13 +125,18 @@ class UsersController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit($id)
+  public function edit(Role $role, $id)
   {
     // Get single user details
     $user = new User;
     $user = $user->getUser($id);
 
-    return view('dashboard.user.edit')->with('user', $user);
+    // Get All roles
+    $roles = $role->getAllRoles();
+
+    return view('dashboard.user.edit')
+      ->with('user', $user)
+      ->with('roles', $roles);
   }
 
   /**
