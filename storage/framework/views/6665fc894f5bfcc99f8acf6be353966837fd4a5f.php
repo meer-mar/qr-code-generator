@@ -23,7 +23,8 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
+          with font-awesome or any other icon font library -->
+        <li class="nav-header">Main</li>
         <li class="nav-item">
           <a href="<?php echo e(url('/admin')); ?>" class="nav-link active">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -32,7 +33,6 @@
             </p>
           </a>
         </li>
-
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
@@ -57,6 +57,17 @@
           </ul>
         </li>
 
+        <li class="nav-header">Site Data</li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-file-alt"></i>
+            <p>
+              Site Pages
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-header">Settings</li>
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-cog"></i>
