@@ -20,7 +20,7 @@
         <i class="fas fa-user mr-2"></i> {{ Auth::user()->name }}
       </a>
       <div class="dropdown-menu dropdown-menu-right">
-        <a href="#" class="dropdown-item">
+        <a href="{{ secure_url('/admin/user/edit/'. Auth::user()->id) }}" class="dropdown-item">
           <i class="fas fa-user-edit mr-2"></i> Profile
         </a>
         <div class="dropdown-divider"></div>
