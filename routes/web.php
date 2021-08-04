@@ -7,6 +7,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AccessController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AppSettingController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\WebSettingController;
 
 /*
@@ -54,6 +55,14 @@ Route::prefix('/admin')->group(function () {
     Route::get('/roles-permissions', [AccessController::class, 'index']);
     Route::get('/role/add', [RoleController::class, 'create']);
     Route::post('/role/store', [RoleController::class, 'store']);
+
+    // Site pages
+    Route::get('/pages', [PageController::class, 'index']);
+    Route::get('/page/add', [PageController::class, 'create']);
+    Route::post('/page/save', [PageController::class, 'store']);
+    Route::get('/page/delete/{id}', [PageController::class, 'destroy']);
+    Route::get('/page/edit/{id}', [PageController::class, 'edit']);
+    Route::put('/page/{id}', [PageController::class, 'update']);
 
     // App setttings
     Route::get('/app-setting/edit/{id}', [AppSettingController::class, 'edit']);

@@ -19,8 +19,8 @@
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__wobble" src="{{ url('storage/settings/'.$appSettings->logo) }}" alt="CMS Logo" height="60"
-        width="60">
+      <img class="animation__wobble" src="@if($appSettings){{ asset('/storage/settings/'.$appSettings->logo) }}@endif"
+        alt="CMS Logo" height="60" width="60">
     </div>
 
     <!-- Navbar -->

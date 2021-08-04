@@ -12,7 +12,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="<?php echo e(url('/admin')); ?>">Dashboard</a></li>
-            <li class="breadcrumb-item active">Users</li>
+            <li class="breadcrumb-item active">Pages</li>
           </ol>
         </div>
       </div>
@@ -29,10 +29,10 @@
 
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Manage Users</h3>
+              <h3 class="card-title">Manage Pages</h3>
               <div class="card-tools">
-                <a href="<?php echo e(secure_url('/admin/user/add')); ?>" class="btn btn-primary">
-                  <i class="fa fa-user mr-2"></i> Register new user
+                <a href="<?php echo e(secure_url('/admin/page/add')); ?>" class="btn btn-primary">
+                  <i class="fa fa-user mr-2"></i> Add new page
                 </a>
               </div>
             </div>
@@ -42,23 +42,19 @@
                 <thead>
                   <tr>
                     <th style="width: 10px">#</th>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
+                    <th>Title</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php if(count($users) > 0): ?>
-                  <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <?php if(count($pages) > 0): ?>
+                  <?php $__currentLoopData = $pages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <tr>
                     <td><?php echo e(++$key); ?>. </td>
-                    <td><?php echo e($user->name); ?></td>
-                    <td><?php echo e($user->email); ?></td>
-                    <td><?php echo e($user->role->name); ?></td>
+                    <td><?php echo e($page->page_title); ?></td>
                     <td>
-                      <?php if($user->status == 1): ?>
+                      <?php if($page->status == 1): ?>
                       <?php echo e('Active'); ?>
 
                       <?php else: ?>
@@ -67,10 +63,10 @@
                       <?php endif; ?>
                     </td>
                     <td style="width: 11rem">
-                      <a href="<?php echo e(secure_url('/admin/user/edit/'.$user->id)); ?>" class="btn btn-info btn-sm"><i
+                      <a href="<?php echo e(secure_url('/admin/page/edit/'.$page->id)); ?>" class="btn btn-info btn-sm"><i
                           class="fas fa-edit mr-2"></i> Edit</a>
 
-                      <a href="<?php echo e(secure_url('/admin/user/delete/'.$user->id)); ?>" class="btn btn-danger btn-sm"><i
+                      <a href="<?php echo e(secure_url('/admin/page/delete/'.$page->id)); ?>" class="btn btn-danger btn-sm"><i
                           class="fa fa-trash mr-2"></i> Delete</a>
                     </td>
                   </tr>
@@ -104,4 +100,4 @@
   <!-- /.content -->
 </div>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('dashboard.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\laragon\www\lara_cms\resources\views/dashboard/user/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('dashboard.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\laragon\www\lara_cms\resources\views/dashboard/site_pages/index.blade.php ENDPATH**/ ?>

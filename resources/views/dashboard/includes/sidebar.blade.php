@@ -1,9 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="{{ secure_url('/admin') }}" class="brand-link">
-    <img src="{{ url('storage/settings/'.$appSettings->logo) }}" alt="CMS Logo"
+    <img src="@if($appSettings){{ asset('/storage/settings/'.$appSettings->logo) }}@endif" alt="CMS Logo"
       class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">{{ $appSettings->name }}</span>
+    <span class="brand-text font-weight-light">@if($appSettings){{ $appSettings->name }}@endif</span>
   </a>
 
   <!-- Sidebar -->
@@ -59,10 +59,19 @@
 
         <li class="nav-header">Site Data</li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{ secure_url('/admin/pages') }}" class="nav-link">
             <i class="nav-icon fas fa-file-alt"></i>
             <p>
               Site Pages
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-clipboard-list"></i>
+            <p>
+              Blogs
             </p>
           </a>
         </li>
@@ -80,7 +89,7 @@
             <li class="nav-item">
               <a href="{{ secure_url('/admin/web-setting/edit/1') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Site Settings</p>
+                <p>Web Settings</p>
               </a>
             </li>
             <li class="nav-item">
