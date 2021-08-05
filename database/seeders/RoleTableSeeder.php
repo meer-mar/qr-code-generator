@@ -14,35 +14,47 @@ class RoleTableSeeder extends Seeder
    */
   public function run()
   {
-    // Insert role data db
+    /**
+     * Role Types
+     *
+     */
     $roleItems = [
       [
-        'name' => 'Admin',
-        'slug' => 'admin',
-        'level' => 5,
-        'permissions' => 1,
-        'status' => 1
+        'name'        => 'Admin',
+        'slug'        => 'admin',
+        'description' => 'Unverified Role',
+        'level'       => 2
       ],
       [
-        'name' => 'User',
-        'slug' => 'user',
-        'level' => 1,
-        'permissions' => 2,
-        'status' => 1
+        'name'        => 'User',
+        'slug'        => 'user',
+        'description' => 'User Role',
+        'level'       => 1
+      ],
+      [
+        'name'        => 'Unverified',
+        'slug'        => 'unverified',
+        'description' => 'Unverified Role',
+        'level'       => 0,
       ]
     ];
 
+    /**
+     * Add role items
+     *
+     */
+    echo "\e[32mSeeding:\e[0m RoleTableSeeder\r\n";
     foreach ($roleItems as $role) {
       // check if record exist then not insert intro db
       $newRoleItem = Role::where('slug', '=', $role['slug'])->first();
       if (!$newRoleItem) {
         Role::create([
-          'name' => $role['name'],
-          'slug' => $role['slug'],
-          'level' => $role['level'],
-          'permissions' => $role['permissions'],
-          'status' => $role['status']
+          'name'        => $role['name'],
+          'slug'        => $role['slug'],
+          'description' => $role['description'],
+          'level'       => $role['level']
         ]);
+        echo "\e[32mSeeding:\e[0m RoleTableSeeder - Role:" . $role['slug'] . "\r\n";
       }
     } //end foreach
 

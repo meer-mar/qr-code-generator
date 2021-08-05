@@ -38,11 +38,11 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table class="table table-bordered">
+              <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th style="width: 10px">#</th>
-                    <th>Title</th>
+                    <th>Name</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -52,12 +52,12 @@
                   @foreach ($pages as $key=>$page)
                   <tr>
                     <td>{{ ++$key }}. </td>
-                    <td>{{ $page->page_title }}</td>
+                    <td>{{ $page->page_name }}</td>
                     <td>
                       @if ($page->status == 1)
-                      {{ 'Active' }}
+                      <span class="badge bg-success">{{ __('Active') }}</span>
                       @else
-                      {{ 'Deactive' }}
+                      <span class="badge bg-danger">{{ __('Deactive') }}</span>
                       @endif
                     </td>
                     <td style="width: 11rem">

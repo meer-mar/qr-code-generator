@@ -9,6 +9,10 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+  <!-- CKEditor -->
+  <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
+
   <!-- All CSS -->
   <link rel="stylesheet" href="{{ asset('admin_dashboard/assets/css/app.css') }}">
 

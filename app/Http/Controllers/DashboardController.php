@@ -15,9 +15,9 @@ class DashboardController extends Controller
    */
   public function index()
   {
-    if (Auth::user()->role->slug == 'user') {
-      return view('dashboard');
-    }
+    // if (Auth::user()->role->slug == 'user') {
+    //   return view('dashboard');
+    // }
     return view('dashboard.pages.index');
   }
 }

@@ -28,8 +28,11 @@
 // Overlayscrollbars
 @import '~overlayscrollbars/css/OverlayScrollbars';
 
-//App
-@import '../css/admin_dashboard/adminlte.css';
+// App
+@import '../css/admin_dashboard/adminlte';
 
-//Custom Styles
+// Custom SASS Styles
 @import './admin_dashboard/custom';
+
+// Custom CSS Styles
+@import '../css/admin_dashboard/custom';

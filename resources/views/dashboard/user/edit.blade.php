@@ -80,7 +80,7 @@
                   <label for="inputStatus">Status</label>
                   <select class="form-control" name="status" id="inputStatus">
                     <option value="1" @if($user->status == 1) {{ 'Selected '}} @endif>Active</option>
-                    <option value="2" @if($user->status == 2) {{ 'Selected '}} @endif>Deactive</option>
+                    <option value="0" @if($user->status == 0) {{ 'Selected '}} @endif>Deactive</option>
                   </select>
                 </div>
               </div>

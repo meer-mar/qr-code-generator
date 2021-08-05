@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,14 +17,33 @@ class UserTableSeeder extends Seeder
    */
   public function run()
   {
-    // Insert admin record for admin login
-    User::create([
-      'name' => 'Bilal Shah',
-      'email' => 'admin@admin.com',
-      'role_id' => 1,
-      'password' => Hash::make('admin'),
-      'profile_photo' => 'default.png',
-      'status' => 1
-    ]);
+    $adminRole = Role::where('slug', '=', 'admin')->first();
+
+    $permissions = Permission::all();
+
+    /**
+     * Insert admin details for login
+     *
+     */
+    echo "\e[32mSeeding:\e[0m UserTableSeeder\r\n";
+
+    if (User::where('email', '=', 'admin@admin.com')->first() === null) {
+      $newUser = User::create([
+        'name'              => 'John Connor',
+        'email'             => 'admin@admin.com',
+        'email_verified_at' => now(),
+        'password'          => Hash::make('admin'),
+        'profile_photo'     => 'default.png',
+        'status'            => 1
+      ]);
+
+      $newUser->attachRole($adminRole);
+
+      foreach ($permissions as $permission) {
+        $newUser->attachPermission($permission);
+      }
+
+      echo "\e[32mSeeding:\e[0m UsersTableSeeder - user:admin@admin.com\r\n";
+    }
   }
 }

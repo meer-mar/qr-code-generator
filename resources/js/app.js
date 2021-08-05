@@ -12,6 +12,6 @@ require("raphael");
 
 require("../../node_modules/chart.js/dist/chart");
 
-require("./admin_dashboard/demo");
+// require("./admin_dashboard/dashboard2");
 
-require("./admin_dashboard/dashboard2");
+require("./admin_dashboard/custom");

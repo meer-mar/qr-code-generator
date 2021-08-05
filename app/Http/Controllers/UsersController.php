@@ -198,7 +198,7 @@ class UsersController extends Controller
       $data = $data;
     }
 
-    // Save data into db
+    // Update data into db
     $user = new User;
     $user = $user->UpdateUser($data, $id);
 

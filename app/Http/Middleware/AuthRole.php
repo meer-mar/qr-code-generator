@@ -18,12 +18,13 @@ class AuthRole
    */
   public function handle(Request $request, Closure $next)
   {
-    if (Auth::user()) {
-      if (Auth::user()->role->slug == 'admin') {
-        return $next($request);
-      }
-      return redirect(RouteServiceProvider::HOME);
-    }
-    return redirect('/');
+    // if (Auth::user()) {
+    //   if (Auth::user()->role->slug == 'admin') {
+    //     return $next($request);
+    //   }
+    //   return redirect(RouteServiceProvider::HOME);
+    // }
+    // return redirect('/');
+    return $next($request);
   }
 }

@@ -7,5 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
-    use HasFactory;
+  use HasFactory;
+
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  protected $fillable = [
+    'title',
+    'meta_desc',
+    'page_name',
+    'page_desc',
+    'status',
+  ];
 }

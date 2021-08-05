@@ -38,11 +38,11 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table class="table table-bordered">
+              <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th style="width: 10px">#</th>
-                    <th>Title</th>
+                    <th>Name</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -52,14 +52,12 @@
                   <?php $__currentLoopData = $pages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <tr>
                     <td><?php echo e(++$key); ?>. </td>
-                    <td><?php echo e($page->page_title); ?></td>
+                    <td><?php echo e($page->page_name); ?></td>
                     <td>
                       <?php if($page->status == 1): ?>
-                      <?php echo e('Active'); ?>
-
+                      <span class="badge bg-success"><?php echo e(__('Active')); ?></span>
                       <?php else: ?>
-                      <?php echo e('Deactive'); ?>
-
+                      <span class="badge bg-danger"><?php echo e(__('Deactive')); ?></span>
                       <?php endif; ?>
                     </td>
                     <td style="width: 11rem">

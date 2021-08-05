@@ -71,7 +71,7 @@
                   <label for="inputStatus">Status</label>
                   <select class="form-control" name="status" id="inputStatus">
                     <option value="1">Active</option>
-                    <option value="2">Deactive</option>
+                    <option value="0">Deactive</option>
                   </select>
                 </div>
               </div>

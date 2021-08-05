@@ -36,51 +36,38 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="{{ url('/admin/user/'.$user->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('/admin/page/'.$page->id) }}" method="POST" enctype="multipart/form-data">
               @csrf
               @method('PUT')
               <div class="card-body">
                 <div class="form-group">
-                  <label for="inputName">Full name</label>
-                  <input type="text" name="name" value="{{ $user->name }}" class="form-control" id="inputName"
-                    placeholder="Enter full name">
+                  <label for="inputTitle">Title</label>
+                  <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Enter title"
+                    value="{{ $page->title }}">
                 </div>
+
                 <div class="form-group">
-                  <label for="inputEmail">Email address</label>
-                  <input type="email" name="email" value="{{ $user->email }}" class="form-control" id="inputEmail"
-                    placeholder="Enter email">
+                  <label for="inputMeta">Meta Description</label>
+                  <textarea name="meta_desc" id="inputMeta" rows="3"
+                    class="form-control">{{ $page->meta_desc }}</textarea>
                 </div>
+
                 <div class="form-group">
-                  <label for="inputPassword">Password</label>
-                  <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
+                  <label for="inputPageName">Page Name</label>
+                  <input type="text" name="page_name" class="form-control" id="inputPageName"
+                    placeholder="Enter page name" value="{{ $page->page_name }}">
                 </div>
+
                 <div class="form-group">
-                  <label for="inputFile">Profile photo</label><br>
-                  <figure class="figure">
-                    <img src="{{ url('/storage/user_profile_photos/'.$user->profile_photo) }}"
-                      class="figure-img img-fluid rounded img-thumbnail" alt="Profile photo">
-                  </figure>
-                  <input type="file" name="profile_photo" class="form-control" id="inputFile">
+                  <label for="editor">Page Description</label>
+                  <textarea name="page_desc" id="editor" rows="3" class="form-control">{{ $page->page_desc }}</textarea>
                 </div>
-                <div class="form-group">
-                  <label for="inputRole">Role</label>
-                  <select class="form-control" name="role" id="inputRole">
-                    @if (count($roles) > 0)
-                    @foreach ($roles as $role)
-                    <option value="{{ $role['id'] }}" @if($role->id == $user->role_id)
-                      {{ __('selected') }}@endif>{{ $role['name'] }}
-                    </option>
-                    @endforeach
-                    @else
-                    <option value="0">No role available</option>
-                    @endif
-                  </select>
-                </div>
+
                 <div class="form-group">
                   <label for="inputStatus">Status</label>
                   <select class="form-control" name="status" id="inputStatus">
-                    <option value="1" @if($user->status == 1) {{ 'Selected '}} @endif>Active</option>
-                    <option value="2" @if($user->status == 2) {{ 'Selected '}} @endif>Deactive</option>
+                    <option value="1" @if($page->status == 1) {{ __('selected') }} @endif>Active</option>
+                    <option value="0" @if($page->status == 0) {{ __('selected') }} @endif>Deactive</option>
                   </select>
                 </div>
               </div>

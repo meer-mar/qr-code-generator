@@ -56,12 +56,12 @@
                     <td>{{ ++$key }}. </td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->role->name }}</td>
+                    <td></td>
                     <td>
                       @if ($user->status == 1)
-                      {{ 'Active' }}
+                      <span class="badge bg-success">{{ __('Active') }}</span>
                       @else
-                      {{ 'Deactive' }}
+                      <span class="badge bg-danger">{{ __('Deactive') }}</span>
                       @endif
                     </td>
                     <td style="width: 11rem">

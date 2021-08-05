@@ -71,8 +71,8 @@
                 <div class="form-group">
                   <label for="inputStatus">Site Status</label>
                   <select class="form-control" name="status" id="inputStatus">
-                    <option value="1" @if($webSettings->status == 1) {{ 'Selected '}} @endif>Active</option>
-                    <option value="2" @if($webSettings->status == 2) {{ 'Selected '}} @endif>Deactive</option>
+                    <option value="1" @if($webSettings->status == 1) {{ __('selected') }} @endif>Active</option>
+                    <option value="0" @if($webSettings->status == 2) {{ __('selected') }} @endif>Deactive</option>
                   </select>
                 </div>
               </div>

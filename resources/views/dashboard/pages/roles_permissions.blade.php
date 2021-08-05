@@ -64,10 +64,10 @@
                       @endif
                     </td>
                     <td>
-                      @if ($role['status'] == 1)
-                      {{ __('Active') }}
+                      @if ($role->status == 1)
+                      <span class="badge bg-success">{{ __('Active') }}</span>
                       @else
-                      {{ __('De Active') }}
+                      <span class="badge bg-danger">{{ __('Deactive') }}</span>
                       @endif
                     </td>
                     <td style="width: 11rem">

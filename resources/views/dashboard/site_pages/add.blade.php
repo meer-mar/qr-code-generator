@@ -36,13 +36,30 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="{{ url('/admin/page/save') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('/admin/page/save') }}" method="POST">
               @csrf
               <div class="card-body">
                 <div class="form-group">
-                  <label for="inputName">Title</label>
-                  <input type="text" name="title" class="form-control" id="inputName" placeholder="Enter full name">
+                  <label for="inputTitle">Title</label>
+                  <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Enter title">
                 </div>
+
+                <div class="form-group">
+                  <label for="inputMeta">Meta Description</label>
+                  <textarea name="meta_desc" id="inputMeta" rows="3" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="inputPageName">Page Name</label>
+                  <input type="text" name="page_name" class="form-control" id="inputPageName"
+                    placeholder="Enter page name">
+                </div>
+
+                <div class="form-group">
+                  <label for="editor">Page Description</label>
+                  <textarea name="page_desc" id="editor" rows="3" class="form-control"></textarea>
+                </div>
+
                 <div class="form-group">
                   <label for="inputStatus">Status</label>
                   <select class="form-control" name="status" id="inputStatus">
@@ -55,7 +72,7 @@
 
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Save</button>
-                <a href="{{ url('/admin/users') }}" class="btn btn-default float-right">Cancel</a>
+                <a href="{{ url('/admin/pages') }}" class="btn btn-default float-right">Cancel</a>
               </div>
             </form>
           </div>
