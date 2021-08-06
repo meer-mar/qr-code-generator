@@ -4,6 +4,9 @@ namespace App\Traits;
 
 use App\Models\Role;
 use App\Models\Permission;
+use Illuminate\Support\Str;
+use InvalidArgumentException;
+use Illuminate\Database\Eloquent\Model;
 
 trait HasRoleAndPermission
 {

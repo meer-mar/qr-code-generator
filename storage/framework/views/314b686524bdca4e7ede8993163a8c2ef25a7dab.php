@@ -35,7 +35,7 @@
           </a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <?php if(auth()->user()->role->slug == 'user'): ?>
+            <?php if(auth()->user()->checkRole('user')): ?>
             <a class="dropdown-item" href="<?php echo e(route('dashboard')); ?>">Dashboard</a>
             <?php else: ?>
             <a class="dropdown-item" href="<?php echo e(route('admin')); ?>">Dashboard</a>

@@ -34,7 +34,7 @@
           </a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            @if (auth()->user()->role->slug == 'user')
+            @if (auth()->user()->checkRole('user'))
             <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
             @else
             <a class="dropdown-item" href="{{ route('admin') }}">Dashboard</a>

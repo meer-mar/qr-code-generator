@@ -3,7 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
 class CheckRole
 {
@@ -16,6 +19,18 @@ class CheckRole
    */
   public function handle(Request $request, Closure $next)
   {
-    return $next($request);
+    $roles = Role::all();
+
+    if (Auth::user()) {
+      $authRoles = Auth::user()->syncRoles($roles);
+      dd($authRoles);
+      $isAdmin = Auth::user()->checkRole('admin');
+
+      if ($isAdmin) {
+        return $next($request);
+      }
+      return redirect(RouteServiceProvider::HOME);
+    }
+    return redirect('/');
   }
 }

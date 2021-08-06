@@ -33,8 +33,8 @@ class AuthenticatedSessionController extends Controller
 
     $request->session()->regenerate();
 
-    $check = Auth::user()->role->slug;
-    if ($check == 'admin') {
+    $isAdmin = Auth::user()->checkRole('admin');
+    if ($isAdmin) {
       return redirect()->intended('/admin');
     } else {
       return redirect()->intended(RouteServiceProvider::HOME);
