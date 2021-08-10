@@ -22,8 +22,6 @@ class CheckRole
     $roles = Role::all();
 
     if (Auth::user()) {
-      $authRoles = Auth::user()->syncRoles($roles);
-      dd($authRoles);
       $isAdmin = Auth::user()->checkRole('admin');
 
       if ($isAdmin) {
