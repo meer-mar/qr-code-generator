@@ -39,7 +39,7 @@ require __DIR__ . '/auth.php';
 */
 
 Route::prefix('/admin')->group(function () {
-  Route::middleware(['checkrole'])->group(function () {
+  Route::middleware(['checkrole:admin'])->group(function () {
     // Dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('admin');
 

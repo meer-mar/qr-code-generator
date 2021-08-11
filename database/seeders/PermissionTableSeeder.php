@@ -23,25 +23,25 @@ class PermissionTableSeeder extends Seeder
         'name'        => 'Can View Users',
         'slug'        => 'view.users',
         'description' => 'Can view users',
-        'model'       => 'Permission',
+        'model'       => 'App\User',
       ],
       [
         'name'        => 'Can Create Users',
         'slug'        => 'create.users',
         'description' => 'Can create new users',
-        'model'       => 'Permission',
+        'model'       => 'App\User',
       ],
       [
         'name'        => 'Can Edit Users',
         'slug'        => 'edit.users',
         'description' => 'Can edit users',
-        'model'       => 'Permission',
+        'model'       => 'App\User',
       ],
       [
         'name'        => 'Can Delete Users',
         'slug'        => 'delete.users',
         'description' => 'Can delete users',
-        'model'       => 'Permission',
+        'model'       => 'App\User',
       ],
     ];
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Role;
 use App\Traits\HasRoleAndPermission;
+// use App\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;

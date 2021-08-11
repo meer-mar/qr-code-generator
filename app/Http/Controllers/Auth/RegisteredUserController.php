@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
 
 class RegisteredUserController extends Controller
 {
@@ -33,6 +34,9 @@ class RegisteredUserController extends Controller
    */
   public function store(Request $request)
   {
+    // get user role slug //
+    $userRole = Role::where('slug', '=', 'user')->first();
+
     $request->validate([
       'name' => 'required|string|max:255',
       'email' => 'required|string|email|max:255|unique:users',
@@ -43,10 +47,12 @@ class RegisteredUserController extends Controller
       'name' => $request->name,
       'email' => $request->email,
       'password' => Hash::make($request->password),
-      'role_id' => '2',
       'profile_photo' => 'default.png',
       'status' => 1,
     ]);
+
+    // Attach role to user //
+    $user->attachRole($userRole);
 
     event(new Registered($user));
 
