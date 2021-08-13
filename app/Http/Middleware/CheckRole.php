@@ -20,11 +20,11 @@ class CheckRole
   {
     if (Auth::user()) {
       $authRole = Auth::user()->hasRole($role);
-      $authlevel = Auth::user()->level();
+      $authlevel = $authRole ? Auth::user()->level() : false;
 
-      if ($authRole && $authlevel >= 2) {
+      if ($authlevel == 2) {
         return $next($request);
-      } else if ($authRole && $authlevel >= 1) {
+      } else if ($authlevel == 1) {
         return redirect(RouteServiceProvider::HOME);
       } else {
         return redirect(RouteServiceProvider::HOME);
