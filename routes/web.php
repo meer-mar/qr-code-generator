@@ -41,7 +41,7 @@ require __DIR__ . '/auth.php';
 Route::prefix('/admin')->group(function () {
   Route::middleware(['checkrole:admin'])->group(function () {
     // Dashboard
-    Route::get('/', [DashboardController::class, 'index'])->name('admin');
+    Route::get('/', [DashboardController::class, 'index'])->name('admin')->middleware('checkpermission:admin');
 
     // Users
     Route::get('/users', [UsersController::class, 'index']);
