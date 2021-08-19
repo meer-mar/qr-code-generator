@@ -12,4 +12,4 @@
         </div>
     </div>
 </div>
-<?php /**PATH D:\laragon\www\lara_cms\resources\views/components/auth-card.blade.php ENDPATH**/ ?>
+<?php /**PATH E:\laragon\www\lara_cms\resources\views/components/auth-card.blade.php ENDPATH**/ ?>

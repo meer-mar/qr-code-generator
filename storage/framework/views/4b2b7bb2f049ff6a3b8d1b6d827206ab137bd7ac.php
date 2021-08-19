@@ -56,7 +56,12 @@
                     <td><?php echo e(++$key); ?>. </td>
                     <td><?php echo e($user->name); ?></td>
                     <td><?php echo e($user->email); ?></td>
-                    <td></td>
+                    <td>
+                    <?php $__currentLoopData = $user->getRoles(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <?php echo e($role->slug); ?>
+
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </td>
                     <td>
                       <?php if($user->status == 1): ?>
                       <span class="badge bg-success"><?php echo e(__('Active')); ?></span>
@@ -102,4 +107,4 @@
   <!-- /.content -->
 </div>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('dashboard.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\laragon\www\lara_cms\resources\views/dashboard/user/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('dashboard.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\laragon\www\lara_cms\resources\views/dashboard/user/index.blade.php ENDPATH**/ ?>

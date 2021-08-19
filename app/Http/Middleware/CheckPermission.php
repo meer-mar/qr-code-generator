@@ -19,18 +19,10 @@ class CheckPermission
   public function handle(Request $request, Closure $next, $permission)
   {
     if (Auth::user()) {
-      // try {
-      //   Auth::user()->checkPermission($permission);
-      //   dd('up: ', $authPermission);
-      // } catch (PermissionDeniedException $exception) {
-      //   dd('down: ', $exception);
-      // }
-      // return $next($request);
       if (Auth::user()->checkPermission($permission)) {
         return $next($request);
       }
-
-      throw new PermissionDeniedException;
+      abort(401);
     }
   }
 }

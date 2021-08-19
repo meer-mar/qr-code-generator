@@ -19,18 +19,4 @@ class PermissionDeniedException extends Exception
       'error' => 'You dont have a required permission.',
     ]);
   }
-
-  /**
-   * Render an exception into an HTTP response.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  \Exception  $exception
-   * @return \Illuminate\Http\Response
-   */
-  public function render($request, Exception $exception)
-  {
-    if ($exception instanceof PermissionDeniedException) {
-      return response()->view('errors.custom', [], 403);
-    }
-  }
 }

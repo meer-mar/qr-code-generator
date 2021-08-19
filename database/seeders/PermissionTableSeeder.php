@@ -20,6 +20,12 @@ class PermissionTableSeeder extends Seeder
      */
     $permissionItems = [
       [
+        'name'        => 'Can View Dashboard',
+        'slug'        => 'admin',
+        'description' => 'Can view admin dashboard',
+        'model'       => 'App\Dashboard',
+      ],
+      [
         'name'        => 'Can View Users',
         'slug'        => 'view.users',
         'description' => 'Can view users',
@@ -42,6 +48,66 @@ class PermissionTableSeeder extends Seeder
         'slug'        => 'delete.users',
         'description' => 'Can delete users',
         'model'       => 'App\User',
+      ],
+      [
+        'name'        => 'Can Delete Users',
+        'slug'        => 'delete.users',
+        'description' => 'Can delete users',
+        'model'       => 'App\User',
+      ],
+      [
+        'name'        => 'Can View Roles & Permission',
+        'slug'        => 'view.roles-permissions',
+        'description' => 'Can view roles & permission',
+        'model'       => 'App\AccessController',
+      ],
+      [
+        'name'        => 'Can Create Roles',
+        'slug'        => 'create.roles',
+        'description' => 'Can create roles',
+        'model'       => 'App\RoleController',
+      ],
+      [
+        'name'        => 'Can View Pages',
+        'slug'        => 'view.pages',
+        'description' => 'Can view pages',
+        'model'       => 'App\Page',
+      ],
+      [
+        'name'        => 'Can Create Pages',
+        'slug'        => 'create.pages',
+        'description' => 'Can create new pages',
+        'model'       => 'App\Page',
+      ],
+      [
+        'name'        => 'Can Edit Pages',
+        'slug'        => 'edit.pages',
+        'description' => 'Can edit pages',
+        'model'       => 'App\Page',
+      ],
+      [
+        'name'        => 'Can Delete Pages',
+        'slug'        => 'delete.pages',
+        'description' => 'Can delete pages',
+        'model'       => 'App\Page',
+      ],
+      [
+        'name'        => 'Can Delete Pages',
+        'slug'        => 'delete.pages',
+        'description' => 'Can delete pages',
+        'model'       => 'App\Page',
+      ],
+      [
+        'name'        => 'Can Edit App Settings',
+        'slug'        => 'edit.app-settings',
+        'description' => 'Can edit app settings',
+        'model'       => 'App\AppSetting',
+      ],
+      [
+        'name'        => 'Can Edit Web Settings',
+        'slug'        => 'edit.web-settings',
+        'description' => 'Can edit web settings',
+        'model'       => 'App\WebSetting',
       ],
     ];
 

@@ -54,4 +54,4 @@
 
 </body>
 
-</html><?php /**PATH D:\laragon\www\lara_cms\resources\views/dashboard/layouts/app.blade.php ENDPATH**/ ?>
+</html><?php /**PATH E:\laragon\www\lara_cms\resources\views/dashboard/layouts/app.blade.php ENDPATH**/ ?>

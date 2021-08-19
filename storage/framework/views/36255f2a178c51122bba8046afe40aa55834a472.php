@@ -9,4 +9,4 @@
 <?php unset($__defined_vars); ?>
 
 <input <?php echo e($disabled ? 'disabled' : ''); ?> <?php echo $attributes->merge(['class' => 'form-control']); ?>>
-<?php /**PATH D:\laragon\www\lara_cms\resources\views/components/input.blade.php ENDPATH**/ ?>
+<?php /**PATH E:\laragon\www\lara_cms\resources\views/components/input.blade.php ENDPATH**/ ?>

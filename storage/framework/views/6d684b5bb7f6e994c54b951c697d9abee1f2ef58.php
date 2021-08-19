@@ -55,4 +55,4 @@
       </ul>
     </div>
   </div>
-</nav><?php /**PATH D:\laragon\www\lara_cms\resources\views/includes/navbar.blade.php ENDPATH**/ ?>
+</nav><?php /**PATH E:\laragon\www\lara_cms\resources\views/includes/navbar.blade.php ENDPATH**/ ?>

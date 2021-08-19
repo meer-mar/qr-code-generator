@@ -93,13 +93,15 @@ class UsersController extends Controller
       'email' => $valid['email'],
       'password' => Hash::make($valid['password']),
       'profile_photo' => $fileNameToStore,
-      'role_id' => $valid['role'],
       'status' => $valid['status']
     ];
 
     // Save data into db
-    $user = new User;
-    $user = $user->createUser($data);
+    $user = User::create($data);;
+
+    // Attach role to user
+    $role = Role::find($valid['role']);
+    $user->attachRole($role);
 
     if ($user) {
       return redirect('/admin/users')->with('success', 'Record created successfully.');

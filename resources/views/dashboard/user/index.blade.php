@@ -56,7 +56,11 @@
                     <td>{{ ++$key }}. </td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td></td>
+                    <td>
+                    @foreach ($user->getRoles() as $role)
+                      {{ $role->slug }}
+                    @endforeach
+                    </td>
                     <td>
                       @if ($user->status == 1)
                       <span class="badge bg-success">{{ __('Active') }}</span>

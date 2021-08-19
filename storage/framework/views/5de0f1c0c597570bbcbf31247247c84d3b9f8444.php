@@ -105,4 +105,4 @@
     <!-- /.sidebar-menu -->
   </div>
   <!-- /.sidebar -->
-</aside><?php /**PATH D:\laragon\www\lara_cms\resources\views/dashboard/includes/sidebar.blade.php ENDPATH**/ ?>
+</aside><?php /**PATH E:\laragon\www\lara_cms\resources\views/dashboard/includes/sidebar.blade.php ENDPATH**/ ?>

@@ -12,4 +12,4 @@
     <?php echo e($value ?? $slot); ?>
 
 </label>
-<?php /**PATH D:\laragon\www\lara_cms\resources\views/components/label.blade.php ENDPATH**/ ?>
+<?php /**PATH E:\laragon\www\lara_cms\resources\views/components/label.blade.php ENDPATH**/ ?>

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\Role;
 use App\Traits\HasRoleAndPermission;
-// use App\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -108,12 +107,12 @@ class User extends Authenticatable
     return $user->update($data);
   }
 
-  /**
-   * User Relation to role
-   *
-   */
-  public function role()
-  {
-    return $this->belongsTo(Role::class);
-  }
+  // /**
+  //  * User Relation to role
+  //  *
+  //  */
+  // public function role()
+  // {
+  //   return $this->belongsTo(Role::class);
+  // }
 }

@@ -41,35 +41,90 @@ require __DIR__ . '/auth.php';
 Route::prefix('/admin')->group(function () {
   Route::middleware(['checkrole:admin'])->group(function () {
     // Dashboard
-    Route::get('/', [DashboardController::class, 'index'])->name('admin')->middleware('checkpermission:admin');
+    Route::get('/', [DashboardController::class, 'index'])
+      ->name('admin')
+      ->middleware('checkpermission:admin');
 
     // Users
-    Route::get('/users', [UsersController::class, 'index']);
-    Route::get('/user/add', [UsersController::class, 'create']);
-    Route::post('/user/save', [UsersController::class, 'store']);
-    Route::get('/user/delete/{id}', [UsersController::class, 'destroy']);
-    Route::get('/user/edit/{id}', [UsersController::class, 'edit']);
-    Route::put('/user/{id}', [UsersController::class, 'update']);
+    Route::get('/users', [UsersController::class, 'index'])
+      ->name('view.users')
+      ->middleware('checkpermission:view.users');
+
+    Route::get('/user/add', [UsersController::class, 'create'])
+      ->name('create.users')
+      ->middleware('checkpermission:create.users');
+
+    Route::post('/user/save', [UsersController::class, 'store'])
+      ->name('create.users')
+      ->middleware('checkpermission:create.users');
+
+    Route::get('/user/delete/{id}', [UsersController::class, 'destroy'])
+      ->name('delete.users')
+      ->middleware('checkpermission:delete.users');
+
+    Route::get('/user/edit/{id}', [UsersController::class, 'edit'])
+      ->name('edit.users')
+      ->middleware('checkpermission:edit.users');
+
+    Route::put('/user/{id}', [UsersController::class, 'update'])
+      ->name('edit.users')
+      ->middleware('checkpermission:edit.users');
 
     // Roles & permissions
-    Route::get('/roles-permissions', [AccessController::class, 'index']);
-    Route::get('/role/add', [RoleController::class, 'create']);
-    Route::post('/role/store', [RoleController::class, 'store']);
+    Route::get('/roles-permissions', [AccessController::class, 'index'])
+      ->name('view.roles-permissions')
+      ->middleware('checkpermission:view.roles-permissions');
+
+    Route::get('/role/add', [RoleController::class, 'create'])
+      ->name('create.roles')
+      ->middleware('checkpermission:create.roles');
+
+    Route::post('/role/store', [RoleController::class, 'store'])
+      ->name('create.roles')
+      ->middleware('checkpermission:create.roles');
 
     // Site pages
-    Route::get('/pages', [PageController::class, 'index']);
-    Route::get('/page/add', [PageController::class, 'create']);
-    Route::post('/page/save', [PageController::class, 'store']);
-    Route::get('/page/delete/{id}', [PageController::class, 'destroy']);
-    Route::get('/page/edit/{id}', [PageController::class, 'edit']);
-    Route::put('/page/{id}', [PageController::class, 'update']);
+    Route::get('/pages', [PageController::class, 'index'])
+      ->name('view.pages')
+      ->middleware('checkpermission:view.pages');
+
+    Route::get('/page/add', [PageController::class, 'create'])
+      ->name('create.pages')
+      ->middleware('checkpermission:create.pages');
+
+    Route::post('/page/save', [PageController::class, 'store'])
+      ->name('create.pages')
+      ->middleware('checkpermission:create.pages');
+
+    Route::get('/page/delete/{id}', [PageController::class, 'destroy'])
+      ->name('delete.pages')
+      ->middleware('checkpermission:delete.pages');
+
+    Route::get('/page/edit/{id}', [PageController::class, 'edit'])
+      ->name('edit.pages')
+      ->middleware('checkpermission:edit.pages');
+
+    Route::put('/page/{id}', [PageController::class, 'update'])
+      ->name('edit.pages')
+      ->middleware('checkpermission:edit.pages');
 
     // App setttings
-    Route::get('/app-setting/edit/{id}', [AppSettingController::class, 'edit']);
-    Route::put('/app-setting/{id}', [AppSettingController::class, 'update']);
+    Route::get('/app-setting/edit/{id}', [AppSettingController::class, 'edit'])
+      ->name('edit.app-setting')
+      ->middleware('checkpermission:edit.app-settings');
+
+    Route::put('/app-setting/{id}', [AppSettingController::class, 'update'])
+      ->name('edit.app-setting')
+      ->middleware('checkpermission:edit.app-settings');
+
 
     // Web settings
-    Route::get('/web-setting/edit/{id}', [WebSettingController::class, 'edit']);
-    Route::put('/web-setting/{id}', [WebSettingController::class, 'update']);
+    Route::get('/web-setting/edit/{id}', [WebSettingController::class, 'edit'])
+      ->name('edit.web-setting')
+      ->middleware('checkpermission:edit.web-settings');
+
+    Route::put('/web-setting/{id}', [WebSettingController::class, 'update'])
+      ->name('edit.web-setting')
+      ->middleware('checkpermission:edit.web-settings');
   });
 });

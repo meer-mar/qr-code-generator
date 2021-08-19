@@ -30,4 +30,4 @@
   <!-- /.content -->
 </div>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('dashboard.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\laragon\www\lara_cms\resources\views/dashboard/pages/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('dashboard.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\laragon\www\lara_cms\resources\views/dashboard/pages/index.blade.php ENDPATH**/ ?>

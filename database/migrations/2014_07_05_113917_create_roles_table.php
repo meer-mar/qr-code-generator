@@ -19,6 +19,7 @@ class CreateRolesTable extends Migration
       $table->string('slug');
       $table->tinyInteger('level');
       $table->text('description');
+      $table->tinyInteger('status')->default(0);
       $table->timestamps();
       $table->softDeletes();
     });

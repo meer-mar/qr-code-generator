@@ -23,19 +23,22 @@ class RoleTableSeeder extends Seeder
         'name'        => 'Admin',
         'slug'        => 'admin',
         'description' => 'Unverified Role',
-        'level'       => 2
+        'level'       => 2,
+        'status'      => 1,
       ],
       [
         'name'        => 'User',
         'slug'        => 'user',
         'description' => 'User Role',
-        'level'       => 1
+        'level'       => 1,
+        'status'      => 1,
       ],
       [
         'name'        => 'Unverified',
         'slug'        => 'unverified',
         'description' => 'Unverified Role',
         'level'       => 0,
+        'status'      => 1,
       ]
     ];
 
@@ -52,7 +55,8 @@ class RoleTableSeeder extends Seeder
           'name'        => $role['name'],
           'slug'        => $role['slug'],
           'description' => $role['description'],
-          'level'       => $role['level']
+          'level'       => $role['level'],
+          'status'       => $role['status']
         ]);
         echo "\e[32mSeeding:\e[0m RoleTableSeeder - Role:" . $role['slug'] . "\r\n";
       }

@@ -19,4 +19,4 @@
 <?php unset($__componentOriginalc3251b308c33b100480ddc8862d4f9c79f6df015); ?>
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
-<?php endif; ?><?php /**PATH D:\laragon\www\lara_cms\resources\views/pages/index.blade.php ENDPATH**/ ?>
+<?php endif; ?><?php /**PATH E:\laragon\www\lara_cms\resources\views/pages/index.blade.php ENDPATH**/ ?>

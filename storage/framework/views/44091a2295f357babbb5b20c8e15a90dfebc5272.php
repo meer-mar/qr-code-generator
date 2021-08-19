@@ -2,4 +2,4 @@
     <?php echo e($slot); ?>
 
 </button>
-<?php /**PATH D:\laragon\www\lara_cms\resources\views/components/button.blade.php ENDPATH**/ ?>
+<?php /**PATH E:\laragon\www\lara_cms\resources\views/components/button.blade.php ENDPATH**/ ?>

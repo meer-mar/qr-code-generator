@@ -35,4 +35,4 @@
   </div>
 </body>
 
-</html><?php /**PATH D:\laragon\www\lara_cms\resources\views/layouts/guest.blade.php ENDPATH**/ ?>
+</html><?php /**PATH E:\laragon\www\lara_cms\resources\views/layouts/guest.blade.php ENDPATH**/ ?>
