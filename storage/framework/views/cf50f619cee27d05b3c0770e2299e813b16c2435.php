@@ -44,7 +44,6 @@
                     <th style="width: 10px">#</th>
                     <th>Name</th>
                     <th>Level</th>
-                    <th>Permissions</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -56,9 +55,6 @@
                     <td><?php echo e(++$key); ?></td>
                     <td><?php echo e($role['name']); ?></td>
                     <td><?php echo e($role['level']); ?></td>
-                    <td>
-
-                    </td>
                     <td>
                       <?php if($role->status == 1): ?>
                       <span class="badge bg-success"><?php echo e(__('Active')); ?></span>

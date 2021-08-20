@@ -1,6 +1,6 @@
-@extends('dashboard.layouts.app')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -11,8 +11,8 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ secure_url('/admin') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ secure_url('/admin/roles-permissions') }}">Roles</a></li>
+            <li class="breadcrumb-item"><a href="<?php echo e(secure_url('/admin')); ?>">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="<?php echo e(secure_url('/admin/roles-permissions')); ?>">Roles</a></li>
             <li class="breadcrumb-item active">Add</li>
           </ol>
         </div>
@@ -27,7 +27,7 @@
         <!-- left column -->
         <div class="col-md-12">
           <!-- Messages -->
-          @include('dashboard.includes.messages')
+          <?php echo $__env->make('dashboard.includes.messages', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
           <!-- general form elements -->
           <div class="card">
@@ -36,8 +36,8 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="{{ url('/admin/role/store') }}" method="POST">
-              @csrf
+            <form action="<?php echo e(url('/admin/role/store')); ?>" method="POST">
+              <?php echo csrf_field(); ?>
               <div class="card-body">
                 <div class="form-group">
                   <label for="inputName">Role Name</label>
@@ -65,7 +65,7 @@
 
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Save</button>
-                <a href="{{ url('/admin/roles-permissions') }}" class="btn btn-default float-right">Cancel</a>
+                <a href="<?php echo e(url('/admin/roles-permissions')); ?>" class="btn btn-default float-right">Cancel</a>
               </div>
             </form>
           </div>
@@ -78,4 +78,5 @@
   </section>
   <!-- /.content -->
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('dashboard.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\laragon\www\lara_cms\resources\views/dashboard/role/add.blade.php ENDPATH**/ ?>

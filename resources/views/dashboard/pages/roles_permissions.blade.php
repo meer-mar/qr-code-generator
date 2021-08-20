@@ -44,7 +44,6 @@
                     <th style="width: 10px">#</th>
                     <th>Name</th>
                     <th>Level</th>
-                    <th>Permissions</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -56,9 +55,6 @@
                     <td>{{ ++$key }}</td>
                     <td>{{ $role['name'] }}</td>
                     <td>{{ $role['level'] }}</td>
-                    <td>
-
-                    </td>
                     <td>
                       @if ($role->status == 1)
                       <span class="badge bg-success">{{ __('Active') }}</span>
