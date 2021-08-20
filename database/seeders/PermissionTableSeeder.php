@@ -38,15 +38,21 @@ class PermissionTableSeeder extends Seeder
         'model'       => 'App\User',
       ],
       [
+        'name'        => 'Can Save Users',
+        'slug'        => 'save.users',
+        'description' => 'Can save new users',
+        'model'       => 'App\User',
+      ],
+      [
         'name'        => 'Can Edit Users',
         'slug'        => 'edit.users',
         'description' => 'Can edit users',
         'model'       => 'App\User',
       ],
       [
-        'name'        => 'Can Delete Users',
-        'slug'        => 'delete.users',
-        'description' => 'Can delete users',
+        'name'        => 'Can Update Users',
+        'slug'        => 'update.users',
+        'description' => 'Can Update users',
         'model'       => 'App\User',
       ],
       [
@@ -59,13 +65,19 @@ class PermissionTableSeeder extends Seeder
         'name'        => 'Can View Roles & Permission',
         'slug'        => 'view.roles-permissions',
         'description' => 'Can view roles & permission',
-        'model'       => 'App\AccessController',
+        'model'       => 'App\Role',
       ],
       [
         'name'        => 'Can Create Roles',
         'slug'        => 'create.roles',
         'description' => 'Can create roles',
-        'model'       => 'App\RoleController',
+        'model'       => 'App\Role',
+      ],
+      [
+        'name'        => 'Can Save Roles',
+        'slug'        => 'save.roles',
+        'description' => 'Can save roles',
+        'model'       => 'App\Role',
       ],
       [
         'name'        => 'Can View Pages',
@@ -80,15 +92,21 @@ class PermissionTableSeeder extends Seeder
         'model'       => 'App\Page',
       ],
       [
+        'name'        => 'Can Save Pages',
+        'slug'        => 'save.pages',
+        'description' => 'Can save new pages',
+        'model'       => 'App\Page',
+      ],
+      [
         'name'        => 'Can Edit Pages',
         'slug'        => 'edit.pages',
         'description' => 'Can edit pages',
         'model'       => 'App\Page',
       ],
       [
-        'name'        => 'Can Delete Pages',
-        'slug'        => 'delete.pages',
-        'description' => 'Can delete pages',
+        'name'        => 'Can Update Pages',
+        'slug'        => 'update.pages',
+        'description' => 'Can Update pages',
         'model'       => 'App\Page',
       ],
       [
@@ -104,9 +122,21 @@ class PermissionTableSeeder extends Seeder
         'model'       => 'App\AppSetting',
       ],
       [
+        'name'        => 'Can Update App Settings',
+        'slug'        => 'update.app-settings',
+        'description' => 'Can update app settings',
+        'model'       => 'App\AppSetting',
+      ],
+      [
         'name'        => 'Can Edit Web Settings',
         'slug'        => 'edit.web-settings',
         'description' => 'Can edit web settings',
+        'model'       => 'App\WebSetting',
+      ],
+      [
+        'name'        => 'Can Update Web Settings',
+        'slug'        => 'update.web-settings',
+        'description' => 'Can update web settings',
         'model'       => 'App\WebSetting',
       ],
     ];

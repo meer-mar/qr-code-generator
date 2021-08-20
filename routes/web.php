@@ -55,8 +55,8 @@ Route::prefix('/admin')->group(function () {
       ->middleware('checkpermission:create.users');
 
     Route::post('/user/save', [UsersController::class, 'store'])
-      ->name('create.users')
-      ->middleware('checkpermission:create.users');
+      ->name('save.users')
+      ->middleware('checkpermission:save.users');
 
     Route::get('/user/delete/{id}', [UsersController::class, 'destroy'])
       ->name('delete.users')
@@ -67,8 +67,8 @@ Route::prefix('/admin')->group(function () {
       ->middleware('checkpermission:edit.users');
 
     Route::put('/user/{id}', [UsersController::class, 'update'])
-      ->name('edit.users')
-      ->middleware('checkpermission:edit.users');
+      ->name('update.users')
+      ->middleware('checkpermission:update.users');
 
     // Roles & permissions
     Route::get('/roles-permissions', [AccessController::class, 'index'])
@@ -80,8 +80,8 @@ Route::prefix('/admin')->group(function () {
       ->middleware('checkpermission:create.roles');
 
     Route::post('/role/store', [RoleController::class, 'store'])
-      ->name('create.roles')
-      ->middleware('checkpermission:create.roles');
+      ->name('save.roles')
+      ->middleware('checkpermission:save.roles');
 
     // Site pages
     Route::get('/pages', [PageController::class, 'index'])
@@ -93,8 +93,8 @@ Route::prefix('/admin')->group(function () {
       ->middleware('checkpermission:create.pages');
 
     Route::post('/page/save', [PageController::class, 'store'])
-      ->name('create.pages')
-      ->middleware('checkpermission:create.pages');
+      ->name('save.pages')
+      ->middleware('checkpermission:save.pages');
 
     Route::get('/page/delete/{id}', [PageController::class, 'destroy'])
       ->name('delete.pages')
@@ -105,8 +105,8 @@ Route::prefix('/admin')->group(function () {
       ->middleware('checkpermission:edit.pages');
 
     Route::put('/page/{id}', [PageController::class, 'update'])
-      ->name('edit.pages')
-      ->middleware('checkpermission:edit.pages');
+      ->name('update.pages')
+      ->middleware('checkpermission:update.pages');
 
     // App setttings
     Route::get('/app-setting/edit/{id}', [AppSettingController::class, 'edit'])
@@ -114,8 +114,8 @@ Route::prefix('/admin')->group(function () {
       ->middleware('checkpermission:edit.app-settings');
 
     Route::put('/app-setting/{id}', [AppSettingController::class, 'update'])
-      ->name('edit.app-setting')
-      ->middleware('checkpermission:edit.app-settings');
+      ->name('update.app-setting')
+      ->middleware('checkpermission:update.app-settings');
 
 
     // Web settings
@@ -124,7 +124,7 @@ Route::prefix('/admin')->group(function () {
       ->middleware('checkpermission:edit.web-settings');
 
     Route::put('/web-setting/{id}', [WebSettingController::class, 'update'])
-      ->name('edit.web-setting')
-      ->middleware('checkpermission:edit.web-settings');
+      ->name('update.web-setting')
+      ->middleware('checkpermission:update.web-settings');
   });
 });

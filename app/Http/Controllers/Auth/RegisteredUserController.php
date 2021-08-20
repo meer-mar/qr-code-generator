@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
    */
   public function store(Request $request)
   {
-    // get user role slug //
+    // Get user role //
     $userRole = Role::where('slug', '=', 'user')->first();
 
     $request->validate([
