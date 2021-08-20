@@ -57,11 +57,7 @@
                     <td>{{ $role['name'] }}</td>
                     <td>{{ $role['level'] }}</td>
                     <td>
-                      @if($role['permissions'] == 1)
-                      {{ __('All') }}
-                      @else
-                      {{ __('None') }}
-                      @endif
+
                     </td>
                     <td>
                       @if ($role->status == 1)

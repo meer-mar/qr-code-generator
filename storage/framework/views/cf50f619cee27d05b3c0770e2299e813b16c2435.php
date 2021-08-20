@@ -57,13 +57,7 @@
                     <td><?php echo e($role['name']); ?></td>
                     <td><?php echo e($role['level']); ?></td>
                     <td>
-                      <?php if($role['permissions'] == 1): ?>
-                      <?php echo e(__('All')); ?>
 
-                      <?php else: ?>
-                      <?php echo e(__('None')); ?>
-
-                      <?php endif; ?>
                     </td>
                     <td>
                       <?php if($role->status == 1): ?>

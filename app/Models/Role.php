@@ -43,12 +43,12 @@ class Role extends Model
     return Role::all();
   }
 
-  // /**
-  //  * Get all users for the specific roles
-  //  *
-  //  */
-  // public function users()
-  // {
-  //   return $this->hasMany(User::class);
-  // }
+  /**
+   * Get all users for the specific roles
+   *
+   */
+  public function users()
+  {
+    return $this->hasMany(User::class);
+  }
 }

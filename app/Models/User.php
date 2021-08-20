@@ -107,12 +107,12 @@ class User extends Authenticatable
     return $user->update($data);
   }
 
-  // /**
-  //  * User Relation to role
-  //  *
-  //  */
-  // public function role()
-  // {
-  //   return $this->belongsTo(Role::class);
-  // }
+  /**
+   * User Relation to role
+   *
+   */
+  public function role()
+  {
+    return $this->belongsTo(Role::class);
+  }
 }
