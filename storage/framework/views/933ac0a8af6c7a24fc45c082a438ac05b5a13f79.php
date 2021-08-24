@@ -8,7 +8,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-  <title><?php echo e(config('app.name', 'Laravel')); ?></title>
+  <title><?php if($webSettings): ?> <?php echo e($webSettings->site_title); ?> <?php else: ?> <?php echo e(config('app.name', 'Laravel')); ?> <?php endif; ?></title>
 
   <!-- Styles -->
   <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">

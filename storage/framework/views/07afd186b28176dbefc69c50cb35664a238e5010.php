@@ -8,7 +8,8 @@
       <a href="<?php echo e(url('/admin')); ?>" class="nav-link">Dashboard</a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="<?php echo e(url('/')); ?>" class="nav-link" target="_blank">Website</a>
+      <a href="<?php if($webSettings): ?> <?php echo e($webSettings->site_url); ?> <?php else: ?> <?php echo e(__('#')); ?> <?php endif; ?>" class="nav-link"
+        target="_blank">Website</a>
     </li>
   </ul>
 

@@ -1,6 +1,6 @@
-@extends('dashboard.layouts.app')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="<?php echo e(url('/admin')); ?>">Dashboard</a></li>
             <li class="breadcrumb-item active">Web Settings</li>
           </ol>
         </div>
@@ -26,7 +26,7 @@
         <!-- left column -->
         <div class="col-md-12">
           <!-- Messages -->
-          @include('dashboard.includes.messages')
+          <?php echo $__env->make('dashboard.includes.messages', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
           <!-- general form elements -->
           <div class="card">
@@ -35,44 +35,44 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="{{ secure_url('/admin/web-setting/'.$webSettings->id) }}" method="POST"
+            <form action="<?php echo e(secure_url('/admin/web-setting/'.$webSettings->id)); ?>" method="POST"
               enctype="multipart/form-data">
-              @csrf
-              @method('PUT')
+              <?php echo csrf_field(); ?>
+              <?php echo method_field('PUT'); ?>
               <div class="card-body">
                 <div class="form-group">
                   <label for="inputName">Website Title</label>
-                  <input type="text" name="site_title" value="{{ $webSettings->site_title }}" class="form-control"
+                  <input type="text" name="site_title" value="<?php echo e($webSettings->site_title); ?>" class="form-control"
                     id="inputName" placeholder="Enter site title">
                 </div>
 
                 <div class="form-group">
                   <label for="inputDesc">Meta Description</label>
                   <textarea name="meta_description" id="inputDesc" rows="3"
-                    class="form-control">{{ $webSettings->meta_description }}</textarea>
+                    class="form-control"><?php echo e($webSettings->meta_description); ?></textarea>
                 </div>
 
                 <div class="form-group">
                   <label for="inputFile">Logo</label><br>
                   <figure class="figure">
-                    <img src="{{ url('/storage/settings/'.$webSettings->logo) }}"
+                    <img src="<?php echo e(url('/storage/settings/'.$webSettings->logo)); ?>"
                       class="figure-img img-fluid rounded img-thumbnail" alt="Profile photo" width="300">
                   </figure>
                   <input type="file" name="logo" class="form-control" id="inputFile">
-                  <input type="hidden" name="logo2" value="{{ $webSettings->logo }}">
+                  <input type="hidden" name="logo2" value="<?php echo e($webSettings->logo); ?>">
                 </div>
 
                 <div class="form-group">
                   <label for="inputName">Website Url</label>
-                  <input type="text" name="site_url" value="{{ $webSettings->site_url }}" class="form-control"
+                  <input type="text" name="site_url" value="<?php echo e($webSettings->site_url); ?>" class="form-control"
                     id="inputName" placeholder="https://www.sitename.com/">
                 </div>
 
                 <div class="form-group">
                   <label for="inputStatus">Site Status</label>
                   <select class="form-control" name="status" id="inputStatus">
-                    <option value="1" @if($webSettings->status == 1) {{ __('selected') }} @endif>Active</option>
-                    <option value="0" @if($webSettings->status == 2) {{ __('selected') }} @endif>Deactive</option>
+                    <option value="1" <?php if($webSettings->status == 1): ?> <?php echo e(__('selected')); ?> <?php endif; ?>>Active</option>
+                    <option value="0" <?php if($webSettings->status == 2): ?> <?php echo e(__('selected')); ?> <?php endif; ?>>Deactive</option>
                   </select>
                 </div>
               </div>
@@ -80,7 +80,7 @@
 
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a href="{{ url('/admin/') }}" class="btn btn-default float-right">Cancel</a>
+                <a href="<?php echo e(url('/admin/')); ?>" class="btn btn-default float-right">Cancel</a>
               </div>
             </form>
           </div>
@@ -93,4 +93,5 @@
   </section>
   <!-- /.content -->
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('dashboard.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\laragon\www\lara_cms\resources\views/dashboard/web_setting/edit.blade.php ENDPATH**/ ?>
