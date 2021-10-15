@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
+use App\Models\Role;
+use App\Traits\HasRoleAndPermission;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
-  use HasFactory, Notifiable;
+  use HasFactory, Notifiable, SoftDeletes, HasRoleAndPermission;
 
   // Table Name
   protected $table = 'users';
@@ -25,7 +28,7 @@ class User extends Authenticatable
     'email',
     'password',
     'profile_photo',
-    'role',
+    'role_id',
     'status',
   ];
 
@@ -103,5 +106,14 @@ class User extends Authenticatable
   {
     $user = $this->getUser($id);
     return $user->update($data);
+  }
+
+  /**
+   * User Relation to role
+   *
+   */
+  public function role()
+  {
+    return $this->belongsTo(Role::class);
   }
 }

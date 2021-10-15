@@ -6,25 +6,19 @@ const mix = require("laravel-mix");
  |--------------------------------------------------------------------------
  |
  | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
+ | for your Laravel applications. By default, we are compiling the CSS
  | file for the application as well as bundling up all the JS files.
- |
+|
  */
 
-mix.js("resources/js/app.js", "public/js")
-    .js(
-        [
-            "node_modules/overlayscrollbars/js/jquery.overlayScrollbars.min.js",
-            "node_modules/jquery-mousewheel/jquery.mousewheel.js",
-            "node_modules/raphael/raphael.js",
-            "node_modules/chart.js/dist/chart.js",
-        ],
-        "public/js/vendor.js"
-    )
-    .js(
-        ["resources/js/demo.js", "resources/js/dashboard2.js"],
-        "public/js/demo.js"
-    )
-    .sass("resources/sass/app.scss", "public/css")
-    .sass("resources/sass/custom.sass", "public/css/custom.css")
+mix.js("resources/js/app.js", "public/admin_dashboard/assets/js")
+    .js("resources/js/front_app.js", "public/js/app.js")
+    .sass("resources/sass/app.scss", "public/admin_dashboard/assets/css")
+    .sass("resources/sass/front_app.scss", "public/css/app.css")
     .sourceMaps();
+
+// mix.js("resources/js/app.js", "public/js").postCss(
+//     "resources/css/app.css",
+//     "public/css",
+//     [require("postcss-import"), require("tailwindcss"), require("autoprefixer")]
+// );

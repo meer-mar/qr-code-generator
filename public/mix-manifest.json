@@ -1,7 +1,6 @@
 {
+    "/admin_dashboard/assets/js/app.js": "/admin_dashboard/assets/js/app.js",
     "/js/app.js": "/js/app.js",
-    "/js/vendor.js": "/js/vendor.js",
-    "/js/demo.js": "/js/demo.js",
-    "/css/app.css": "/css/app.css",
-    "/css/custom.css": "/css/custom.css"
+    "/admin_dashboard/assets/css/app.css": "/admin_dashboard/assets/css/app.css",
+    "/css/app.css": "/css/app.css"
 }

@@ -1,8 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link">
-    <img src="<?php echo e(asset('dashboard/assets/img/AdminLTELogo.png')); ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">AdminLTE 3</span>
+  <a href="<?php echo e(secure_url('/admin')); ?>" class="brand-link">
+    <img src="<?php if($appSettings): ?><?php echo e(asset('/storage/settings/'.$appSettings->logo)); ?><?php endif; ?>" alt="CMS Logo"
+      class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light"><?php if($appSettings): ?><?php echo e($appSettings->name); ?><?php endif; ?></span>
   </a>
 
   <!-- Sidebar -->
@@ -10,10 +11,11 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="<?php echo e(asset('dashboard/assets/img/user2-160x160.jpg')); ?>" class="img-circle elevation-2" alt="User Image">
+        <img src="<?php echo e(url('storage/user_profile_photos/'.Auth::user()->profile_photo)); ?>" class="img-circle elevation-2"
+          alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="#" class="d-block"><?php echo e(Auth::user()->name); ?></a>
       </div>
     </div>
 
@@ -21,7 +23,8 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
+          with font-awesome or any other icon font library -->
+        <li class="nav-header">Main</li>
         <li class="nav-item">
           <a href="<?php echo e(url('/admin')); ?>" class="nav-link active">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -30,7 +33,6 @@
             </p>
           </a>
         </li>
-
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
@@ -47,7 +49,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo e(url('/admin/roles-permissions')); ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Roles & Permissions</p>
               </a>
@@ -55,6 +57,26 @@
           </ul>
         </li>
 
+        <li class="nav-header">Site Data</li>
+        <li class="nav-item">
+          <a href="<?php echo e(secure_url('/admin/pages')); ?>" class="nav-link">
+            <i class="nav-icon fas fa-file-alt"></i>
+            <p>
+              Site Pages
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-clipboard-list"></i>
+            <p>
+              Blogs
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-header">Settings</li>
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-cog"></i>
@@ -65,13 +87,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo e(secure_url('/admin/web-setting/edit/1')); ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Site Settings</p>
+                <p>Web Settings</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo e(secure_url('/admin/app-setting/edit/1')); ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>App Settings</p>
               </a>

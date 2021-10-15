@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
@@ -20,7 +21,7 @@ class UsersController extends Controller
     $user = new User;
     $user = $user->getAllUsers();
 
-    return view('dashboard.user.index')->with('users', $user);
+    return view('dashboard.admin.user.index')->with('users', $user);
   }
 
   /**
@@ -30,7 +31,11 @@ class UsersController extends Controller
    */
   public function create()
   {
-    return view('dashboard.user.add');
+    // Get All roles
+    $role = new Role;
+    $roles = $role->getAllRoles();
+
+    return view('dashboard.admin.user.add')->with('roles', $roles);
   }
 
   /**
@@ -88,13 +93,15 @@ class UsersController extends Controller
       'email' => $valid['email'],
       'password' => Hash::make($valid['password']),
       'profile_photo' => $fileNameToStore,
-      'role' => $valid['role'],
       'status' => $valid['status']
     ];
 
     // Save data into db
-    $user = new User;
-    $user = $user->createUser($data);
+    $user = User::create($data);;
+
+    // Attach role to user
+    $role = Role::find($valid['role']);
+    $user->attachRole($role);
 
     if ($user) {
       return redirect('/admin/users')->with('success', 'Record created successfully.');
@@ -120,13 +127,18 @@ class UsersController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit($id)
+  public function edit(Role $role, $id)
   {
     // Get single user details
     $user = new User;
     $user = $user->getUser($id);
 
-    return view('dashboard.user.edit')->with('user', $user);
+    // Get All roles
+    $roles = $role->getAllRoles();
+
+    return view('dashboard.admin.user.edit')
+      ->with('user', $user)
+      ->with('roles', $roles);
   }
 
   /**
@@ -173,7 +185,7 @@ class UsersController extends Controller
     $data = [
       'name' => $valid['name'],
       'email' => $valid['email'],
-      'role' => $valid['role'],
+      'role_id' => $valid['role'],
       'status' => $valid['status']
     ];
 
@@ -188,7 +200,7 @@ class UsersController extends Controller
       $data = $data;
     }
 
-    // Save data into db
+    // Update data into db
     $user = new User;
     $user = $user->UpdateUser($data, $id);
 

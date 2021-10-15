@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?php echo e(config('app.name')); ?></title>
+  <title><?php echo e(config('app.name', 'CMS')); ?></title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- All css -->
-  <link rel="stylesheet" href="<?php echo e(asset('css/app.css')); ?>">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo e(asset('css/adminlte.min.css')); ?>">
-  <!-- Custom style -->
-  <link rel="stylesheet" href="<?php echo e(asset('css/custom.css')); ?>">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+  <!-- CKEditor -->
+  <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
+
+  <!-- All CSS -->
+  <link rel="stylesheet" href="<?php echo e(asset('admin_dashboard/assets/css/app.css')); ?>">
 
 </head>
+
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__wobble" src="<?php echo e(asset('dashboard/assets/img/AdminLTELogo.png')); ?>" alt="AdminLTELogo" height="60" width="60">
+      <img class="animation__wobble" src="<?php if($appSettings): ?><?php echo e(asset('/storage/settings/'.$appSettings->logo)); ?><?php endif; ?>"
+        alt="CMS Logo" height="60" width="60">
     </div>
 
     <!-- Navbar -->
@@ -45,13 +49,9 @@
   </div>
   <!-- ./wrapper -->
 
-<!-- Main -->
-<script src="<?php echo e(asset('js/app.js')); ?>"></script>
-<!-- REQUIRED SCRIPTS -->
-<script src="<?php echo e(asset('js/vendor.js')); ?>"></script>
-<!-- demo purposes -->
-<script src="<?php echo e(asset('js/demo.js')); ?>"></script>
+  <!-- All js -->
+  <script src="<?php echo e(asset('admin_dashboard/assets/js/app.js')); ?>"></script>
 
 </body>
-</html>
-<?php /**PATH D:\laragon\www\lara_cms\resources\views/dashboard/layouts/app.blade.php ENDPATH**/ ?>
+
+</html><?php /**PATH D:\laragon\www\lara_cms\resources\views/dashboard/layouts/app.blade.php ENDPATH**/ ?>
