@@ -49,7 +49,7 @@
                   <label for="inputFile">Logo</label><br>
                   <figure class="figure">
                     <img src="<?php echo e(url('/storage/settings/'.$setting->logo)); ?>"
-                      class="figure-img img-fluid rounded img-thumbnail" alt="Profile photo" width="200">
+                      class="figure-img img-fluid rounded img-thumbnail" alt="Profile photo" width="100">
                   </figure>
                   <input type="file" name="logo" class="form-control" id="inputFile">
                   <input type="hidden" name="logo2" value="<?php echo e($setting->logo); ?>">

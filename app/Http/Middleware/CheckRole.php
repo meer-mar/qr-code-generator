@@ -27,7 +27,7 @@ class CheckRole
       } else if ($authlevel == 1) {
         return redirect(RouteServiceProvider::HOME);
       } else {
-        return redirect(RouteServiceProvider::HOME);
+        abort(401);
       }
     }
     return redirect('/');

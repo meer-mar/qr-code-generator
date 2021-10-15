@@ -1,11 +1,12 @@
-<x-guest-layout>
+<x-app-layout>
     <x-auth-card>
         <x-slot name="header">
             {{ __('Register') }}
         </x-slot>
 
         <!-- Validation Errors -->
-        {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
+        {{--
+        <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
@@ -16,13 +17,14 @@
 
                 <div class="col-md-6">
                     @error('name')
-                        <x-input id="name" class="is-invalid" type="text" name="name" :value="old('name')" required autofocus />
+                    <x-input id="name" class="is-invalid" type="text" name="name" :value="old('name')" required
+                        autofocus />
 
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @else
-                        <x-input id="name" type="text" name="name" :value="old('name')" required autofocus />
+                    <x-input id="name" type="text" name="name" :value="old('name')" required autofocus />
                     @enderror
                 </div>
             </div>
@@ -33,13 +35,13 @@
 
                 <div class="col-md-6">
                     @error('email')
-                        <x-input id="email" class="is-invalid" type="email" name="email" :value="old('email')" required />
+                    <x-input id="email" class="is-invalid" type="email" name="email" :value="old('email')" required />
 
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @else
-                        <x-input id="email" type="email" name="email" :value="old('email')" required />
+                    <x-input id="email" type="email" name="email" :value="old('email')" required />
                     @enderror
                 </div>
             </div>
@@ -50,19 +52,14 @@
 
                 <div class="col-md-6">
                     @error('password')
-                        <x-input id="password" class="is-invalid"
-                                        type="password"
-                                        name="password"
-                                        required autocomplete="new-password" />
+                    <x-input id="password" class="is-invalid" type="password" name="password" required
+                        autocomplete="new-password" />
 
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @else
-                        <x-input id="password"
-                                    type="password"
-                                    name="password"
-                                    required autocomplete="new-password" />
+                    <x-input id="password" type="password" name="password" required autocomplete="new-password" />
                     @enderror
                 </div>
             </div>
@@ -72,9 +69,8 @@
                 <x-label for="password_confirmation" :value="__('Confirm Password')" />
 
                 <div class="col-md-6">
-                    <x-input id="password_confirmation" class="block mt-1 w-full"
-                                    type="password"
-                                    name="password_confirmation" required />
+                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                        name="password_confirmation" required />
                 </div>
             </div>
 
@@ -91,4 +87,4 @@
             </div>
         </form>
     </x-auth-card>
-</x-guest-layout>
+</x-app-layout>

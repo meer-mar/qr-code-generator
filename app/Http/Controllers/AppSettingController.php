@@ -18,7 +18,7 @@ class AppSettingController extends Controller
   public function edit(AppSetting $appSetting, $id)
   {
     $setting = $appSetting->getAppSetting($id);
-    return view('dashboard.app_setting.edit')->with('setting', $setting);
+    return view('dashboard.admin.app_setting.edit')->with('setting', $setting);
   }
 
   /**

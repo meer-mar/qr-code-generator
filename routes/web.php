@@ -24,7 +24,9 @@ use App\Http\Controllers\WebSettingController;
 Route::get('/', [PagesController::class, 'index']);
 
 Route::middleware(['auth'])->group(function () {
-  Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+  Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard')
+    ->middleware('checkpermission:dashboard');
 });
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -75,13 +77,27 @@ Route::prefix('/admin')->group(function () {
       ->name('view.roles-permissions')
       ->middleware('checkpermission:view.roles-permissions');
 
-    Route::get('/role/add', [RoleController::class, 'create'])
-      ->name('create.roles')
-      ->middleware('checkpermission:create.roles');
+    Route::prefix('/role')->name('role')->group(function () {
+      Route::get('/add', [RoleController::class, 'create'])
+        ->name('.create')
+        ->middleware('checkpermission:role.create');
 
-    Route::post('/role/store', [RoleController::class, 'store'])
-      ->name('save.roles')
-      ->middleware('checkpermission:save.roles');
+      Route::post('/store', [RoleController::class, 'store'])
+        ->name('.save')
+        ->middleware('checkpermission:role.save');
+
+      Route::get('/edit/{id}', [RoleController::class, 'edit'])
+        ->name('.edit')
+        ->middleware('checkpermission:role.edit');
+
+      Route::put('/{id}', [RoleController::class, 'update'])
+        ->name('.update')
+        ->middleware('checkpermission:role.update');
+
+      Route::get('/delete/{id}', [RoleController::class, 'destroy'])
+        ->name('.delete')
+        ->middleware('checkpermission:role.delete');
+    });
 
     // Site pages
     Route::get('/pages', [PageController::class, 'index'])

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
 
 class RoleTableSeeder extends Seeder
@@ -14,6 +15,8 @@ class RoleTableSeeder extends Seeder
    */
   public function run()
   {
+    $permissions = Permission::all();
+
     /**
      * Role Types
      *
@@ -22,7 +25,7 @@ class RoleTableSeeder extends Seeder
       [
         'name'        => 'Admin',
         'slug'        => 'admin',
-        'description' => 'Unverified Role',
+        'description' => 'Super Admin role',
         'level'       => 2,
         'status'      => 1,
       ],
@@ -51,13 +54,34 @@ class RoleTableSeeder extends Seeder
       // check if record exist then not insert intro db
       $newRoleItem = Role::where('slug', '=', $role['slug'])->first();
       if (!$newRoleItem) {
-        Role::create([
+        $newRole = Role::create([
           'name'        => $role['name'],
           'slug'        => $role['slug'],
           'description' => $role['description'],
           'level'       => $role['level'],
           'status'       => $role['status']
         ]);
+
+        // Attach permission to admin role
+        if ($role['slug'] == 'admin') {
+          foreach ($permissions as $permission) {
+            if ($permission->slug == 'dashboard') {
+              continue;
+            }
+            $newRole->attachPermission($permission);
+          }
+        }
+
+        // Attach permission to user role
+        if ($role['slug'] == 'user') {
+          foreach ($permissions as $permission) {
+            if ($permission->slug != 'dashboard') {
+              continue;
+            }
+            $newRole->attachPermission($permission);
+          }
+        }
+
         echo "\e[32mSeeding:\e[0m RoleTableSeeder - Role:" . $role['slug'] . "\r\n";
       }
     } //end foreach

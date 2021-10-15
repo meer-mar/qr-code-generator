@@ -21,7 +21,7 @@ class UsersController extends Controller
     $user = new User;
     $user = $user->getAllUsers();
 
-    return view('dashboard.user.index')->with('users', $user);
+    return view('dashboard.admin.user.index')->with('users', $user);
   }
 
   /**
@@ -35,7 +35,7 @@ class UsersController extends Controller
     $role = new Role;
     $roles = $role->getAllRoles();
 
-    return view('dashboard.user.add')->with('roles', $roles);
+    return view('dashboard.admin.user.add')->with('roles', $roles);
   }
 
   /**
@@ -136,7 +136,7 @@ class UsersController extends Controller
     // Get All roles
     $roles = $role->getAllRoles();
 
-    return view('dashboard.user.edit')
+    return view('dashboard.admin.user.edit')
       ->with('user', $user)
       ->with('roles', $roles);
   }

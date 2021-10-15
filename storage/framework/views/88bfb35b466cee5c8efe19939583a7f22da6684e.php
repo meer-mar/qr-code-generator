@@ -1,6 +1,6 @@
-<?php if (isset($component)) { $__componentOriginalc3251b308c33b100480ddc8862d4f9c79f6df015 = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\GuestLayout::class, []); ?>
-<?php $component->withName('guest-layout'); ?>
+<?php if (isset($component)) { $__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\AppLayout::class, []); ?>
+<?php $component->withName('app-layout'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
@@ -142,8 +142,8 @@ unset($__errorArgs, $__bag); ?>
         <div class="col-md-6 offset-md-4">
           <div class="form-check">
 
-            <input id="remember_me" type="checkbox" class="form-check-input" name="remember"
-              <?php echo e(old('remember') ? 'checked' : ''); ?>>
+            <input id="remember_me" type="checkbox" class="form-check-input" name="remember" <?php echo e(old('remember')
+              ? 'checked' : ''); ?>>
 
             <label for="remember_me" class="form-check-label"><?php echo e(__('Remember me')); ?></label>
           </div>
@@ -182,9 +182,9 @@ unset($__errorArgs, $__bag); ?>
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
- <?php if (isset($__componentOriginalc3251b308c33b100480ddc8862d4f9c79f6df015)): ?>
-<?php $component = $__componentOriginalc3251b308c33b100480ddc8862d4f9c79f6df015; ?>
-<?php unset($__componentOriginalc3251b308c33b100480ddc8862d4f9c79f6df015); ?>
+ <?php if (isset($__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da)): ?>
+<?php $component = $__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da; ?>
+<?php unset($__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da); ?>
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?><?php /**PATH D:\laragon\www\lara_cms\resources\views/auth/login.blade.php ENDPATH**/ ?>

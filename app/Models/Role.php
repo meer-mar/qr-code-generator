@@ -20,28 +20,9 @@ class Role extends Model
     'name',
     'slug',
     'level',
-    'permissions',
+    'description',
     'status',
   ];
-
-  /**
-   * Save roles
-   *
-   * @param $data
-   */
-  public function createRole($data = array())
-  {
-    return Role::create($data);
-  }
-
-  /**
-   * Get all roles
-   *
-   */
-  public function getAllRoles()
-  {
-    return Role::all();
-  }
 
   /**
    * Get all users for the specific roles

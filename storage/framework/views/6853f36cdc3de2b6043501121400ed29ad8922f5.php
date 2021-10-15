@@ -36,23 +36,28 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="<?php echo e(url('/admin/role/store')); ?>" method="POST">
+            <form action="<?php echo e(route('role.save')); ?>" method="POST">
               <?php echo csrf_field(); ?>
               <div class="card-body">
                 <div class="form-group">
                   <label for="inputName">Role Name</label>
                   <input type="text" name="name" class="form-control" id="inputName" placeholder="Enter role name">
                 </div>
+
                 <div class="form-group">
                   <label for="inputLevel">Level</label>
                   <select class="form-control" name="level" id="inputLevel">
+                    <option value="0">Level 0</option>
                     <option value="1">Level 1</option>
                     <option value="2">Level 2</option>
-                    <option value="3">Level 3</option>
-                    <option value="4">Level 4</option>
-                    <option value="5">Level 5</option>
                   </select>
                 </div>
+
+                <div class="form-group">
+                  <label for="inputDescription">Description</label>
+                  <textarea name="description" id="inputDescription" rows="3" class="form-control"></textarea>
+                </div>
+
                 <div class="form-group">
                   <label for="inputStatus">Status</label>
                   <select class="form-control" name="status" id="inputStatus">

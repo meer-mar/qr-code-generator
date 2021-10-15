@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
   <x-auth-card>
     <x-slot name="header">
       {{ __('Login') }}
@@ -8,7 +8,8 @@
     <x-auth-session-status class="alert-success" :status="session('status')" />
 
     <!-- Validation Errors -->
-    {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
+    {{--
+    <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
 
     <form method="POST" action="{{ route('login') }}">
       @csrf
@@ -51,8 +52,8 @@
         <div class="col-md-6 offset-md-4">
           <div class="form-check">
 
-            <input id="remember_me" type="checkbox" class="form-check-input" name="remember"
-              {{ old('remember') ? 'checked' : '' }}>
+            <input id="remember_me" type="checkbox" class="form-check-input" name="remember" {{ old('remember')
+              ? 'checked' : '' }}>
 
             <label for="remember_me" class="form-check-label">{{ __('Remember me') }}</label>
           </div>
@@ -74,4 +75,4 @@
       </div>
     </form>
   </x-auth-card>
-</x-guest-layout>
+</x-app-layout>

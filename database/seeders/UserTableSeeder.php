@@ -18,6 +18,7 @@ class UserTableSeeder extends Seeder
   public function run()
   {
     $adminRole = Role::where('slug', '=', 'admin')->first();
+    $userRole = Role::where('slug', '=', 'user')->first();
 
     $permissions = Permission::all();
 
@@ -29,7 +30,7 @@ class UserTableSeeder extends Seeder
 
     if (User::where('email', '=', 'admin@admin.com')->first() === null) {
       $newUser = User::create([
-        'name'              => 'John Connor',
+        'name'              => 'Super Admin',
         'email'             => 'admin@admin.com',
         'email_verified_at' => now(),
         'password'          => Hash::make('admin'),
@@ -39,9 +40,20 @@ class UserTableSeeder extends Seeder
 
       $newUser->attachRole($adminRole);
 
-      foreach ($permissions as $permission) {
-        $newUser->attachPermission($permission);
-      }
+      echo "\e[32mSeeding:\e[0m UsersTableSeeder - user:admin@admin.com\r\n";
+    }
+
+    if (User::where('email', '=', 'johnconnor2996@gmail.com')->first() === null) {
+      $newUser = User::create([
+        'name'              => 'John Connor',
+        'email'             => 'johnconnor2996@gmail.com',
+        'email_verified_at' => now(),
+        'password'          => Hash::make('password'),
+        'profile_photo'     => 'default.png',
+        'status'            => 1
+      ]);
+
+      $newUser->attachRole($userRole);
 
       echo "\e[32mSeeding:\e[0m UsersTableSeeder - user:admin@admin.com\r\n";
     }

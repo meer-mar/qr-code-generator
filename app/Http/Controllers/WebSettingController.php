@@ -17,7 +17,7 @@ class WebSettingController extends Controller
   public function edit(WebSetting $webSetting, $id)
   {
     $webSetting = $webSetting->getWebSetting($id);
-    return view('dashboard.web_setting.edit')->with('webSettings', $webSetting);
+    return view('dashboard.admin.web_setting.edit')->with('webSettings', $webSetting);
   }
 
   /**

@@ -31,7 +31,7 @@
             <div class="card-header">
               <h3 class="card-title">Manage Roles</h3>
               <div class="card-tools">
-                <a href="<?php echo e(secure_url('admin/role/add')); ?>" class="btn btn-primary">
+                <a href="<?php echo e(route('role.create')); ?>" class="btn btn-primary">
                   <i class="fa fa-user mr-2"></i> Add new role
                 </a>
               </div>
@@ -63,8 +63,11 @@
                       <?php endif; ?>
                     </td>
                     <td style="width: 11rem">
-                      <a href="#" class="btn btn-info btn-sm"><i class="fas fa-edit mr-2"></i> Edit</a>
-                      <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash mr-2"></i> Delete</a>
+                      <a href="<?php echo e(route('role.edit', $role->id)); ?>" class="btn btn-info btn-sm"><i
+                          class="fas fa-edit mr-2"></i>
+                        Edit</a>
+                      <a href="<?php echo e(route('role.delete', $role->id)); ?>" class="btn btn-danger btn-sm"><i
+                          class="fa fa-trash mr-2"></i> Delete</a>
                     </td>
                   </tr>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

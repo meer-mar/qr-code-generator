@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use App\Models\Role;
+
 trait PermissionHasRelations
 {
     /**
@@ -11,7 +13,7 @@ trait PermissionHasRelations
      */
     public function roles()
     {
-        return $this->belongsToMany(config('roles.models.role'))->withTimestamps();
+        return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
     /**

@@ -25,7 +25,7 @@ class RoleController extends Controller
    */
   public function create()
   {
-    return view('dashboard.role.add');
+    return view('dashboard.admin.role.add');
   }
 
   /**
@@ -38,28 +38,27 @@ class RoleController extends Controller
   {
     // Validate data
     $valid = $this->validate($request, [
-      'name' => 'required|string',
-      'level' => 'required',
-      'permissions' => 'required',
-      'status' => 'required',
+      'name'        => 'required|string',
+      'level'       => 'required',
+      'description' => 'required',
+      'status'      => 'required',
     ]);
 
     $data = [
-      'name' => $valid['name'],
-      'level' => $valid['level'],
-      'permissions' => $valid['permissions'],
-      'slug' => Str::slug($valid['name'], '-'),
-      'status' => $valid['status']
+      'name'        => $valid['name'],
+      'level'       => $valid['level'],
+      'slug'        => Str::slug($valid['name'], '-'),
+      'description' => $valid['description'],
+      'status'      => $valid['status']
     ];
 
     // Save data into db
-    $role = new Role;
-    $role = $role->createRole($data);
+    $role = Role::create($data);;
 
     if ($role) {
-      return redirect('/admin/roles-permissions')->with('success', 'Record created successfully.');
+      return redirect('/admin/roles-permissions')->with('success', 'Role created successfully.');
     } else {
-      return redirect('/admin/roles-permissions')->with('error', 'Record not created!');
+      return redirect('/admin/roles-permissions')->with('error', 'Role not created!');
     }
   }
 
@@ -69,9 +68,13 @@ class RoleController extends Controller
    * @param  \App\Models\Role  $role
    * @return \Illuminate\Http\Response
    */
-  public function edit(Role $role)
+  public function edit(Role $role, $id)
   {
-    //
+    // Get single role details
+    $role = Role::find($id);
+
+    return view('dashboard.admin.role.edit')
+      ->with('role', $role);
   }
 
   /**
@@ -81,9 +84,33 @@ class RoleController extends Controller
    * @param  \App\Models\Role  $role
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Role $role)
+  public function update(Request $request, Role $role, $id)
   {
-    //
+    // Validate data
+    $valid = $this->validate($request, [
+      'name'        => 'required|string',
+      'level'       => 'required',
+      'description' => 'required',
+      'status'      => 'required',
+    ]);
+
+    $data = [
+      'name'        => $valid['name'],
+      'level'       => $valid['level'],
+      'slug'        => Str::slug($valid['name'], '-'),
+      'description' => $valid['description'],
+      'status'      => $valid['status']
+    ];
+
+    // Update data into db
+    $role = Role::find($id);
+    $role = $role->update($data);
+
+    if ($role) {
+      return redirect('/admin/roles-permissions')->with('success', 'Role updated successfully.');
+    } else {
+      return redirect('/admin/roles-permissions')->with('error', 'Role not updated!');
+    }
   }
 
   /**
@@ -92,8 +119,15 @@ class RoleController extends Controller
    * @param  \App\Models\Role  $role
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Role $role)
+  public function destroy(Role $role, $id)
   {
-    //
+    // Delete page
+    $role = Role::destroy($id);
+
+    if ($role) {
+      return redirect('/admin/roles-permissions')->with('success', 'Role Deleted Successfully.');
+    } else {
+      return redirect('/admin/roles-permissions')->with('error', "Role not deleted!");
+    }
   }
 }
