@@ -32,8 +32,7 @@ class UsersController extends Controller
   public function create()
   {
     // Get All roles
-    $role = new Role;
-    $roles = $role->getAllRoles();
+    $roles = Role::all();
 
     return view('dashboard.admin.user.add')->with('roles', $roles);
   }
@@ -134,7 +133,7 @@ class UsersController extends Controller
     $user = $user->getUser($id);
 
     // Get All roles
-    $roles = $role->getAllRoles();
+    $roles = Role::all();
 
     return view('dashboard.admin.user.edit')
       ->with('user', $user)
@@ -155,7 +154,6 @@ class UsersController extends Controller
       'name' => 'required|string',
       'email' => 'required|string',
       'profile_photo' => 'image|max:2048',
-      'role' => 'required',
       'status' => 'required',
     ]);
 
@@ -185,7 +183,6 @@ class UsersController extends Controller
     $data = [
       'name' => $valid['name'],
       'email' => $valid['email'],
-      'role_id' => $valid['role'],
       'status' => $valid['status']
     ];
 
