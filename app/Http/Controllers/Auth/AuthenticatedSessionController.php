@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
 
     $request->session()->regenerate();
 
-    $isAdmin = Auth::user()->checkRole('admin');
+    $isAdmin = Auth::user()->level() === 2;
     if ($isAdmin) {
       return redirect()->intended('/admin');
     } else {
