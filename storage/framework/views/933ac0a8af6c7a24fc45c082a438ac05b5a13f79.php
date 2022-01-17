@@ -1,1 +1,0 @@
-<?php /**PATH D:\laragon\www\lara_cms\resources\views/layouts/guest.blade.php ENDPATH**/ ?>
