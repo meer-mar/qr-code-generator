@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Models\AppSetting;
 use App\Models\WebSetting;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,5 +35,15 @@ class AppServiceProvider extends ServiceProvider
     // Get website basic settings
     $webSettings = $webSetting->getWebSetting(1);
     View::share('webSettings', $webSettings);
+
+    // Custom blade directives //
+    Blade::if('level', function ($level) {
+      return Auth::check() && Auth::user()->level() == $level;
+    });
+
+    Blade::if('permission', function ($permission) {
+      return Auth::check() && Auth::user()->checkPermission($permission);
+    });
+    // Custom blade directives //
   }
 }

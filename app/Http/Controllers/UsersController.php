@@ -18,8 +18,7 @@ class UsersController extends Controller
   public function index()
   {
     // Get all data.
-    $user = new User;
-    $user = $user->getAllUsers();
+    $user = User::all();
 
     return view('dashboard.admin.user.index')->with('users', $user);
   }
@@ -99,7 +98,7 @@ class UsersController extends Controller
     $user = User::create($data);;
 
     // Attach role to user
-    $role = Role::find($valid['role']);
+    $role = Role::where('id', $valid['role'])->first();
     $user->attachRole($role);
 
     if ($user) {
@@ -129,11 +128,10 @@ class UsersController extends Controller
   public function edit(Role $role, $id)
   {
     // Get single user details
-    $user = new User;
-    $user = $user->getUser($id);
+    $user = User::where('id', $id)->first();
 
     // Get All roles
-    $roles = Role::all();
+    $roles = $role->all();
 
     return view('dashboard.admin.user.edit')
       ->with('user', $user)
@@ -167,8 +165,7 @@ class UsersController extends Controller
       ];
 
       // Delete previous file
-      $user = new User;
-      $user = $user->getUser($id);
+      $user = User::where('id', $id)->first();
       Storage::delete('public/user_profile_photos/' . $user->profile_photo);
     }
 
@@ -198,8 +195,7 @@ class UsersController extends Controller
     }
 
     // Update data into db
-    $user = new User;
-    $user = $user->UpdateUser($data, $id);
+    $user = User::where('id', $id)->update($data);
 
     if ($user) {
       return redirect('/admin/users')->with('success', 'Record updated successfully.');
@@ -216,9 +212,15 @@ class UsersController extends Controller
    */
   public function destroy($id)
   {
+
+    // delete user profile image
+    $user = User::where('id', $id)->first();
+    if ($user->profile_photo != 'no_img.jpg') {
+      Storage::delete('public/user_profile_photos/' . $user->profile_photo);
+    }
+
     //Delete user data
-    $user = new User;
-    $user = $user->deleteUser($id);
+    $user = User::destroy($id);
 
     if ($user) {
       return redirect('/admin/users')->with('success', 'Record Deleted Successfully.');

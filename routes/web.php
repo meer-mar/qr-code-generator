@@ -1,14 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AccessController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AppSettingController;
-use App\Http\Controllers\PageController;
 use App\Http\Controllers\WebSettingController;
+use App\Http\Controllers\BlogArticleController;
+use App\Http\Controllers\BlogCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -123,6 +125,48 @@ Route::prefix('/admin')->group(function () {
     Route::put('/page/{id}', [PageController::class, 'update'])
       ->name('update.pages')
       ->middleware('checkpermission:update.pages');
+
+    // Blog Category
+    Route::get('/blog/category', [BlogCategoryController::class, 'index'])
+      ->name('blog.category.view')
+      ->middleware('checkpermission:blog.category.view');
+
+    Route::get('/blog/category/add', [BlogCategoryController::class, 'create'])
+      ->name('blog.category.create')
+      ->middleware('checkpermission:blog.category.create');
+
+    Route::post('/blog/category/add', [BlogCategoryController::class, 'store']);
+
+    Route::get('/blog/category/delete/{id}', [BlogCategoryController::class, 'destroy'])
+      ->name('blog.category.delete')
+      ->middleware('checkpermission:blog.category.delete');
+
+    Route::get('/blog/category/edit/{id}', [BlogCategoryController::class, 'edit'])
+      ->name('blog.category.update')
+      ->middleware('checkpermission:blog.category.update');
+
+    Route::put('/blog/category/edit/{id}', [BlogCategoryController::class, 'update']);
+
+    // Blog Article
+    Route::get('/blog/article/{id}', [BlogArticleController::class, 'index'])
+      ->name('blog.article.view')
+      ->middleware('checkpermission:blog.article.view');
+
+    Route::get('/blog/article/add/{id}', [BlogArticleController::class, 'create'])
+      ->name('blog.article.create')
+      ->middleware('checkpermission:blog.article.create');
+
+    Route::post('/blog/article/add/{id}', [BlogArticleController::class, 'store']);
+
+    Route::get('/blog/article/delete/{id}', [BlogArticleController::class, 'destroy'])
+      ->name('blog.article.delete')
+      ->middleware('checkpermission:blog.article.delete');
+
+    Route::get('/blog/article/edit/{id}', [BlogArticleController::class, 'edit'])
+      ->name('blog.article.update')
+      ->middleware('checkpermission:blog.article.update');
+
+    Route::put('/blog/article/edit/{id}', [BlogArticleController::class, 'update']);
 
     // App setttings
     Route::get('/app-setting/edit/{id}', [AppSettingController::class, 'edit'])

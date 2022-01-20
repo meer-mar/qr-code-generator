@@ -26,15 +26,18 @@
           with font-awesome or any other icon font library -->
         <li class="nav-header">Main</li>
         <li class="nav-item">
-          <a href="{{ url('/admin') }}" class="nav-link active">
+          <a href="{{ url('/admin') }}" class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
+        @permission('view.users')
+        <li
+          class="nav-item {{ request()->is('admin/users') || request()->is('admin/roles-permissions') || request()->is('admin/user/*') || request()->is('admin/role/*') ? 'menu-open' : '' }}">
+          <a href="#"
+            class="nav-link {{ request()->is('admin/users') || request()->is('admin/roles-permissions') || request()->is('admin/user/*') || request()->is('admin/role/*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-users"></i>
             <p>
               Users Management
@@ -43,42 +46,65 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ url('/admin/users') }}" class="nav-link">
+              <a href="{{ url('/admin/users') }}"
+                class="nav-link {{ request()->is('admin/users') || request()->is('admin/user/*') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Users</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('/admin/roles-permissions') }}" class="nav-link">
+              <a href="{{ url('/admin/roles-permissions') }}"
+                class="nav-link {{ request()->is('admin/roles-permissions') || request()->is('admin/role/*') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Roles & Permissions</p>
               </a>
             </li>
           </ul>
         </li>
+        @endpermission
 
+        @permission('agent.assigned_users')
+        <li class="nav-item">
+          <a href="{{ route('agent.assigned_users') }}"
+            class="nav-link {{ request()->is('admin/agent/assigned-users') || request()->is('admin/agent/assigned-users/*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-user-friends"></i>
+            <p>
+              Assigned Users
+            </p>
+          </a>
+        </li>
+        @endpermission
+
+        @permission('view.pages')
         <li class="nav-header">Site Data</li>
         <li class="nav-item">
-          <a href="{{ secure_url('/admin/pages') }}" class="nav-link">
+          <a href="{{ secure_url('/admin/pages') }}"
+            class="nav-link {{ request()->is('admin/pages') || request()->is('admin/page/*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-file-alt"></i>
             <p>
               Site Pages
             </p>
           </a>
         </li>
+        @endpermission
 
+        @permission('blog.category.view')
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{ route('blog.category.view') }}"
+            class="nav-link {{ request()->is('admin/blog/*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-clipboard-list"></i>
             <p>
               Blogs
             </p>
           </a>
         </li>
+        @endpermission
 
         <li class="nav-header">Settings</li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
+        <li
+          class="nav-item {{ request()->is('admin/web-setting/*') || request()->is('admin/app-setting/*') ? 'menu-open' : ''}}">
+          <a href="#"
+            class="nav-link {{ request()->is('admin/web-setting/*') || request()->is('admin/app-setting/*') ? 'active' : ''}}">
             <i class="nav-icon fas fa-cog"></i>
             <p>
               Settings
@@ -86,18 +112,25 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+            @permission('edit.web-settings')
             <li class="nav-item">
-              <a href="{{ secure_url('/admin/web-setting/edit/1') }}" class="nav-link">
+              <a href="{{ secure_url('/admin/web-setting/edit/1') }}"
+                class="nav-link {{ request()->is('admin/web-setting/*') ? 'active' : ''}}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Web Settings</p>
               </a>
             </li>
+            @endpermission
+
+            @permission('edit.app-settings')
             <li class="nav-item">
-              <a href="{{ secure_url('/admin/app-setting/edit/1') }}" class="nav-link">
+              <a href="{{ secure_url('/admin/app-setting/edit/1') }}"
+                class="nav-link {{ request()->is('admin/app-setting/*') ? 'active' : ''}}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>App Settings</p>
               </a>
             </li>
+            @endpermission
           </ul>
         </li>
       </ul>

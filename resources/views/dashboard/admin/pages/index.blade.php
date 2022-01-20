@@ -31,6 +31,7 @@
     <div class="container-fluid">
       <!-- Small boxes (Stat box) -->
       <div class="row">
+        @permission('view.users')
         <div class="col-lg-3 col-6">
           <!-- small box -->
           <div class="small-box bg-info">
@@ -47,6 +48,9 @@
           </div>
         </div>
         <!-- ./col -->
+        @endpermission
+
+        @permission('view.pages')
         <div class="col-lg-3 col-6">
           <!-- small box -->
           <div class="small-box bg-success">
@@ -63,6 +67,9 @@
           </div>
         </div>
         <!-- ./col -->
+        @endpermission
+
+        @permission('blog.category.view')
         <div class="col-lg-3 col-6">
           <!-- small box -->
           <div class="small-box bg-warning">
@@ -74,10 +81,14 @@
             <div class="icon">
               <i class="ion ion-document"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('blog.category.view') }}" class="small-box-footer">More info <i
+                class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
+        @endpermission
+
+        @permission('edit.web-settings')
         <div class="col-lg-3 col-6">
           <!-- small box -->
           <div class="small-box bg-danger">
@@ -94,6 +105,7 @@
           </div>
         </div>
         <!-- ./col -->
+        @endpermission
       </div>
     </div>
     <!--/. container-fluid -->
