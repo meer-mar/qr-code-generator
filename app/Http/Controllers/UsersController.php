@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,12 +16,37 @@ class UsersController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
-    // Get all data.
-    $user = User::all();
+    if ($request->ajax()) {
+      $users = User::select('id', 'name', 'email', 'status');
+      return Datatables::of($users)
+        ->addIndexColumn()
+        ->addColumn('role', function ($user) {
+          foreach ($user->getRoles() as $role) {
+            return $role->slug;
+          }
+        })
+        ->addColumn('action', function ($user) {
 
-    return view('dashboard.admin.user.index')->with('users', $user);
+          $btn = '<a href="' . route('edit.users', ['id' => $user->id]) . '" class="btn btn-info btn-sm"><i
+          class="fas fa-edit mr-2"></i> Edit</a> <a href="' . route('delete.users', ['id' => $user->id]) . '" class="btn btn-danger btn-sm"><i
+          class="fa fa-trash mr-2"></i> Delete</a>';
+
+          return $btn;
+        })
+        ->editColumn('status', function ($user) {
+          if ($user->status == 1) {
+            return '<span class="badge bg-success">Active</span>';
+          } else {
+            return '<span class="badge bg-danger">Deactive</span>';
+          }
+        })
+        ->rawColumns(['action', 'status'])
+        ->make(true);
+    }
+
+    return view('dashboard.admin.user.index');
   }
 
   /**

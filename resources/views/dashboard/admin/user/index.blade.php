@@ -52,32 +52,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($users as $key=>$user)
-                  <tr>
-                    <td>{{ ++$key }}. </td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>
-                      @foreach ($user->getRoles() as $role)
-                      {{ $role->slug }}
-                      @endforeach
-                    </td>
-                    <td>
-                      @if ($user->status == 1)
-                      <span class="badge bg-success">{{ __('Active') }}</span>
-                      @else
-                      <span class="badge bg-danger">{{ __('Deactive') }}</span>
-                      @endif
-                    </td>
-                    <td style="width: 11rem">
-                      <a href="{{ secure_url('/admin/user/edit/'.$user->id) }}" class="btn btn-info btn-sm"><i
-                          class="fas fa-edit mr-2"></i> Edit</a>
-
-                      <a href="{{ secure_url('/admin/user/delete/'.$user->id) }}" class="btn btn-danger btn-sm"><i
-                          class="fa fa-trash mr-2"></i> Delete</a>
-                    </td>
-                  </tr>
-                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -104,7 +78,20 @@
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "responsive": true,
+      "lengthChange": false,
+      "autoWidth": false,
+      processing: true,
+      serverSide: true,
+      ajax: "{{ route('view.users') }}",
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
+            {data: 'role', name: 'role'},
+            {data: 'status', name: 'status'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
     });
   });
 </script>
