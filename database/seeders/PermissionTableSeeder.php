@@ -70,7 +70,7 @@ class PermissionTableSeeder extends Seeder
       ],
       [
         'name'        => 'Update Roles',
-        'slug'        => 'upadate.roles',
+        'slug'        => 'update.roles',
         'description' => 'Can update roles',
         'model'       => 'App\Models\Role',
         'status'      => 1,

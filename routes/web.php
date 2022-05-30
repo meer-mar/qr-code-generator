@@ -90,11 +90,11 @@ Route::prefix('/admin')->group(function () {
 
       Route::get('/edit/{id}', [RoleController::class, 'edit'])
         ->name('.edit')
-        ->middleware('checkpermission:upate.roles');
+        ->middleware('checkpermission:update.roles');
 
       Route::put('/{id}', [RoleController::class, 'update'])
         ->name('.update')
-        ->middleware('checkpermission:upate.roles');
+        ->middleware('checkpermission:update.roles');
 
       Route::get('/delete/{id}', [RoleController::class, 'destroy'])
         ->name('.delete')
