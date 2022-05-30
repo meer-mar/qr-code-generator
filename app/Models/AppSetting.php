@@ -18,25 +18,4 @@ class AppSetting extends Model
     'name',
     'logo'
   ];
-
-  /**
-   * Get App settings
-   *
-   * @param int $id
-   */
-  public function getAppSetting($id)
-  {
-    return AppSetting::find($id);
-  }
-
-  /**
-   * Get App settings
-   *
-   * @param int $id
-   */
-  public function updateAppSetting($data = array(), $id)
-  {
-    $setting = $this->getAppSetting($id);
-    return $setting->update($data);
-  }
 }

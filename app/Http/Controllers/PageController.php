@@ -17,7 +17,7 @@ class PageController extends Controller
     // Get all pages
     $pages = Page::all();
 
-    return view('dashboard.admin.site_pages.index')->with('pages', $pages);
+    return view('dashboard.admin.site_pages.index', compact('pages'));
   }
 
   /**
@@ -85,10 +85,9 @@ class PageController extends Controller
   public function edit(Page $page, $id)
   {
     // Get single page details
-    $page = Page::find($id);
+    $page = Page::findOrFail($id);
 
-    return view('dashboard.admin.site_pages.edit')
-      ->with('page', $page);
+    return view('dashboard.admin.site_pages.edit', compact('page'));
   }
 
   /**

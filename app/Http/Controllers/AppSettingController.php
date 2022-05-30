@@ -17,8 +17,8 @@ class AppSettingController extends Controller
    */
   public function edit(AppSetting $appSetting, $id)
   {
-    $setting = $appSetting->getAppSetting($id);
-    return view('dashboard.admin.app_setting.edit')->with('setting', $setting);
+    $setting = $appSetting->findOrFail($id);
+    return view('dashboard.admin.app_setting.edit', compact('setting'));
   }
 
   /**
@@ -79,7 +79,7 @@ class AppSettingController extends Controller
     ];
 
     // Update data into db
-    $appSetting = $appSetting->updateAppSetting($data, $id);
+    $appSetting = $appSetting->where('id', $id)->update($data);
 
     if ($appSetting) {
       return redirect('/admin/app-setting/edit/1')->with('success', 'Record updated successfully.');

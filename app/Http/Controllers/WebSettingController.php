@@ -16,8 +16,8 @@ class WebSettingController extends Controller
    */
   public function edit(WebSetting $webSetting, $id)
   {
-    $webSetting = $webSetting->getWebSetting($id);
-    return view('dashboard.admin.web_setting.edit')->with('webSettings', $webSetting);
+    $webSettings = $webSetting->findOrFail($id);
+    return view('dashboard.admin.web_setting.edit', compact('webSettings'));
   }
 
   /**
@@ -84,7 +84,7 @@ class WebSettingController extends Controller
     ];
 
     // Update data into db
-    $webSetting = $webSetting->updateWebSetting($data, $id);
+    $webSetting = $webSetting->where('id', $id)->update($data);
 
     if ($webSetting) {
       return redirect('/admin/web-setting/edit/1')->with('success', 'Record updated successfully.');

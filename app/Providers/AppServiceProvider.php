@@ -29,11 +29,11 @@ class AppServiceProvider extends ServiceProvider
   public function boot(AppSetting $appSetting, WebSetting $webSetting)
   {
     // Get admin dashbaord basic settings
-    $appSettings = $appSetting->getAppSetting(1);
+    $appSettings = $appSetting->where('id', 1)->first();
     View::share('appSettings', $appSettings);
 
     // Get website basic settings
-    $webSettings = $webSetting->getWebSetting(1);
+    $webSettings = $webSetting->where('id', 1)->first();
     View::share('webSettings', $webSettings);
 
     // Custom blade directives //

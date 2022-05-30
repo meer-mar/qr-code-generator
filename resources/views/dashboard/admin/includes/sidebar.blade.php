@@ -38,7 +38,7 @@
           class="nav-item {{ request()->is('admin/users') || request()->is('admin/roles-permissions') || request()->is('admin/user/*') || request()->is('admin/role/*') ? 'menu-open' : '' }}">
           <a href="#"
             class="nav-link {{ request()->is('admin/users') || request()->is('admin/roles-permissions') || request()->is('admin/user/*') || request()->is('admin/role/*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-users"></i>lo
+            <i class="nav-icon fas fa-users"></i>
             <p>
               Users Management
               <i class="right fas fa-angle-left"></i>

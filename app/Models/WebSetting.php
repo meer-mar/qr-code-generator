@@ -21,25 +21,4 @@ class WebSetting extends Model
     'site_url',
     'status',
   ];
-
-  /**
-   * Get Web settings
-   *
-   * @param int $id
-   */
-  public function getWebSetting($id)
-  {
-    return WebSetting::find($id);
-  }
-
-  /**
-   * Get Web settings
-   *
-   * @param int $id
-   */
-  public function updateWebSetting($data = array(), $id)
-  {
-    $setting = $this->getWebSetting($id);
-    return $setting->update($data);
-  }
 }
