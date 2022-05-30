@@ -2,11 +2,6 @@
 
 @section('page_title', 'Dashboard')
 
-@section('head_style')
-<!-- Ionicons -->
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-@endsection
-
 @section('content')
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
