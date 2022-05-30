@@ -23,10 +23,12 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                if (Auth::user()->role == 2) {
+                $authlevel = Auth::user()->level();
+
+                if ($authlevel == 2) {
+                    return redirect('/admin');
+                } else if ($authlevel == 1) {
                     return redirect(RouteServiceProvider::HOME);
-                } else {
-                    return redirect('admin');
                 }
             }
         }
