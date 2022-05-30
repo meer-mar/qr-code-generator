@@ -55,7 +55,7 @@ class UserTableSeeder extends Seeder
 
       $newUser->attachRole($userRole);
 
-      echo "\e[32mSeeding:\e[0m UsersTableSeeder - user:admin@admin.com\r\n";
+      echo "\e[32mSeeding:\e[0m UsersTableSeeder - user:johnconnor2996@gmail.com\r\n";
     }
   }
 }
