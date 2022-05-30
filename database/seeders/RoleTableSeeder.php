@@ -65,7 +65,9 @@ class RoleTableSeeder extends Seeder
         // Attach permission to admin role
         if ($role['slug'] == 'admin') {
           foreach ($permissions as $permission) {
-            if ($permission->slug == 'dashboard') {
+            $permission_check = explode('.', $permission->slug);
+
+            if ($permission_check[0] == 'user') {
               continue;
             }
             $newRole->attachPermission($permission);
@@ -75,7 +77,9 @@ class RoleTableSeeder extends Seeder
         // Attach permission to user role
         if ($role['slug'] == 'user') {
           foreach ($permissions as $permission) {
-            if ($permission->slug != 'dashboard') {
+            $permission_check = explode('.', $permission->slug);
+
+            if ($permission_check[0] != 'user') {
               continue;
             }
             $newRole->attachPermission($permission);

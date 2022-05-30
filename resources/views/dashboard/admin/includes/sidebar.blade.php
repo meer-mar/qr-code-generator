@@ -63,18 +63,6 @@
         </li>
         @endpermission
 
-        @permission('agent.assigned_users')
-        <li class="nav-item">
-          <a href="{{ route('agent.assigned_users') }}"
-            class="nav-link {{ request()->is('admin/agent/assigned-users') || request()->is('admin/agent/assigned-users/*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-user-friends"></i>
-            <p>
-              Assigned Users
-            </p>
-          </a>
-        </li>
-        @endpermission
-
         @permission('view.pages')
         <li class="nav-header">Site Data</li>
         <li class="nav-item">
@@ -88,7 +76,7 @@
         </li>
         @endpermission
 
-        @permission('blog.category.view')
+        @permission('view.blog.category')
         <li class="nav-item">
           <a href="{{ route('blog.category.view') }}"
             class="nav-link {{ request()->is('admin/blog/*') ? 'active' : '' }}">
@@ -112,7 +100,7 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            @permission('edit.web-settings')
+            @permission('update.web.settings')
             <li class="nav-item">
               <a href="{{ secure_url('/admin/web-setting/edit/1') }}"
                 class="nav-link {{ request()->is('admin/web-setting/*') ? 'active' : ''}}">
@@ -122,7 +110,7 @@
             </li>
             @endpermission
 
-            @permission('edit.app-settings')
+            @permission('update.app.settings')
             <li class="nav-item">
               <a href="{{ secure_url('/admin/app-setting/edit/1') }}"
                 class="nav-link {{ request()->is('admin/app-setting/*') ? 'active' : ''}}">

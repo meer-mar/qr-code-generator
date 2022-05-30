@@ -69,7 +69,7 @@
         <!-- ./col -->
         @endpermission
 
-        @permission('blog.category.view')
+        @permission('view.blog.category')
         <div class="col-lg-3 col-6">
           <!-- small box -->
           <div class="small-box bg-warning">
@@ -88,7 +88,7 @@
         <!-- ./col -->
         @endpermission
 
-        @permission('edit.web-settings')
+        @permission('update.web.settings')
         <div class="col-lg-3 col-6">
           <!-- small box -->
           <div class="small-box bg-danger">
