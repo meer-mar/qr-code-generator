@@ -2,6 +2,13 @@
 
 @section('page_title', 'Roles & Permissions')
 
+@section('head_style')
+<!-- Datatables -->
+<link rel="stylesheet" href="{{ asset('admin_dashboard/assets/css/dataTables.bootstrap4.css') }}">
+<link rel="stylesheet" href="{{ asset('admin_dashboard/assets/css/responsive.bootstrap4.css') }}">
+<link rel="stylesheet" href="{{ asset('admin_dashboard/assets/css/buttons.bootstrap4.css') }}">
+@endsection
+
 @section('content')
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -89,11 +96,6 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Manage Permissions</h3>
-              <div class="card-tools">
-                <a href="#" class="btn btn-primary">
-                  <i class="fa fa-user mr-2"></i> Create New Permission
-                </a>
-              </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -106,7 +108,6 @@
                     <th>Desctiption</th>
                     <th>Roles</th>
                     <th>Status</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -127,11 +128,6 @@
                       @else
                       <span class="badge bg-danger">{{ __('Deactive') }}</span>
                       @endif
-                    </td>
-                    <td style="width: 11rem">
-                      <a href="#" class="btn btn-info btn-sm"><i class="fas fa-edit mr-2"></i>
-                        Edit</a>
-                      <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash mr-2"></i> Delete</a>
                     </td>
                   </tr>
                   @endforeach

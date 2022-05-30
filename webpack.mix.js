@@ -16,9 +16,3 @@ mix.js("resources/js/app.js", "public/admin_dashboard/assets/js")
     .sass("resources/sass/app.scss", "public/admin_dashboard/assets/css")
     .sass("resources/sass/front_app.scss", "public/css/app.css")
     .sourceMaps();
-
-// mix.js("resources/js/app.js", "public/js").postCss(
-//     "resources/css/app.css",
-//     "public/css",
-//     [require("postcss-import"), require("tailwindcss"), require("autoprefixer")]
-// );

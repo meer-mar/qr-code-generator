@@ -2,6 +2,13 @@
 
 @section('page_title', 'Users')
 
+@section('head_style')
+<!-- Datatables -->
+<link rel="stylesheet" href="{{ asset('admin_dashboard/assets/css/dataTables.bootstrap4.css') }}">
+<link rel="stylesheet" href="{{ asset('admin_dashboard/assets/css/responsive.bootstrap4.css') }}">
+<link rel="stylesheet" href="{{ asset('admin_dashboard/assets/css/buttons.bootstrap4.css') }}">
+@endsection
+
 @section('content')
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
