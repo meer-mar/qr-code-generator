@@ -54,7 +54,15 @@ class RoleController extends Controller
     ];
 
     // Save data into db
-    $role = Role::create($data);;
+    $role = Role::create($data);
+
+    // Attach permission to role
+    foreach ($request->permissions as $permission) {
+      // Get permission model
+      $permission = Permission::find($permission);
+      // Attach permission to role
+      $role->attachPermission($permission);
+    }
 
     if ($role) {
       return redirect('/admin/roles-permissions')->with('success', 'Role created successfully.');
@@ -135,8 +143,12 @@ class RoleController extends Controller
    */
   public function destroy(Role $role, $id)
   {
-    // Delete page
-    $role = Role::destroy($id);
+    // Detach all permissions to role
+    $getRole = Role::find($id);
+    $getRole->detachAllPermissions();
+
+    // Delete Role
+    $role = $role->destroy($id);
 
     if ($role) {
       return redirect('/admin/roles-permissions')->with('success', 'Role Deleted Successfully.');
