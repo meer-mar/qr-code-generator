@@ -70,11 +70,25 @@
                     <option value="0" @if($role->status === 0) {{ __('selected') }} @endif>Deactive</option>
                   </select>
                 </div>
+
+                <h4>Permissions</h4>
+                <div class="form-group">
+                  @forelse ($permissions as $permission)
+                  <div class="form-check">
+                    <input class="form-check-input" name="permissions[]" type="checkbox" {{
+                      ($role->checkPermission($permission)) ?
+                    'checked': ''}} value="{{ $permission->id }}">
+                    <label class="form-check-label">{{ $permission->name }}</label>
+                  </div>
+                  @empty
+                  <p class="text-center">Permission Not Found</p>
+                  @endforelse
+                </div>
               </div>
               <!-- /.card-body -->
 
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Update</button>
                 <a href="{{ url('/admin/roles-permissions') }}" class="btn btn-default float-right">Cancel</a>
               </div>
             </form>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -73,8 +74,10 @@ class RoleController extends Controller
     // Get single role details
     $role = Role::find($id);
 
-    return view('dashboard.admin.role.edit')
-      ->with('role', $role);
+    // Get all permissions
+    $permissions = Permission::all();
+
+    return view('dashboard.admin.role.edit', compact('role', 'permissions'));
   }
 
   /**
@@ -102,8 +105,19 @@ class RoleController extends Controller
       'status'      => $valid['status']
     ];
 
-    // Update data into db
+    // Get specific role model
     $role = Role::find($id);
+    // Detach all permissions to role
+    $role->detachAllPermissions();
+
+    // Attach permission to role
+    foreach ($request->permissions as $permission) {
+      // Get permission model
+      $permission = Permission::find($permission);
+      // Attach permission to role
+      $role->attachPermission($permission);
+    }
+
     $role = $role->update($data);
 
     if ($role) {

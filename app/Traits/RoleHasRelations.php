@@ -27,6 +27,17 @@ trait RoleHasRelations
     }
 
     /**
+     * Check permission to a role.
+     *
+     * @param int|\Bican\Roles\Models\Permission $permission
+     * @return int|bool
+     */
+    public function checkPermission($permission)
+    {
+        return (!$this->permissions()->get()->contains($permission)) ? false : true;
+    }
+
+    /**
      * Attach permission to a role.
      *
      * @param int|\Bican\Roles\Models\Permission $permission

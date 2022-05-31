@@ -37,7 +37,7 @@
             @if (auth()->user()->checkRole('user'))
             <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
             @else
-            <a class="dropdown-item" href="{{ route('admin') }}">Dashboard</a>
+            <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
             @endif
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">
