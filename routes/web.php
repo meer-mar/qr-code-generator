@@ -197,7 +197,7 @@ Route::prefix('/admin')->group(function () {
     });
 
     // Web settings
-    Route::controller(AppSettingController::class)->group(function () {
+    Route::controller(WebSettingController::class)->group(function () {
       Route::get('/web-setting/edit/{id}', 'edit')
         ->name('edit.web-setting')
         ->middleware('checkpermission:update.web.settings');
