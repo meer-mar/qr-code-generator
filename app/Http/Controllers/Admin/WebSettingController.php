@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\WebSetting;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class WebSettingController extends Controller
@@ -18,29 +19,6 @@ class WebSettingController extends Controller
   {
     $webSettings = $webSetting->findOrFail($id);
     return view('dashboard.admin.web_setting.edit', compact('webSettings'));
-  }
-
-  /**
-   * Image upload.
-   *
-   * @param string $field
-   * @param string $loc
-   * @return \Illuminate\Http\Response
-   */
-  public function uploadImage($fileData, $loc)
-  {
-    // Get file name with extension
-    $fileNameWithExt = $fileData->getClientOriginalName();
-    // Get just file name
-    $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-    // Get just extension
-    $fileExtension = $fileData->extension();
-    // File name to store
-    $fileNameToStore = time() . '.' . $fileExtension;
-    // Finally Upload Image
-    $fileData->storeAs($loc, $fileNameToStore);
-
-    return $fileNameToStore;
   }
 
   /**
@@ -91,5 +69,28 @@ class WebSettingController extends Controller
     } else {
       return redirect('/admin/web-setting/edit/1')->with('error', 'Record not updated!');
     }
+  }
+
+  /**
+   * Image upload.
+   *
+   * @param string $field
+   * @param string $loc
+   * @return \Illuminate\Http\Response
+   */
+  public function uploadImage($fileData, $loc)
+  {
+    // Get file name with extension
+    $fileNameWithExt = $fileData->getClientOriginalName();
+    // Get just file name
+    $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+    // Get just extension
+    $fileExtension = $fileData->extension();
+    // File name to store
+    $fileNameToStore = time() . '.' . $fileExtension;
+    // Finally Upload Image
+    $fileData->storeAs($loc, $fileNameToStore);
+
+    return $fileNameToStore;
   }
 }

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AccessController extends Controller
 {
@@ -21,6 +22,6 @@ class AccessController extends Controller
     // Get all permissions
     $permissions = Permission::all();
 
-    return view('dashboard.admin.pages.roles_permissions')->with('roles', $roles)->with('permissions', $permissions);
+    return view('dashboard.admin.pages.roles_permissions', compact('roles', 'permissions'));
   }
 }

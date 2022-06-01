@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use DataTables;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -59,30 +60,7 @@ class UsersController extends Controller
     // Get All roles
     $roles = Role::all();
 
-    return view('dashboard.admin.user.add')->with('roles', $roles);
-  }
-
-  /**
-   * Image upload.
-   *
-   * @param string $field
-   * @param string $loc
-   * @return \Illuminate\Http\Response
-   */
-  public function uploadImage($fileData, $loc)
-  {
-    // Get file name with extension
-    $fileNameWithExt = $fileData->getClientOriginalName();
-    // Get just file name
-    $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-    // Get just extension
-    $fileExtension = $fileData->extension();
-    // File name to store
-    $fileNameToStore = time() . '.' . $fileExtension;
-    // Finally Upload Image
-    $fileData->storeAs($loc, $fileNameToStore);
-
-    return $fileNameToStore;
+    return view('dashboard.admin.user.add', compact('roles'));
   }
 
   /**
@@ -159,9 +137,7 @@ class UsersController extends Controller
     // Get All roles
     $roles = $role->all();
 
-    return view('dashboard.admin.user.edit')
-      ->with('user', $user)
-      ->with('roles', $roles);
+    return view('dashboard.admin.user.edit', compact('user', 'roles'));
   }
 
   /**
@@ -253,5 +229,28 @@ class UsersController extends Controller
     } else {
       return redirect('/admin/users')->with('error', "Record not deleted!");
     }
+  }
+
+  /**
+   * Image upload.
+   *
+   * @param string $field
+   * @param string $loc
+   * @return \Illuminate\Http\Response
+   */
+  public function uploadImage($fileData, $loc)
+  {
+    // Get file name with extension
+    $fileNameWithExt = $fileData->getClientOriginalName();
+    // Get just file name
+    $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+    // Get just extension
+    $fileExtension = $fileData->extension();
+    // File name to store
+    $fileNameToStore = time() . '.' . $fileExtension;
+    // Finally Upload Image
+    $fileData->storeAs($loc, $fileNameToStore);
+
+    return $fileNameToStore;
   }
 }
