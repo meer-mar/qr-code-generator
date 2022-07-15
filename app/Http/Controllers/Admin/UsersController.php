@@ -157,6 +157,16 @@ class UsersController extends Controller
       'status' => 'required',
     ]);
 
+    // Get user data
+    $user = User::where('id', $id)->first();
+
+    // Detach role
+    $user->detachAllRoles();
+
+    // Attach role
+    $role = Role::where('id', $request->role)->first();
+    $user->attachRole($role);
+
     if ($request->hasFile('profile_photo')) {
       // Save image to folder
       $loc = '/public/user_profile_photos';
@@ -167,7 +177,6 @@ class UsersController extends Controller
       ];
 
       // Delete previous file
-      $user = User::where('id', $id)->first();
       Storage::delete('public/user_profile_photos/' . $user->profile_photo);
     }
 
