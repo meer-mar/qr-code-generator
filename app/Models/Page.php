@@ -15,10 +15,11 @@ class Page extends Model
    * @var array
    */
   protected $fillable = [
-    'title',
-    'meta_desc',
-    'page_name',
-    'page_desc',
-    'status',
-  ];
+    'title', 'slug', 'meta_desc', 'page_name', 'page_desc', 'status'
+];
+
+public function sections()
+{
+    return $this->hasMany(PageSection::class);
+}
 }

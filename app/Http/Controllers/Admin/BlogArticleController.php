@@ -8,9 +8,11 @@ use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class BlogArticleController extends Controller
 {
+
   /**
    * Display a listing of the resource.
    *
@@ -20,9 +22,8 @@ class BlogArticleController extends Controller
   {
     // Get category by id
     $category = BlogCategory::where('id', $id)->first();
-
     // Get all data
-    $articles = BlogArticle::where('category_id', $id)->get();
+    $articles = BlogArticle::where('blog_category_id', $id)->paginate(05);
 
     return view('dashboard.admin.blog_article.index', ['articles' => $articles, 'category' => $category]);
   }
@@ -36,7 +37,6 @@ class BlogArticleController extends Controller
   {
     // Get category by id
     $category = BlogCategory::where('id', $id)->first();
-
     return view('dashboard.admin.blog_article.add', ['category' => $category]);
   }
 
@@ -56,33 +56,32 @@ class BlogArticleController extends Controller
     ]);
 
     if ($request->hasFile('image')) {
-      // Save image to folder
-      $loc = '/public/blog/article';
+      // Generate image name based on title or slug
+      $titleSlug = Str::slug($request->title, '-');
       $fileData = $request->file('image');
-      $fileNameToStore = 'blog/article/' . $this->uploadImage($fileData, $loc);
+      $fileNameToStore = $this->uploadImage($fileData, $titleSlug, 'public/blog/article');
     } else {
       $fileNameToStore = 'blog/article/no_img.jpg';
     }
 
     $data = [
-      'category_id' => $id,
+      'blog_category_id' => $id,
       'page_title'  => $request->page_title,
       'meta_desc'   => $request->meta_desc,
       'title'       => $request->title,
       'slug'        => Str::slug($request->title, '-'),
       'description' => $request->description,
       'image'       => $fileNameToStore,
-      'status'      => $request->status
+      'status'      => $request->status,
+      'author_id'   => Auth::id(), // Set the author ID as the logged-in user's ID
     ];
 
-    // Save data into db
     $article = BlogArticle::create($data);
 
     if ($article) {
-      return redirect()->route('blog.article.view', ['id' => $id])->with('success', 'Record created successfully.');
-    } else {
-      return redirect()->route('blog.article.add', ['id' => $id])->with('error', 'Sorry something went wrong!');
-    }
+    return redirect()->route('blog.article.view', ['id' => $id])
+    ->with('success', 'Article Created Successfully.');
+}
   }
 
   /**
@@ -108,7 +107,7 @@ class BlogArticleController extends Controller
     $article = BlogArticle::where('id', $id)->first();
 
     // Get single blog category details
-    $category = BlogCategory::where('id', $article->category_id)->first();
+    $category = BlogCategory::where('id', $article->blog_category_id)->first();
 
     return view('dashboard.admin.blog_article.edit', ['article' => $article, 'category' => $category]);
   }
@@ -122,50 +121,90 @@ class BlogArticleController extends Controller
    */
   public function update(Request $request, BlogArticle $blogArticle, $id)
   {
-    // Validate data
-    $this->validate($request, [
-      'title'  => 'required|string',
-      'image'  => 'image|mimes:jpeg,png,jpg,gif,svg',
-      'status' => 'required',
-    ]);
 
-    if ($request->hasFile('image')) {
-      // Save image to folder
-      $loc = '/public/blog/article';
-      $fileData = $request->file('image');
-      $fileNameToStore = $this->uploadImage($fileData, $loc);
-      $fileData = [
-        'image' => 'blog/article/' . $fileNameToStore
+      // Validate data
+      $this->validate($request, [
+          'title'  => 'required|string',
+          'image'  => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+          'status' => 'required',
+      ]);
+
+      // Get the article
+      $article = $blogArticle->where('id', $id)->first();
+      $fileNameToStore = $article->image;
+
+      // If a new image is uploaded
+      if ($request->hasFile('image')) {
+          $fileData = $request->file('image');
+          $titleSlug = Str::slug($request->title, '-');
+          $loc = 'public/blog/article';
+
+          // Upload new image
+          $fileNameToStore = $this->uploadImage($fileData, $titleSlug, $loc);
+
+          // Delete old image (except default)
+          if ($article->image !== 'blog/article/no_img.jpg') {
+              Storage::delete('public/' . $article->image);
+          }
+      } else {
+          // If title changed, rename existing image (optional)
+          if ($article->image && $article->image !== 'blog/article/no_img.jpg') {
+              $extension = pathinfo($article->image, PATHINFO_EXTENSION);
+              $newFileName = Str::slug($request->title, '-') . '.' . $extension;
+              $newPath = 'blog/article/' . $newFileName;
+
+              if ($article->image !== $newPath) {
+                  Storage::move('public/' . $article->image, 'public/' . $newPath);
+                  $fileNameToStore = $newPath;
+              }
+          }
+      }
+
+      // Prepare data
+      $data = [
+          'page_title'  => $request->page_title,
+          'meta_desc'   => $request->meta_desc,
+          'title'       => $request->title,
+          'slug'        => Str::slug($request->title, '-'),
+          'description' => $request->description,
+          'image'       => $fileNameToStore,
+          'status'      => $request->status,
+          'author_id'   => Auth::id(),
       ];
 
-      // Delete previous file
-      $article = $blogArticle->select('id', 'image')->where('id', $id)->first();
-      Storage::delete('public/' . $article->image);
-    }
+      // Update DB
+      $updated = $blogArticle->where('id', $id)->update($data);
 
-    $data = [
-      'page_title'  => $request->page_title,
-      'meta_desc'   => $request->meta_desc,
-      'title'       => $request->title,
-      'slug'        => Str::slug($request->title, '-'),
-      'description' => $request->description,
-      'status'      => $request->status
-    ];
-
-    // Merge all data arrays
-    if ($request->hasFile('image')) {
-      $data = array_merge($fileData, $data);
-    }
-
-    // Update data into db
-    $article = $blogArticle->where('id', $id)->update($data);
-
-    if ($article) {
-      return redirect()->route('blog.article.view', ['id' => $request->category_id])->with('success', 'Record updated successfully.');
-    } else {
-      return redirect()->route('blog.article.view', ['id' => $request->category_id])->with('error', 'Sorry something went wrong!');
-    }
+      if ($updated) {
+          return redirect()->route('blog.article.view', ['id' => $request->blog_category_id])
+              ->with('success', 'Article Updated Successfully.');
+      }
   }
+
+
+
+
+  /**
+   * Generate a unique file name for the image.
+   *
+   * @param string $fileName
+   * @param string $fileExtension
+   * @param string $directory
+   * @return string
+   */
+  private function generateUniqueFileName($fileName, $fileExtension, $directory)
+  {
+      $counter = 1;
+      $fileNameToStore = $fileName . '.' . $fileExtension;
+
+      while (Storage::exists($directory . '/' . $fileNameToStore)) {
+          $fileNameToStore = $fileName . '-' . $counter . '.' . $fileExtension;
+          $counter++;
+      }
+
+      return $fileNameToStore;
+  }
+
 
   /**
    * Remove the specified resource from storage.
@@ -176,7 +215,7 @@ class BlogArticleController extends Controller
   public function destroy(BlogArticle $blogArticle, $id)
   {
     // delete category image
-    $article = $blogArticle->select('id', 'category_id', 'image')->where('id', $id)->first();
+    $article = $blogArticle->select('id', 'blog_category_id', 'image')->where('id', $id)->first();
     if ($article->image != 'blog/article/no_img.jpg') {
       Storage::delete('public/' . $article->image);
     }
@@ -185,9 +224,8 @@ class BlogArticleController extends Controller
     $result = $blogArticle->destroy($id);
 
     if ($result) {
-      return redirect()->route('blog.article.view', ['id' => $article->category_id])->with('success', 'Record updated successfully.');
-    } else {
-      return redirect()->route('blog.article.view', ['id' => $article->category_id])->with('error', 'Sorry something went wrong!');
+        return redirect()->route('blog.article.view', ['id' => $article->id])
+    ->with('success', 'Article Created Successfully.');
     }
   }
 
@@ -198,19 +236,60 @@ class BlogArticleController extends Controller
    * @param string $loc
    * @return \Illuminate\Http\Response
    */
-  public function uploadImage($fileData, $loc)
+  public function uploadImage($fileData, $titleSlug, $loc)
   {
-    // Get file name with extension
-    $fileNameWithExt = $fileData->getClientOriginalName();
-    // Get just file name
-    $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-    // Get just extension
-    $fileExtension = $fileData->extension();
-    // File name to store
-    $fileNameToStore = time() . '.' . $fileExtension;
-    // Finally Upload Image
-    $fileData->storeAs($loc, $fileNameToStore);
+      $extension = $fileData->extension();
+      $fileName = $titleSlug;
+      $counter = 0;
 
-    return $fileNameToStore;
+      // Ensure the file name is unique
+      while (Storage::exists($loc . '/' . $fileName . ($counter ? "-$counter" : '') . '.' . $extension)) {
+          $counter++;
+      }
+
+      $finalFileName = $fileName . ($counter ? "-$counter" : '') . '.' . $extension;
+
+      // Store in public storage (storage/app/public/blog/article)
+      $fileData->storeAs($loc, $finalFileName);
+
+      // Return only the relative path to store in DB: blog/article/filename
+      return str_replace('public/', '', $loc) . '/' . $finalFileName;
   }
+
+
+
+  public function updateStatus(Request $request)
+  {
+      $article = BlogArticle::find($request->article_id);
+
+      if ($article) {
+          $article->status = $request->status == 1 ? 1 : 0; // Ensure boolean value
+          $article->save();
+          return response()->json(['success' => true, 'message' => 'Status updated successfully.']);
+      }
+
+      return response()->json(['success' => false, 'message' => 'Article not found.']);
+  }
+
+  public function updateApproval(Request $request)
+  {
+      $article = BlogArticle::find($request->article_id);
+
+      if ($article) {
+          // Ensure that the approval status matches allowed ENUM values
+          $allowedStatuses = ['Pending', 'Approved', 'Failed'];
+          if (!in_array($request->approval, $allowedStatuses)) {
+              return response()->json(['success' => false, 'message' => 'Invalid approval status.']);
+          }
+
+          $article->approval = $request->approval;
+          $article->save();
+
+          return response()->json(['success' => true, 'message' => 'Approval status updated successfully.']);
+      }
+
+      return response()->json(['success' => false, 'message' => 'Article not found.']);
+  }
+
+
 }

@@ -1,5 +1,5 @@
 <?php
-
+use App\Models\SMTPSetting;
 return [
 
     /*
@@ -36,13 +36,14 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+            'host' => env('MAIL_HOST', $smtp->mail_host ?? 'smtp.example.com'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
             'auth_mode' => null,
+            'verify_peer' => false,
         ],
 
         'ses' => [
@@ -84,8 +85,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', $smtp->mail_username ?? 'default@mail.com'),
+        'name' => env('MAIL_FROM_NAME', $smtp->mail_sender_name ?? 'Example'),
     ],
 
     /*

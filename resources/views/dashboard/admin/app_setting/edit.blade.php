@@ -1,81 +1,92 @@
 @extends('dashboard.admin.layouts.app')
 
-@section('page_title', 'Edit App Settings')
+@section('title')
+    <title>{{ __('Edit App Settings') }}</title>
+@endsection
 
-@section('content')
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1>Hi Admin Welcome Back</h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Dashboard</a></li>
-            <li class="breadcrumb-item active">App Settings</li>
-          </ol>
-        </div>
-      </div>
-    </div><!-- /.container-fluid -->
-  </section>
-
-  <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <!-- left column -->
-        <div class="col-md-12">
-          <!-- Messages -->
-          @include('dashboard.admin.includes.messages')
-
-          <!-- general form elements -->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">App Settings</h3>
+@section('admin-content')
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1 class="text-primary">{{ __('Edit App Settings') }}</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                    </div>
+                    <div class="breadcrumb-item">{{ __('App Settings') }}</div>
+                </div>
             </div>
-            <!-- /.card-header -->
-            <!-- form start -->
-            <form action="{{ secure_url('/admin/app-setting/'.$setting->id) }}" method="POST"
-              enctype="multipart/form-data">
-              @csrf
-              @method('PUT')
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="inputName">App name</label>
-                  <input type="text" name="name" value="{{ $setting->name }}" class="form-control" id="inputName"
-                    placeholder="Enter app name">
-                </div>
-                <div class="form-group">
-                  <label for="inputFile">Logo</label><br>
-                  <figure class="figure">
-                    <img src="{{ url('/storage/settings/'.$setting->logo) }}"
-                      class="figure-img img-fluid rounded img-thumbnail" alt="Profile photo" width="100">
-                  </figure>
-                  <input type="file" name="logo" class="form-control" id="inputFile">
-                  <input type="hidden" name="logo2" value="{{ $setting->logo }}">
-                </div>
-              </div>
-              <!-- /.card-body -->
 
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a href="{{ url('/admin/') }}" class="btn btn-default float-right">Cancel</a>
-              </div>
-            </form>
-          </div>
-          <!-- /.card -->
-        </div>
-        <!--/.col (left) -->
-      </div>
-      <!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
-</div>
+            <div class="section-body">
+                <div class="dashboard__content-wrap">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="instructor__profile-form-wrap mt-4">
+                                        <form action="{{ secure_url('/admin/app-setting/' . $setting->id) }}" method="POST"
+                                            enctype="multipart/form-data" class="instructor__profile-form">
+                                            @csrf
+                                            @method('PUT')
+
+                                            <div class="row">
+                                                <!-- App Name -->
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="inputName">{{ __('App Name') }}</label>
+                                                        <input type="text" name="name" id="inputName"
+                                                            class="form-control" value="{{ $setting->name }}"
+                                                            placeholder="{{ __('Enter app name') }}" required>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Logo -->
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="inputFile">{{ __('Logo') }}</label>
+                                                        @if ($setting->logo)
+                                                            <img src="{{ url('/storage/settings/' . $setting->logo) }}"
+                                                                alt="{{ $setting->name }}" width="100"
+                                                                class="mb-3 img-thumbnail">
+                                                        @endif
+                                                        <input type="file" name="logo" id="inputFile"
+                                                            class="form-control">
+                                                        <input type="hidden" name="logo2" value="{{ $setting->logo }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Buttons -->
+                                            <button class="btn btn-primary" type="submit">{{ __('Update') }}</button>
+                                            <a href="{{ url('/admin/') }}"
+                                                class="btn btn-secondary">{{ __('Cancel') }}</a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 @endsection
 
-@section('bottom_script')
+@push('js')
+    <script src="{{ asset('backend/js/default/settings.js') }}"></script>
+@endpush
 
-@endsection
+@push('css')
+    <style>
+        .dd-custom-css {
+            position: absolute;
+            will-change: transform;
+            top: 0px;
+            left: 0px;
+            transform: translate3d(0px, -131px, 0px);
+        }
+
+        .max-h-400 {
+            min-height: 400px;
+        }
+    </style>
+@endpush

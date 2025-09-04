@@ -1,78 +1,105 @@
-<x-app-layout>
-  <x-auth-card>
-    <x-slot name="header">
-      {{ __('Login') }}
-    </x-slot>
+<!DOCTYPE html>
+<html lang="en">
 
-    <!-- Session Status -->
-    <x-auth-session-status class="alert-success" :status="session('status')" />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login | FunNewJersey</title>
 
-    <!-- Validation Errors -->
-    {{--
-    <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-    <form method="POST" action="{{ route('login') }}">
-      @csrf
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-      <!-- Email Address -->
-      <div class="form-group row">
-        <x-label for="email" :value="__('Email Address')" />
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{ asset('backend/login_custom.css') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/images/favicon.png') }}">
 
-        <div class="col-md-6">
+</head>
 
-          @error('email')
-          <x-input id="email" class="is-invalid" type="email" name="email" :value="old('email')" required autofocus />
-
-          <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-          </span>
-          @else
-          <x-input id="email" type="email" name="email" :value="old('email')" required autofocus />
-          @enderror
+<body>
+        @php
+            $setting = App\Models\WebSetting::first();
+        @endphp
+    <div class="login-box">
+        <div class="login-logo">
+            <img src="{{ asset('/storage/settings/' . $setting->logo) }}" alt="{{$setting->site_title}}">
         </div>
-      </div>
 
-      <!-- Password -->
-      <div class="form-group row">
-        <x-label for="password" :value="__('Password')" />
+        {{-- <div class="login-title">FunNew<span>Jersey</span></div> --}}
+        <div class="login-subtitle">Sign in to start your session</div>
 
-        <div class="col-md-6">
-          <x-input id="password" type="password" name="password" required autocomplete="current-password" />
+<form method="POST" action="{{ route('login', ['locale' => app()->getLocale()]) }}">
+    @csrf
 
-          @error('password')
-          <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-          </span>
-          @enderror
+    {{-- Email --}}
+    <div class="mb-3">
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="fas fa-envelope" style="color: #365264;"></i>
+            </span>
+            <input type="email"
+                   name="email"
+                   value="{{ old('email') }}"
+                   class="form-control @error('email') is-invalid @enderror"
+                   placeholder="Email"
+                   required autofocus>
         </div>
-      </div>
+        @error('email')
+            <div class="invalid-feedback d-block">{{ $message }}</div>
+        @enderror
+    </div>
 
-      <!-- Remember Me -->
-      <div class="form-group row">
-        <div class="col-md-6 offset-md-4">
-          <div class="form-check">
-
-            <input id="remember_me" type="checkbox" class="form-check-input" name="remember" {{ old('remember')
-              ? 'checked' : '' }}>
-
-            <label for="remember_me" class="form-check-label">{{ __('Remember me') }}</label>
-          </div>
+    {{-- Password --}}
+    <div class="mb-3">
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="fas fa-lock" style="color: #365264;"></i>
+            </span>
+            <input type="password"
+                   name="password"
+                   class="form-control @error('password') is-invalid @enderror"
+                   placeholder="Password"
+                   required autocomplete="current-password">
         </div>
-      </div>
+        @error('password')
+            <div class="invalid-feedback d-block">{{ $message }}</div>
+        @enderror
+    </div>
 
-      <div class="form-group row mb-0">
-        <div class="col-md-8 offset-md-4">
-          <x-button class="btn-primary">
-            {{ __('Log in') }}
-          </x-button>
+    {{-- Remember Me --}}
+    <div class="mb-3 form-check">
+        <input type="checkbox"
+               class="form-check-input"
+               id="remember"
+               name="remember"
+               {{ old('remember') ? 'checked' : '' }}>
+        <label class="form-check-label" for="remember">Remember Me</label>
+    </div>
 
-          @if (Route::has('password.request'))
-          <a class="btn btn-link" href="{{ route('password.request') }}">
-            {{ __('Forgot Your Password?') }}
-          </a>
-          @endif
+    {{-- Submit + Forgot Password --}}
+    <div class="d-grid mb-2">
+        <button type="submit" class="btn customNomi"
+            style="color: white; font-weight: 700; background-color: #365264;">
+            Sign In
+        </button>
+    </div>
+
+</form>
+
+
+        <div class="extra-links mt-3">
+            <div><a href="{{ route('password.request') }}" style="color:#365264;font-weight:700;">Forgot your
+                    password?</a></div>
+            <div><a href="{{ route('register') }}" style="color:#365264;font-weight:700;">Register a new account</a>
+            </div>
         </div>
-      </div>
-    </form>
-  </x-auth-card>
-</x-app-layout>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Page;
+use App\Models\PageSection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class PageController extends Controller
 {
@@ -39,32 +41,45 @@ class PageController extends Controller
    */
   public function store(Request $request)
   {
-    // Validate data
-    $valid = $this->validate($request, [
-      'title' => 'required|string',
-      'meta_desc' => 'required|string',
-      'page_name' => 'required|string',
-      'page_desc' => 'required',
-      'status' => 'required',
-    ]);
+      // Validate data
+      $valid = $this->validate($request, [
+          'title' => 'required|string',
+          'slug' => 'required|string|unique:pages,slug', // Slug comes from form and must be unique
+          'meta_desc' => 'required|string',
+          'page_name' => 'required|string',
+          'page_desc' => 'required',
+          'status' => 'required',
+          'sections' => 'nullable|array', // Sections are optional
+          'sections.*.title' => 'required_with:sections|string', // Validate only if sections exist
+          'sections.*.content' => 'required_with:sections|string', // Validate only if sections exist
+      ]);
 
-    $data = [
-      'title' => $valid['title'],
-      'meta_desc' => $valid['meta_desc'],
-      'page_name' => $valid['page_name'],
-      'page_desc' => $valid['page_desc'],
-      'status' => $valid['status']
-    ];
+      // Save page data
+      $page = Page::create([
+          'title' => $valid['title'],
+          'slug' => Str::slug($valid['slug'], '-'), // Use slug from the form
+          'meta_desc' => $valid['meta_desc'],
+          'page_name' => $valid['page_name'],
+          'page_desc' => $valid['page_desc'],
+          'status' => $valid['status']
+      ]);
 
-    // Save data into db
-    $page = Page::create($data);
+      // Save sections only if they exist
+      if ($page && !empty($valid['sections'])) {
+          foreach ($valid['sections'] as $sectionData) {
+              PageSection::create([
+                  'page_id' => $page->id,
+                  'section_title' => $sectionData['title'],
+                  'section_content' => $sectionData['content'],
+                  'status' => 1, // Default status
+                  'sort_order' => 0, // Default sort order
+              ]);
+          }
+      }
 
-    if ($page) {
       return redirect('/admin/pages')->with('success', 'Record created successfully.');
-    } else {
-      return redirect('/admin/pages')->with('error', 'Record not created!');
-    }
   }
+
 
   /**
    * Display the specified resource.
@@ -85,10 +100,10 @@ class PageController extends Controller
    */
   public function edit(Page $page, $id)
   {
-    // Get single page details
-    $page = Page::findOrFail($id);
+      // Get single page details with its sections
+      $page = Page::with('sections')->findOrFail($id);
 
-    return view('dashboard.admin.site_pages.edit', compact('page'));
+      return view('dashboard.admin.site_pages.edit', compact('page'));
   }
 
   /**
@@ -100,32 +115,53 @@ class PageController extends Controller
    */
   public function update(Request $request, Page $page, $id)
   {
-    // Validate data
-    $valid = $this->validate($request, [
-      'title' => 'required|string',
-      'meta_desc' => 'required|string',
-      'page_name' => 'required|string',
-      'page_desc' => 'required',
-      'status' => 'required',
-    ]);
+      // Validate data
+      $valid = $this->validate($request, [
+          'title' => 'required|string',
+          'slug' => 'required|string|unique:pages,slug,' . $id, // Allow slug from form, must be unique except for this page
+          'meta_desc' => 'required|string',
+          'page_name' => 'required|string',
+          'page_desc' => 'required',
+          'status' => 'required',
+          'sections' => 'nullable|array', // Sections are optional
+          'sections.*.title' => 'required_with:sections|string', // Validate only if sections exist
+          'sections.*.content' => 'required_with:sections|string', // Validate only if sections exist
+      ]);
 
-    $data = [
-      'title' => $valid['title'],
-      'meta_desc' => $valid['meta_desc'],
-      'page_name' => $valid['page_name'],
-      'page_desc' => $valid['page_desc'],
-      'status' => $valid['status']
-    ];
+      // Fetch the page
+      $page = Page::find($id);
+      if (!$page) {
+          return redirect('/admin/pages')->with('error', 'Page not found!');
+      }
 
-    // Update data into db
-    $page = Page::find($id);
-    $page = $page->update($data);
+      // Update page data, keeping the slug from the form
+      $page->update([
+          'title' => $valid['title'],
+          'slug' => Str::slug($valid['slug'], '-'), // Use slug from form
+          'meta_desc' => $valid['meta_desc'],
+          'page_name' => $valid['page_name'],
+          'page_desc' => $valid['page_desc'],
+          'status' => $valid['status']
+      ]);
 
-    if ($page) {
+      // Update sections only if they exist
+      if (!empty($valid['sections'])) {
+          // Delete existing sections
+          $page->sections()->delete();
+
+          // Add updated sections
+          foreach ($valid['sections'] as $sectionData) {
+              PageSection::create([
+                  'page_id' => $page->id,
+                  'section_title' => $sectionData['title'],
+                  'section_content' => $sectionData['content'],
+                  'status' => 1, // Default status
+                  'sort_order' => 0, // Default sort order
+              ]);
+          }
+      }
+
       return redirect('/admin/pages')->with('success', 'Record updated successfully.');
-    } else {
-      return redirect('/admin/pages')->with('error', 'Record not updated!');
-    }
   }
 
   /**

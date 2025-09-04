@@ -5,39 +5,32 @@
         </x-slot>
 
         <!-- Session Status -->
-        <x-auth-session-status class="alert-success" :status="session('status')" />
+        <x-auth-session-status class="mb-4 font-medium text-sm text-green-600" :status="session('status')" />
 
         <!-- Validation Errors -->
         {{--
         <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
 
-        <form method="POST" action="{{ route('password.email') }}">
+        <form method="POST" action="{{ route('password.email') }}" class="space-y-6">
             @csrf
 
             <!-- Email Address -->
-            <div class="form-group row">
+            <div>
                 <x-label for="email" :value="__('Email')" />
-
-                <div class="col-md-6">
+                <div class="mt-1">
                     @error('email')
-                    <x-input id="email" class="is-invalid" type="email" name="email" :value="old('email')" required
-                        autofocus />
-
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <x-input id="email" class="border-red-300 focus:border-red-500 focus:ring-red-500" type="email" name="email" :value="old('email')" required autofocus />
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @else
                     <x-input id="email" type="email" name="email" :value="old('email')" required autofocus />
                     @enderror
                 </div>
             </div>
 
-            <div class="form-group row mb-0">
-                <div class="col-md-6 offset-md-4">
-                    <x-button class="btn-primary">
-                        {{ __('Email Password Reset Link') }}
-                    </x-button>
-                </div>
+            <div class="flex items-center justify-center">
+                <x-button>
+                    {{ __('Email Password Reset Link') }}
+                </x-button>
             </div>
         </form>
     </x-auth-card>

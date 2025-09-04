@@ -14,18 +14,20 @@ class CreateBlogCategoriesTable extends Migration
   public function up()
   {
     Schema::create('blog_categories', function (Blueprint $table) {
-      $table->id();
-      $table->string('page_title')->nullable();
-      $table->text('meta_desc')->nullable();
-      $table->string('title');
-      $table->string('slug');
-      $table->string('image')->nullable();
-      $table->text('description')->nullable();
-      $table->tinyInteger('status');
-
-      $table->timestamps();
-      $table->softDeletes();
-    });
+        $table->id();
+        $table->string('page_title')->nullable();
+        $table->unsignedBigInteger('author_id')->nullable();;
+        $table->text('meta_desc')->nullable();
+        $table->string('title');
+        $table->text('views_count')->nullable();
+        $table->string('slug');
+        $table->string('image')->nullable();
+        $table->text('description')->nullable();
+        $table->enum('approval', ['Pending', 'Approved', 'Failed'])->default('Pending');
+        $table->boolean('status')->default(1);
+        $table->timestamps();
+        $table->softDeletes();
+      });
   }
 
   /**

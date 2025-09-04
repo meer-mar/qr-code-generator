@@ -18,12 +18,15 @@ class BlogCategory extends Model
    */
   protected $fillable = [
     'page_title',
+    'author_id',
     'meta_desc',
     'title',
     'slug',
     'image',
     'description',
     'status',
+    'approval',
+    'views_count'
   ];
 
   /**

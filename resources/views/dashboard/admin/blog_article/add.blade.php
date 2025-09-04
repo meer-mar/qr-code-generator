@@ -1,116 +1,132 @@
 @extends('dashboard.admin.layouts.app')
-
-@section('page_title', 'Add Blog Article')
-
-@section('content')
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1>Hi Admin Welcome Back</h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('blog.category.view') }}">{{ $category->title }}</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('blog.article.view', ['id' => $category->id]) }}">Blog
-                Articles</a></li>
-            <li class="breadcrumb-item active">Add</li>
-          </ol>
-        </div>
-      </div>
-    </div><!-- /.container-fluid -->
-  </section>
-
-  <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <!-- left column -->
-        <div class="col-md-12">
-          <!-- Messages -->
-          @include('dashboard.admin.includes.messages')
-
-          <!-- general form elements -->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Add Blog Article</h3>
+@section('title')
+    <title>{{ __('Blog Article Create') }}</title>
+@endsection
+@section('admin-content')
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>{{ __('Blog Article Create') }}</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                    </div>
+                    <div class="breadcrumb-item">{{ __('Blog Article Create') }}</div>
+                </div>
             </div>
-            <!-- /.card-header -->
-            <!-- form start -->
-            <form action="{{ route('blog.article.create', ['id' => $category->id]) }}" method="POST"
-              enctype="multipart/form-data">
-              @csrf
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="inputPageTitle">Title</label>
-                  <input type="text" name="page_title" class="form-control" id="inputPageTitle"
-                    placeholder="Enter page title">
-                </div>
+            <div class="section-body">
+                <div class="dashboard__content-wrap">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="instructor__profile-form-wrap mt-4">
+                                        <form action="{{ route('blog.article.create', ['id' => $category->id]) }}"
+                                            method="POST" enctype="multipart/form-data"
+                                            class="instructor__profile-form blog-article-form">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="page_title">{{ __('Page Title') }}
+                                                            <code>*</code></label>
+                                                        <input id="page_title" name="page_title" type="text"
+                                                            class="form-control" value="{{ @$blogCategory?->page_title }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="meta_desc">{{ __('Meta Description') }}</label>
+                                                        <textarea id="meta_desc" name="meta_desc" class="form-control">{{ @$blogCategory?->meta_desc }}</textarea>
+                                                    </div>
+                                                </div>
 
-                <div class="form-group">
-                  <label for="inputMeta">Meta Description</label>
-                  <textarea name="meta_desc" id="inputMeta" rows="3" class="form-control"></textarea>
-                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="title">{{ __('Meta Title') }} <code>*</code></label>
+                                                        <input id="title" name="title" type="text"
+                                                            class="form-control" value="{{ @$blogCategory?->title }}">
+                                                    </div>
+                                                </div>
 
-                <div class="form-group">
-                  <label for="inputTitle">Title</label>
-                  <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Enter title">
-                </div>
+                                                <!-- <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label for="slug">{{ __('Slug') }} <code>*</code></label>
+                                                                                            <input id="slug" name="slug" type="text" class="form-control" value="{{ old('slug') }}">
+                                                                                        </div>
+                                                                                    </div> -->
 
-                <div class="form-group">
-                  <label for="editor">Description</label>
-                  <textarea name="description" id="editor" rows="3" class="form-control"></textarea>
-                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="image">{{ __('Image') }} <code>*</code></label>
+                                                        <input id="image" name="image" type="file"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
 
-                <div class="form-group">
-                  <label for="inputFile">Photo</label>
-                  <input type="file" name="image" class="form-control" id="inputFile">
-                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="description">{{ __('Description') }}</label>
+                                                        <textarea name="description" class="form-control summernote">{{ old('description') }}</textarea>
+                                                    </div>
+                                                </div>
 
-                <div class="form-group">
-                  <label for="inputStatus">Status</label>
-                  <select class="form-control" name="status" id="inputStatus">
-                    <option value="1">Active</option>
-                    <option value="0">Deactive</option>
-                  </select>
-                </div>
-              </div>
-              <!-- /.card-body -->
+                                                <!-- <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <label for="approval">{{ __('Approval') }} <code>*</code></label>
+                                                                                            <select name="approval" id="approval" class="form-control select2">
+                                                                                                <option value="Pending" {{ old('approval') == 'Pending' ? 'selected' : '' }}>{{ __('Pending') }}</option>
+                                                                                                <option value="Approved" {{ old('approval') == 'Approved' ? 'selected' : '' }}>{{ __('Approved') }}</option>
+                                                                                                <option value="Failed" {{ old('approval') == 'Failed' ? 'selected' : '' }}>{{ __('Failed') }}</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div> -->
 
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <a href="{{ route('blog.article.view', ['id' => $category->id]) }}"
-                  class="btn btn-default float-right">Cancel</a>
-              </div>
-            </form>
-          </div>
-          <!-- /.card -->
-        </div>
-        <!--/.col (left) -->
-      </div>
-      <!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
-</div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="status">{{ __('Status') }} <code>*</code></label>
+                                                        <select name="status" id="status" class="form-control">
+                                                            <option value="1"
+                                                                {{ old('status') == 1 ? 'selected' : '' }}>
+                                                                {{ __('Active') }}</option>
+                                                            <option value="0"
+                                                                {{ old('status') == 0 ? 'selected' : '' }}>
+                                                                {{ __('Inactive') }}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-primary" type="submit">{{ __('Save') }}</button>
+                                            <a href="{{ url()->previous() }}"
+                                                class="btn btn-secondary"style="color:black;">Cancel</a>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 @endsection
 
-@section('bottom_script')
+@push('js')
+    <script src="{{ asset('backend/js/default/blog_articles.js') }}"></script>
+@endpush
 
-<!-- CKEditor -->
-<script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
-<script>
-  // CKEditor configuration //
-  ClassicEditor.create(document.querySelector("#editor"))
-      .then((editor) => {
-          console.log(editor);
-      })
-      .catch((error) => {
-          console.error(error);
-      });
-  // END / CKEditor configuration //
-</script>
-@endsection
+@push('css')
+    <style>
+        .dd-custom-css {
+            position: absolute;
+            will-change: transform;
+            top: 0px;
+            left: 0px;
+            transform: translate3d(0px, -131px, 0px);
+        }
+
+        .max-h-400 {
+            min-height: 400px;
+        }
+    </style>
+@endpush

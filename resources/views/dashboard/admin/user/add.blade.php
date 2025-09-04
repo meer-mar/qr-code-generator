@@ -1,101 +1,207 @@
 @extends('dashboard.admin.layouts.app')
 
-@section('page_title', 'Add User')
+@section('title')
+    <title>{{ __('Add User') }}</title>
+@endsection
 
-@section('content')
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1>Hi Admin Welcome Back</h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ url('/admin/users') }}">Users</a></li>
-            <li class="breadcrumb-item active">Add</li>
-          </ol>
-        </div>
-      </div>
-    </div><!-- /.container-fluid -->
-  </section>
-
-  <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <!-- left column -->
-        <div class="col-md-12">
-          <!-- Messages -->
-          @include('dashboard.admin.includes.messages')
-
-          <!-- general form elements -->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Add User</h3>
+@section('admin-content')
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1 class="text-primary">{{ __('Add User') }}</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{{ url('/admin') }}">{{ __('Dashboard') }}</a></div>
+                    <div class="breadcrumb-item"><a href="{{ url('/admin/users') }}">{{ __('Users') }}</a></div>
+                    <div class="breadcrumb-item">{{ __('Add') }}</div>
+                </div>
             </div>
-            <!-- /.card-header -->
-            <!-- form start -->
-            <form action="{{ url('/admin/user/save') }}" method="POST" enctype="multipart/form-data">
-              @csrf
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="inputName">Full name</label>
-                  <input type="text" name="name" class="form-control" id="inputName" placeholder="Enter full name">
-                </div>
-                <div class="form-group">
-                  <label for="inputEmail">Email address</label>
-                  <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Enter email">
-                </div>
-                <div class="form-group">
-                  <label for="inputPassword">Password</label>
-                  <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
-                </div>
-                <div class="form-group">
-                  <label for="inputFile">Profile photo</label>
-                  <input type="file" name="profile_photo" class="form-control" id="inputFile">
-                </div>
-                <div class="form-group">
-                  <label for="inputRole">Role</label>
-                  <select class="form-control" name="role" id="inputRole">
-                    @if (count($roles) > 0)
-                    @foreach ($roles as $role)
-                    <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>
-                    @endforeach
-                    @else
-                    <option value="0">No role available</option>
-                    @endif
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="inputStatus">Status</label>
-                  <select class="form-control" name="status" id="inputStatus">
-                    <option value="1">Active</option>
-                    <option value="0">Deactive</option>
-                  </select>
-                </div>
-              </div>
-              <!-- /.card-body -->
+            <div class="section-body">
+                <div class="dashboard__content-wrap">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="instructor__profile-form-wrap mt-4">
+                                        <form action="{{ url('/admin/user/save') }}" method="POST"
+                                            enctype="multipart/form-data" class="instructor__profile-form user-form">
+                                            @csrf
+                                            <div class="row">
+                                                <!-- Full Name -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputName">{{ __('Full Name') }} <code>*</code></label>
+                                                        <input id="inputName" name="name" type="text"
+                                                            class="form-control" placeholder="{{ __('Enter full name') }}"
+                                                            value="{{ old('name') }}" required>
+                                                    </div>
+                                                </div>
 
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <a href="{{ url('/admin/users') }}" class="btn btn-default float-right">Cancel</a>
-              </div>
-            </form>
-          </div>
-          <!-- /.card -->
-        </div>
-        <!--/.col (left) -->
-      </div>
-      <!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
-</div>
+                                                <!-- Email -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail">{{ __('Email Address') }}
+                                                            <code>*</code></label>
+                                                        <input id="inputEmail" name="email" type="email"
+                                                            class="form-control" placeholder="{{ __('Enter email') }}"
+                                                            value="{{ old('email') }}" required>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Password -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputPassword">{{ __('Password') }}
+                                                            <code>*</code></label>
+                                                        <input id="inputPassword" name="password" type="password"
+                                                            class="form-control" placeholder="{{ __('Enter password') }}"
+                                                            required>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Profile Photo -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputFile">{{ __('Profile Photo') }}</label>
+                                                        <input id="inputFile" name="profile_photo" type="file"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <!-- About -->
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="inputAbout">{{ __('About') }}</label>
+                                                        <textarea id="inputAbout" name="about" class="form-control" placeholder="{{ __('Write something about the user') }}">{{ old('about') }}</textarea>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Slug -->
+                                                {{-- <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputSlug">{{ __('Slug') }}</label>
+                                                        <input id="inputSlug" name="slug" type="text" class="form-control" placeholder="{{ __('Enter slug') }}" value="{{ old('slug') }}">
+                                                    </div>
+                                                </div> --}}
+
+                                                <!-- Biography -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputBiography">{{ __('Biography') }}</label>
+                                                        <textarea id="inputBiography" name="biography" class="form-control" placeholder="{{ __('Enter biography') }}">{{ old('biography') }}</textarea>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Social Media Links -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputFb">{{ __('Facebook') }}</label>
+                                                        <input id="inputFb" name="fb" type="text"
+                                                            class="form-control"
+                                                            placeholder="{{ __('Enter Facebook profile link') }}"
+                                                            value="{{ old('fb') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputInsta">{{ __('Instagram') }}</label>
+                                                        <input id="inputInsta" name="insta" type="text"
+                                                            class="form-control"
+                                                            placeholder="{{ __('Enter Instagram profile link') }}"
+                                                            value="{{ old('insta') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputTwitter">{{ __('Twitter') }}</label>
+                                                        <input id="inputTwitter" name="twitter" type="text"
+                                                            class="form-control"
+                                                            placeholder="{{ __('Enter Twitter profile link') }}"
+                                                            value="{{ old('twitter') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputLinkden">{{ __('LinkedIn') }}</label>
+                                                        <input id="inputLinkden" name="linkden" type="text"
+                                                            class="form-control"
+                                                            placeholder="{{ __('Enter LinkedIn profile link') }}"
+                                                            value="{{ old('linkden') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputWhatsapp">{{ __('WhatsApp') }}</label>
+                                                        <input id="inputWhatsapp" name="whatsapp" type="text"
+                                                            class="form-control"
+                                                            placeholder="{{ __('Enter WhatsApp number') }}"
+                                                            value="{{ old('whatsapp') }}">
+                                                    </div>
+                                                </div>
+
+                                                <!-- Role -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputRole">{{ __('Role') }} <code>*</code></label>
+                                                        <select id="inputRole" name="role"
+                                                            class="form-control select2" required>
+                                                            @if (count($roles) > 0)
+                                                                @foreach ($roles as $role)
+                                                                    <option value="{{ $role['id'] }}">
+                                                                        {{ $role['name'] }}</option>
+                                                                @endforeach
+                                                            @else
+                                                                <option value="0">{{ __('No role available') }}
+                                                                </option>
+                                                            @endif
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Status -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputStatus">{{ __('Status') }}
+                                                            <code>*</code></label>
+                                                        <select id="inputStatus" name="status"
+                                                            class="form-control select2">
+                                                            <option value="1">{{ __('Active') }}</option>
+                                                            <option value="0">{{ __('Inactive') }}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Submit Button -->
+                                            <div class="row mt-3">
+                                                <div class="col-md-12">
+                                                    <button class="btn btn-primary"
+                                                        type="submit">{{ __('Save') }}</button>
+                                                    <a href="{{ url('/admin/users') }}"
+                                                        class="btn btn-secondary">{{ __('Cancel') }}</a>
+                                                </div>
+                                            </div>
+                                        </form>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 @endsection
 
-@section('bottom_script')
+@push('js')
+    <script src="{{ asset('backend/js/default/users.js') }}"></script>
+@endpush
 
-@endsection
+@push('css')
+    <style>
+        .max-h-400 {
+            min-height: 400px;
+        }
+    </style>
+@endpush

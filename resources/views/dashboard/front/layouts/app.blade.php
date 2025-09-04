@@ -11,40 +11,26 @@
   <title>@if($webSettings) {{ $webSettings->site_title }} @else {{ config('app.name', 'Laravel') }} @endif</title>
 
   <!-- Fonts -->
-  <link rel="dns-prefetch" href="//fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
   <!-- App Styles -->
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
   @yield('head_styles')
 
 </head>
 
-<body>
-  <div id="app">
+<body class="font-sans antialiased">
+  <div id="app" class="min-h-screen bg-gray-100">
     @include('layouts.navbar')
 
     <main class="py-4">
-      <div class="container">
+      <div class="container mx-auto px-4">
         @yield('content')
       </div>
     </main>
   </div>
 
-
-  <!-- jQuery -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"
-    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-  <!-- Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
-  </script>
-
-  <!-- App Scripts -->
-  <script src="{{ asset('js/app.js') }}" defer></script>
   @stack('bottom_scripts')
 </body>
 

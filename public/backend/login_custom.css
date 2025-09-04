@@ -1,0 +1,74 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-box {
+    max-width: 420px;
+    width: 100%;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.login-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.login-logo img {
+    max-height: 70px;
+    width: auto;
+}
+
+.login-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.login-title span {
+    color: #007bff;
+}
+
+.login-subtitle {
+    font-size: 0.95rem;
+    text-align: center;
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+}
+
+.input-group-text {
+    background-color: #f1f1f1;
+}
+
+.customNomi {
+    border-radius: 8px;
+    height: 45px;
+}
+
+
+.form-check-label {
+    font-size: 0.9rem;
+}
+
+.extra-links {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.extra-links a {
+    color: #007bff;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.extra-links a:hover {
+    text-decoration: underline;
+}

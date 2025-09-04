@@ -38,4 +38,14 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+    {
+    if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+        // Redirect to a custom page (for example, a custom 404 page)
+        return redirect()->route('404');
+    }
+
+    return parent::render($request, $exception);
+    }
 }

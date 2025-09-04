@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,5 +46,8 @@ class AppServiceProvider extends ServiceProvider
       return Auth::check() && Auth::user()->checkPermission($permission);
     });
     // Custom blade directives //
+
+    // Use Tailwind pagination for Laravel 12
+    Paginator::useTailwind();
   }
 }

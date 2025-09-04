@@ -16,6 +16,7 @@ class CreatePagesTable extends Migration
     Schema::create('pages', function (Blueprint $table) {
       $table->id();
       $table->string('title');
+      $table->string('slug');
       $table->text('meta_desc');
       $table->string('page_name');
       $table->text('page_desc');

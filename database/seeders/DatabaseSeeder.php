@@ -24,7 +24,14 @@ class DatabaseSeeder extends Seeder
       RoleTableSeeder::class,
       UserTableSeeder::class,
       AppSettingTableSeeder::class,
-      WebSettingTableSeeder::class
+      WebSettingTableSeeder::class,
+      FaqsSeeder::class,
+      BlogCategorySeeder::class,
+      BlogArticleSeeder::class,
+      PageSeeder::class,
+      BannerSeeder::class,
+      SMTPSettingsSeeder::class,
+
     ]);
   }
 }

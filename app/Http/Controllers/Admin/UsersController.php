@@ -149,71 +149,73 @@ class UsersController extends Controller
    */
   public function update(Request $request, $id)
   {
-    // Validate data
-    $valid = $this->validate($request, [
-      'name' => 'required|string',
-      'email' => 'required|string',
-      'profile_photo' => 'image|max:2048',
-      'status' => 'required',
-    ]);
+      // Validate data
+      $valid = $this->validate($request, [
+          'name' => 'required|string',
+          'email' => 'required|string|email',
+          'profile_photo' => 'image|max:2048',
+          'status' => 'required',
+          'about' => 'nullable|string',
+          'fb' => 'nullable|url',
+          'insta' => 'nullable|url',
+          'twitter' => 'nullable|url',
+          'linkden' => 'nullable|url',
+      ]);
 
-    // Get user data
-    $user = User::where('id', $id)->first();
+      // Get user data
+      $user = User::findOrFail($id);
 
-    // Detach role
-    $user->detachAllRoles();
+      // Detach current roles and attach new role
+      $user->detachAllRoles();
+      $role = Role::findOrFail($request->role);
+      $user->attachRole($role);
 
-    // Attach role
-    $role = Role::where('id', $request->role)->first();
-    $user->attachRole($role);
+      // Handle profile photo upload
+      if ($request->hasFile('profile_photo')) {
+          $loc = '/public/user_profile_photos';
+          $fileData = $request->file('profile_photo');
+          $fileNameToStore = $this->uploadImage($fileData, $loc);
 
-    if ($request->hasFile('profile_photo')) {
-      // Save image to folder
-      $loc = '/public/user_profile_photos';
-      $fileData = $request->file('profile_photo');
-      $fileNameToStore = $this->uploadImage($fileData, $loc);
-      $data1 = [
-        'profile_photo' => $fileNameToStore
+          // Delete old profile photo
+          Storage::delete('public/user_profile_photos/' . $user->profile_photo);
+
+          $data1 = ['profile_photo' => $fileNameToStore];
+      }
+
+      // Check if password is provided
+      if ($request->input('password')) {
+          $data2 = ['password' => Hash::make($request->password)];
+      }
+
+      // Collect remaining fields
+      $data = [
+          'name' => $valid['name'],
+          'email' => $valid['email'],
+          'status' => $valid['status'],
+          'about' => $valid['about'],
+          'fb' => $valid['fb'],
+          'insta' => $valid['insta'],
+          'twitter' => $valid['twitter'],
+          'linkden' => $valid['linkden'],
       ];
 
-      // Delete previous file
-      Storage::delete('public/user_profile_photos/' . $user->profile_photo);
-    }
+      // Merge additional data
+      if (isset($data1) && isset($data2)) {
+          $data = array_merge($data, $data1, $data2);
+      } elseif (isset($data1)) {
+          $data = array_merge($data, $data1);
+      } elseif (isset($data2)) {
+          $data = array_merge($data, $data2);
+      }
 
-    // Check password was type on update
-    if ($request->input('password')) {
-      $data2 = [
-        'password' => Hash::make($request->password)
-      ];
-    }
+      // Update the user
+      $updated = $user->update($data);
 
-    // store data in array
-    $data = [
-      'name' => $valid['name'],
-      'email' => $valid['email'],
-      'status' => $valid['status']
-    ];
-
-    // Merge all data arrays
-    if ($request->hasFile('profile_photo') && $request->input('password')) {
-      $data = array_merge($data1, $data2, $data);
-    } else if ($request->hasFile('profile_photo') && !$request->input('password')) {
-      $data = array_merge($data1, $data);
-    } else if (!$request->hasFile('profile_photo') && $request->input('password')) {
-      $data = array_merge($data2, $data);
-    } else {
-      $data = $data;
-    }
-
-    // Update data into db
-    $user = User::where('id', $id)->update($data);
-
-    if ($user) {
-      return redirect('/admin/users')->with('success', 'Record updated successfully.');
-    } else {
-      return redirect('/admin/users')->with('error', 'Record not updated!');
-    }
+      return $updated
+          ? redirect('/admin/users')->with('success', 'User updated successfully.')
+          : redirect('/admin/users')->with('error', 'Failed to update user.');
   }
+
 
   /**
    * Remove the specified resource from storage.

@@ -20,5 +20,16 @@ class WebSetting extends Model
     'logo',
     'site_url',
     'status',
+    'site_email',
+    'site_address',
+    'site_phone',
+    'site_fb',
+    'site_logo',
+    'site_instagram',
+    'site_twitter',
+    'site_linkedin',
+    'site_fav',
+    'site_footer_logo',
+    'theme_footer',
   ];
 }
